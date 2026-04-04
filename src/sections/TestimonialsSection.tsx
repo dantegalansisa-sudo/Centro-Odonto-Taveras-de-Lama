@@ -5,53 +5,22 @@ import { useLang } from '../i18n/LanguageContext';
 
 const testimonials = [
   {
-    text: 'Llegué sin esperanza de recuperar mi sonrisa. Hoy no para de brillar. Este equipo cambió mi vida.',
-    name: 'Ana M.',
-    treatment: 'Implantes + Carillas',
+    text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo Daniel mantienen la misma calidad y calidez de siempre.',
+    name: 'Carmen R.',
+    treatment: 'Odontología General',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80',
   },
   {
-    text: 'La tecnología que usan es impresionante. Todo digital, sin moldes, sin incomodidad. Resultado perfecto.',
-    name: 'Carlos R.',
-    treatment: 'Ortodoncia Invisible',
+    text: 'El Dr. Daniel me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.',
+    name: 'Miguel A.',
+    treatment: 'Cirugía Oral',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80',
   },
   {
-    text: 'Mi miedo al dentista desapareció. El ambiente, la atención y los resultados son de otro planeta.',
-    name: 'Sofía L.',
-    treatment: 'Diseño de Sonrisa',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80',
-  },
-  {
-    text: 'Después de años evitando sonreír en fotos, ahora no puedo dejar de hacerlo. ¡Gracias por devolverme la confianza!',
-    name: 'Roberto D.',
-    treatment: 'Blanqueamiento + Carillas',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80',
-  },
-  {
-    text: 'La atención es de primer nivel. Me explicaron cada paso del tratamiento y el resultado superó mis expectativas.',
-    name: 'María G.',
-    treatment: 'Implantes Dentales',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80',
-  },
-  {
-    text: 'Vine por una limpieza y terminé haciendo un tratamiento completo. La honestidad y profesionalismo son increíbles.',
-    name: 'José P.',
-    treatment: 'Periodoncia + Estética',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80',
-  },
-  {
-    text: 'Mis hijos ya no le temen al dentista. La doctora tiene una paciencia y calidez extraordinaria con los pequeños.',
-    name: 'Laura V.',
+    text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.',
+    name: 'Patricia L.',
     treatment: 'Odontopediatría',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80',
   },
 ];
 
@@ -72,7 +41,7 @@ export default function TestimonialsSection() {
   const [featuredIdx, setFeaturedIdx] = useState(0);
 
   const nextFeatured = useCallback(() => {
-    setFeaturedIdx((prev) => (prev + 1) % 3); // Rotate first 3 as featured
+    setFeaturedIdx((prev) => (prev + 1) % 3);
   }, []);
 
   useEffect(() => {
@@ -136,7 +105,9 @@ export default function TestimonialsSection() {
             >
               <p className="testi__featured-text">&ldquo;{currentFeatured.text}&rdquo;</p>
               <div className="testi__featured-author">
-                <img src={currentFeatured.avatar} alt={currentFeatured.name} className="testi__featured-avatar" />
+                <div className="testi__featured-avatar-placeholder">
+                  {currentFeatured.name.charAt(0)}
+                </div>
                 <div>
                   <span className="testi__featured-name">{currentFeatured.name}</span>
                   <span className="testi__featured-treatment">{currentFeatured.treatment}</span>
@@ -178,7 +149,9 @@ export default function TestimonialsSection() {
               <div className="testi__card-rating">{'★'.repeat(t.rating)}</div>
               <p className="testi__card-text">&ldquo;{t.text}&rdquo;</p>
               <div className="testi__card-author">
-                <img src={t.avatar} alt={t.name} className="testi__card-avatar" />
+                <div className="testi__card-avatar-placeholder">
+                  {t.name.charAt(0)}
+                </div>
                 <div>
                   <span className="testi__card-name">{t.name}</span>
                   <span className="testi__card-treatment">{t.treatment}</span>

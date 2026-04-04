@@ -2,12 +2,12 @@ import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 
 const patientImages = [
-  { src: '/imagenes/lalane/paciente-1.png', alt: 'Paciente feliz', label: 'Sonrisas Reales' },
-  { src: '/imagenes/lalane/paciente-2.png', alt: 'Paciente satisfecho', label: 'Resultados' },
-  { src: '/imagenes/lalane/paciente-3.png', alt: 'Paciente contento', label: 'Confianza' },
-  { src: '/imagenes/lalane/paciente-4.png', alt: 'Tratamiento exitoso', label: 'Tratamientos' },
-  { src: '/imagenes/lalane/paciente-5.png', alt: 'Paciente sonriendo', label: 'Satisfacción' },
-  { src: '/imagenes/lalane/paciente-6.png', alt: 'Resultado dental', label: 'Excelencia' },
+  { src: '/imagenes/taveras-de-lama/paciente-1.png', alt: 'Paciente feliz', label: 'Sonrisas Reales' },
+  { src: '/imagenes/taveras-de-lama/paciente-2.png', alt: 'Paciente satisfecho', label: 'Resultados' },
+  { src: '/imagenes/taveras-de-lama/paciente-3.png', alt: 'Paciente contento', label: 'Confianza' },
+  { src: '/imagenes/taveras-de-lama/paciente-4.png', alt: 'Tratamiento exitoso', label: 'Tratamientos' },
+  { src: '/imagenes/taveras-de-lama/paciente-5.png', alt: 'Paciente sonriendo', label: 'Satisfacción' },
+  { src: '/imagenes/taveras-de-lama/paciente-6.png', alt: 'Resultado dental', label: 'Excelencia' },
 ];
 
 const containerVariants = {

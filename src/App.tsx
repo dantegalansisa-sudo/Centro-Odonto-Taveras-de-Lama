@@ -32,7 +32,7 @@ import BlogPage from './pages/BlogPage';
 import EmergencySection from './sections/EmergencySection';
 import FinancingSection from './sections/FinancingSection';
 import CertificationsSection from './sections/CertificationsSection';
-import VideoSection from './sections/VideoSection';
+// VideoSection removed — no video
 import { useLang } from './i18n/LanguageContext';
 
 /* ═══════ NAVBAR ═══════ */
@@ -84,8 +84,7 @@ function Navbar() {
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <a href="/" className="navbar__logo">
-          <span className="navbar__logo-text">Lalane</span>
-          <span className="navbar__logo-accent">Dental</span>
+          <img src="/imagenes/taveras-de-lama/logo.jpeg" alt="Centro Odonto Taveras de Lama" className="navbar__logo-img" style={{ height: '50px', width: 'auto' }} />
         </a>
 
         <ul className="navbar__links">
@@ -180,7 +179,6 @@ function HomePage() {
         <TestimonialsSection />
         <GallerySection />
         <TechnologySection />
-        <VideoSection />
         <StatsSection />
         <CertificationsSection />
         <InsuranceSection />

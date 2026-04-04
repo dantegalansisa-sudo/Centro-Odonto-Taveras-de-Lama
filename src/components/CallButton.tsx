@@ -4,7 +4,7 @@ import { trackCallClick } from '../utils/analytics';
 export default function CallButton() {
   return (
     <motion.a
-      href="tel:+18096873744"
+      href="tel:+18095473387"
       className="call-float interactive"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}

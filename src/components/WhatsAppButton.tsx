@@ -49,7 +49,7 @@ export default function WhatsAppButton() {
   }, []);
 
   const message = SECTION_MESSAGES[section] || SECTION_MESSAGES.default;
-  const url = `https://wa.me/18295633541?text=${encodeURIComponent(message)}`;
+  const url = `https://wa.me/18099439216?text=${encodeURIComponent(message)}`;
 
   return (
     <div className="whatsapp-wrapper">

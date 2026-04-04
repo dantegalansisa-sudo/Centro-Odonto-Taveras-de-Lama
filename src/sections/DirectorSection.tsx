@@ -15,8 +15,8 @@ export default function DirectorSection() {
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] }}
           >
             <img
-              src="/imagenes/lalane/fundadores.png"
-              alt="Dr. Ramon H Lalane M & Dra. Virginia Maria Valerio P — Fundadores"
+              src="/imagenes/taveras-de-lama/ceo.png"
+              alt="Dra. Lilian Taveras de Lama — Directora"
               className="director__photo"
             />
             {/* Accent frame */}
@@ -32,11 +32,11 @@ export default function DirectorSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Fundadores
+              Directora
             </motion.span>
 
             <RevealText tag="h2" className="director__name">
-              Dr. Ramon H Lalane M & Dra. Virginia Maria Valerio P
+              Dra. Lilian Taveras de Lama
             </RevealText>
 
             <motion.div
@@ -48,7 +48,7 @@ export default function DirectorSection() {
             >
               <span className="director__credential">Odontología General</span>
               <span className="director__credential-dot" />
-              <span className="director__credential">Prostodoncia e Implantes</span>
+              <span className="director__credential">+30 Años de Experiencia</span>
               <span className="director__credential-dot" />
               <span className="director__credential">Tradición Familiar</span>
             </motion.div>
@@ -60,10 +60,10 @@ export default function DirectorSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.7 }}
             >
-              "Fundamos Lalane Dental Team con la visión de crear un centro
-              odontológico donde la excelencia clínica y el trato humano
-              fueran inseparables. Hoy, nuestra familia profesional sigue
-              ese legado con la misma pasión y compromiso de siempre."
+              "Con más de 30 años dedicados a la odontología, mi compromiso
+              es brindar a cada paciente una atención de calidad, cercana y
+              profesional. Junto a mi hijo, continuamos construyendo sonrisas
+              saludables generación tras generación."
             </motion.blockquote>
 
             <motion.div
@@ -79,7 +79,7 @@ export default function DirectorSection() {
               {[
                 { value: '+30', label: 'Años de trayectoria' },
                 { value: '+10,000', label: 'Pacientes atendidos' },
-                { value: '8', label: 'Especialistas en el equipo' },
+                { value: '2', label: 'Generaciones de odontólogos' },
               ].map((stat) => (
                 <motion.div
                   key={stat.label}
@@ -107,8 +107,8 @@ export default function DirectorSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               <div className="director__signature-line" />
-              <span className="director__signature-name">Dr. Ramon H Lalane M & Dra. Virginia Maria Valerio P</span>
-              <span className="director__signature-role">Fundadores — Lalane Dental Team</span>
+              <span className="director__signature-name">Dra. Lilian Taveras de Lama</span>
+              <span className="director__signature-role">Directora — Centro Odontológico Taveras de Lama</span>
             </motion.div>
           </div>
         </div>

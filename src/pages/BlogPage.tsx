@@ -94,15 +94,15 @@ export default function BlogPage() {
                 <h3 className="bp__cta-title">¿Necesitas una consulta?</h3>
                 <p className="bp__cta-desc">Nuestro equipo está listo para ayudarte. Agenda tu cita hoy.</p>
                 <a
-                  href={`https://wa.me/18295633541?text=${encodeURIComponent(`Hola, leí el artículo "${article.title}" y me gustaría agendar una consulta.`)}`}
+                  href={`https://wa.me/18099439216?text=${encodeURIComponent(`Hola, leí el artículo "${article.title}" y me gustaría agendar una consulta.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bp__cta-btn"
                 >
                   Agendar por WhatsApp →
                 </a>
-                <a href="tel:+18096873744" className="bp__cta-phone">
-                  O llámanos: (809) 687-3744
+                <a href="tel:+18095473387" className="bp__cta-phone">
+                  O llámanos: (809) 547-3387
                 </a>
               </div>
 

@@ -33,8 +33,8 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 1, ease: [0.76, 0, 0.24, 1] }}
         >
-          <span className="hero__brand-name">Lalane</span>
-          <span className="hero__brand-name hero__brand-name--accent">Dental</span>
+          <span className="hero__brand-name">Taveras</span>
+          <span className="hero__brand-name hero__brand-name--accent">de Lama</span>
         </motion.div>
 
         <motion.div

@@ -3,52 +3,16 @@ import RevealText from '../components/RevealText';
 
 const doctors = [
   {
-    name: 'Dr. Eduardo Lalane Valerio',
-    specialty: 'Odontólogo',
-    bio: 'Especialista en rehabilitación oral y prostodoncia.',
-    img: '/imagenes/lalane/dr-eduardo-lalane.png',
+    name: 'Dra. Lilian Taveras de Lama',
+    specialty: 'Odontóloga — Directora',
+    bio: 'Más de 30 años de experiencia en odontología general y preventiva.',
+    img: '/imagenes/taveras-de-lama/ceo.png',
   },
   {
-    name: 'Dr. Ramón Hector Lalane Valerio',
-    specialty: 'Odontólogo',
-    bio: 'Especialista en implantología y cirugía oral.',
-    img: '/imagenes/lalane/dr-ramon-lalane.png',
-  },
-  {
-    name: 'Dr. Paul Lalane Valerio',
-    specialty: 'Odontólogo',
-    bio: 'Especialista en endodoncia y odontología restauradora.',
-    img: '/imagenes/lalane/dr-paul-lalane.png',
-  },
-  {
-    name: 'Dra. Lyda Josefina Amell de Lalane',
-    specialty: 'Odontóloga',
-    bio: 'Especialista en odontología general y preventiva.',
-    img: '/imagenes/lalane/dra-lyda-amell.png',
-  },
-  {
-    name: 'Dra. Stephanie M. Hernández Taveras',
-    specialty: 'Odontóloga',
-    bio: 'Especialista en ortodoncia y estética dental.',
-    img: '/imagenes/lalane/dra-stephanie-hernandez.png',
-  },
-  {
-    name: 'Dra. Gissette Reynoso',
-    specialty: 'Odontóloga',
-    bio: 'Especialista en periodoncia y salud gingival.',
-    img: '/imagenes/lalane/dra-gissette-reynoso.png',
-  },
-  {
-    name: 'Dra. Ismelda Filpo Beltré',
-    specialty: 'Odontóloga',
-    bio: 'Especialista en odontopediatría.',
-    img: '/imagenes/lalane/dra-ismelda-filpo.png',
-  },
-  {
-    name: 'Dra. Anneli Lalane',
-    specialty: 'Odontóloga',
-    bio: 'Especialista en estética dental y diseño de sonrisa.',
-    img: '/imagenes/lalane/dra-anneli-lalane.png',
+    name: 'Dr. Daniel Lama Taveras',
+    specialty: 'Cirujano Dental',
+    bio: 'Especialista en cirugía oral y tratamientos avanzados.',
+    img: '/imagenes/taveras-de-lama/dr-lama.png',
   },
 ];
 

@@ -29,20 +29,20 @@ export default function MapSection() {
           <div className="map-section__info">
             <div className="map-section__detail">
               <span className="map-section__detail-label">Dirección</span>
-              <span className="map-section__detail-value">Av. Winston Churchill No. 808, Torre HYLSA</span>
+              <span className="map-section__detail-value">Av. Lincoln 901</span>
               <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Santo Domingo, República Dominicana</span>
             </div>
             <div className="map-section__detail">
               <span className="map-section__detail-label">Horario</span>
-              <span className="map-section__detail-value">Lunes - Viernes: 8:00 AM - 6:00 PM</span>
-              <span className="map-section__detail-value">Sábados: 9:00 AM - 2:00 PM</span>
+              <span className="map-section__detail-value">Lunes - Viernes: 8:00 AM - 7:00 PM</span>
+              <span className="map-section__detail-value">Sábados: 9:00 AM - 12:00 PM</span>
               <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Domingos: Cerrado</span>
             </div>
             <div className="map-section__detail">
               <span className="map-section__detail-label">Contacto</span>
-              <a href="tel:+18096873744" className="map-section__detail-value map-section__link">(809) 687-3744</a>
-              <a href="tel:+18096874763" className="map-section__detail-value map-section__link">(809) 687-4763</a>
-              <a href="mailto:info@lalanedental.com" className="map-section__detail-value map-section__link">info@lalanedental.com</a>
+              <a href="tel:+18095473387" className="map-section__detail-value map-section__link">(809) 547-3387</a>
+              <a href="tel:+18099439216" className="map-section__detail-value map-section__link">(809) 943-9216</a>
+              <a href="mailto:dra.taverasdlama@gmail.com" className="map-section__detail-value map-section__link">dra.taverasdlama@gmail.com</a>
             </div>
           </div>
 
@@ -55,7 +55,7 @@ export default function MapSection() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Ubicación Lalane Dental Team"
+              title="Ubicación Centro Odontológico Taveras de Lama"
             />
           </div>
         </motion.div>

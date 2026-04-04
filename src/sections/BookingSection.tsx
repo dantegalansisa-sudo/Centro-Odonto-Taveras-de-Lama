@@ -15,11 +15,11 @@ const serviceOptions = [
 ];
 
 const infoItems = [
-  { icon: '📍', label: 'Dirección', value: 'Av. Winston Churchill No. 808, Torre HYLSA, Santo Domingo' },
-  { icon: '📞', label: 'Teléfono', value: '(809) 687-3744' },
-  { icon: '⏰', label: 'Horario', value: 'Lun - Vie: 8:00 AM - 6:00 PM | Sáb: 9:00 AM - 2:00 PM' },
-  { icon: '💬', label: 'WhatsApp', value: '(829) 563-3541' },
-  { icon: '✉️', label: 'Email', value: 'info@lalanedental.com' },
+  { icon: '📍', label: 'Dirección', value: 'Av. Lincoln 901, Santo Domingo' },
+  { icon: '📞', label: 'Teléfono', value: '(809) 547-3387' },
+  { icon: '⏰', label: 'Horario', value: 'Lun - Vie: 8:00 AM - 7:00 PM | Sáb: 9:00 AM - 12:00 PM' },
+  { icon: '💬', label: 'WhatsApp', value: '(809) 943-9216' },
+  { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com' },
 ];
 
 const containerVariants = {
@@ -143,7 +143,7 @@ function CalendarWidget() {
           type="button"
           onClick={() =>
             window.open(
-              `https://wa.me/18295633541?text=Hola, quiero agendar una cita el ${selectedDay} de ${MONTH_NAMES[month]} a las ${selectedTime}.`,
+              `https://wa.me/18099439216?text=Hola, quiero agendar una cita el ${selectedDay} de ${MONTH_NAMES[month]} a las ${selectedTime}.`,
               '_blank',
             )
           }
@@ -174,7 +174,7 @@ export default function BookingSection() {
 
     const text = `Hola, quiero reservar una cita.%0A%0A*Nombre:* ${name}%0A*Teléfono:* ${phone}%0A*Servicio:* ${service}%0A*Fecha preferida:* ${date}${message ? `%0A*Mensaje:* ${message}` : ''}`;
 
-    window.open(`https://wa.me/18295633541?text=${text}`, '_blank');
+    window.open(`https://wa.me/18099439216?text=${text}`, '_blank');
     setSent(true);
     setTimeout(() => setSent(false), 4000);
   };
