@@ -23,7 +23,6 @@ import BlogSection from './sections/BlogSection';
 import FAQSection from './sections/FAQSection';
 import MapSection from './sections/MapSection';
 import FooterSection from './sections/FooterSection';
-import PromoSection from './sections/PromoSection';
 import PatientsSection from './sections/PatientsSection';
 import MagneticButton from './components/MagneticButton';
 import LanguageToggle from './components/LanguageToggle';
@@ -170,7 +169,6 @@ function HomePage() {
       <Navbar />
       <main id="main-content">
         <HeroSection />
-        <PromoSection />
         <ManifestoSection />
         <ServicesSection />
         <DirectorSection />

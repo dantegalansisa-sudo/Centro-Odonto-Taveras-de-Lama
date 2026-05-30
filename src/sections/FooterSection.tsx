@@ -13,9 +13,12 @@ export default function FooterSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div>
-            <div className="footer__logo">TAVERAS DE LAMA</div>
-            <div className="footer__tagline">{t('footer.tagline')}</div>
+          <div className="footer__brand">
+            <img src="/imagenes/logo-taveras.png" alt="" aria-hidden="true" className="footer__brand-img" />
+            <div>
+              <div className="footer__logo">TAVERAS DE LAMA</div>
+              <div className="footer__tagline">{t('footer.tagline')}</div>
+            </div>
           </div>
 
           <ul className="footer__links">

@@ -1863,6 +1863,18 @@ button { border: none; background: none; font: inherit; }
   margin-bottom: 48px;
 }
 
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer__brand-img {
+  height: 56px;
+  width: auto;
+  flex-shrink: 0;
+}
+
 .footer__logo {
   font-family: var(--font-brutal);
   font-size: 28px; letter-spacing: 2px;
