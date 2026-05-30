@@ -1,7 +1,53 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
+
+const content: Record<Lang, {
+  label: string;
+  credentials: string[];
+  quote: string;
+  stats: { value: string; label: string }[];
+  role: string;
+}> = {
+  es: {
+    label: 'Directora',
+    credentials: ['Odontología General', '+30 Años de Experiencia', 'Tradición Familiar'],
+    quote: '"Con más de 30 años dedicados a la odontología, mi compromiso es brindar a cada paciente una atención de calidad, cercana y profesional. Junto a mi hijo, continuamos construyendo sonrisas saludables generación tras generación."',
+    stats: [
+      { value: '+30', label: 'Años de trayectoria' },
+      { value: '+10,000', label: 'Pacientes atendidos' },
+      { value: '2', label: 'Generaciones de odontólogos' },
+    ],
+    role: 'Directora — Centro Odontológico Taveras de Lama',
+  },
+  en: {
+    label: 'Director',
+    credentials: ['General Dentistry', '+30 Years of Experience', 'Family Tradition'],
+    quote: '"With over 30 years dedicated to dentistry, my commitment is to give every patient quality, warm and professional care. Together with my son, we keep building healthy smiles generation after generation."',
+    stats: [
+      { value: '+30', label: 'Years of practice' },
+      { value: '+10,000', label: 'Patients treated' },
+      { value: '2', label: 'Generations of dentists' },
+    ],
+    role: 'Director — Centro Odontológico Taveras de Lama',
+  },
+  fr: {
+    label: 'Directrice',
+    credentials: ['Dentisterie Générale', "+30 Ans d'Expérience", 'Tradition Familiale'],
+    quote: "« Avec plus de 30 ans consacrés à la dentisterie, mon engagement est d'offrir à chaque patient des soins de qualité, chaleureux et professionnels. Avec mon fils, nous continuons à construire des sourires sains, génération après génération. »",
+    stats: [
+      { value: '+30', label: 'Années de pratique' },
+      { value: '+10 000', label: 'Patients soignés' },
+      { value: '2', label: 'Générations de dentistes' },
+    ],
+    role: 'Directrice — Centro Odontológico Taveras de Lama',
+  },
+};
 
 export default function DirectorSection() {
+  const { lang } = useLang();
+  const c = content[lang];
   return (
     <section className="director section">
       <div className="section-container">
@@ -32,7 +78,7 @@ export default function DirectorSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Directora
+              {c.label}
             </motion.span>
 
             <RevealText tag="h2" className="director__name">
@@ -46,11 +92,11 @@ export default function DirectorSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              <span className="director__credential">Odontología General</span>
+              <span className="director__credential">{c.credentials[0]}</span>
               <span className="director__credential-dot" />
-              <span className="director__credential">+30 Años de Experiencia</span>
+              <span className="director__credential">{c.credentials[1]}</span>
               <span className="director__credential-dot" />
-              <span className="director__credential">Tradición Familiar</span>
+              <span className="director__credential">{c.credentials[2]}</span>
             </motion.div>
 
             <motion.blockquote
@@ -60,10 +106,7 @@ export default function DirectorSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.7 }}
             >
-              "Con más de 30 años dedicados a la odontología, mi compromiso
-              es brindar a cada paciente una atención de calidad, cercana y
-              profesional. Junto a mi hijo, continuamos construyendo sonrisas
-              saludables generación tras generación."
+              {c.quote}
             </motion.blockquote>
 
             <motion.div
@@ -76,11 +119,7 @@ export default function DirectorSection() {
                 visible: { transition: { staggerChildren: 0.1, delayChildren: 0.5 } },
               }}
             >
-              {[
-                { value: '+30', label: 'Años de trayectoria' },
-                { value: '+10,000', label: 'Pacientes atendidos' },
-                { value: '2', label: 'Generaciones de odontólogos' },
-              ].map((stat) => (
+              {c.stats.map((stat) => (
                 <motion.div
                   key={stat.label}
                   className="director__stat"
@@ -108,7 +147,7 @@ export default function DirectorSection() {
             >
               <div className="director__signature-line" />
               <span className="director__signature-name">Dra. Lilian Taveras de Lama</span>
-              <span className="director__signature-role">Directora — Centro Odontológico Taveras de Lama</span>
+              <span className="director__signature-role">{c.role}</span>
             </motion.div>
           </div>
         </div>

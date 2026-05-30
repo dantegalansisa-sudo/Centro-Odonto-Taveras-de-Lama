@@ -1,12 +1,28 @@
 import { motion } from 'framer-motion';
 import AnimatedCounter from '../components/AnimatedCounter';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const stats = [
-  { number: 10000, suffix: '+', unit: 'CASOS', label: 'Pacientes Atendidos' },
-  { number: 30, suffix: '+', unit: 'AÑOS', label: 'Años de Experiencia' },
-  { number: 98, suffix: '%', unit: 'SAT.', label: 'Tasa de Satisfacción' },
-  { number: 2, suffix: '', unit: 'GENS', label: 'Generaciones de Doctores' },
-];
+const statsByLang: Record<Lang, { number: number; suffix: string; unit: string; label: string }[]> = {
+  es: [
+    { number: 10000, suffix: '+', unit: 'CASOS', label: 'Pacientes Atendidos' },
+    { number: 30, suffix: '+', unit: 'AÑOS', label: 'Años de Experiencia' },
+    { number: 98, suffix: '%', unit: 'SAT.', label: 'Tasa de Satisfacción' },
+    { number: 2, suffix: '', unit: 'GENS', label: 'Generaciones de Doctores' },
+  ],
+  en: [
+    { number: 10000, suffix: '+', unit: 'CASES', label: 'Patients Treated' },
+    { number: 30, suffix: '+', unit: 'YEARS', label: 'Years of Experience' },
+    { number: 98, suffix: '%', unit: 'SAT.', label: 'Satisfaction Rate' },
+    { number: 2, suffix: '', unit: 'GENS', label: 'Generations of Doctors' },
+  ],
+  fr: [
+    { number: 10000, suffix: '+', unit: 'CAS', label: 'Patients Soignés' },
+    { number: 30, suffix: '+', unit: 'ANS', label: "Années d'Expérience" },
+    { number: 98, suffix: '%', unit: 'SAT.', label: 'Taux de Satisfaction' },
+    { number: 2, suffix: '', unit: 'GÉNS', label: 'Générations de Médecins' },
+  ],
+};
 
 const containerVariants = {
   hidden: {},
@@ -23,6 +39,8 @@ const itemVariants = {
 };
 
 export default function StatsSection() {
+  const { lang } = useLang();
+  const stats = statsByLang[lang];
   return (
     <section className="stats-section">
       <div className="section-container">

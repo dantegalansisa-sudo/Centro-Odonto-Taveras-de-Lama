@@ -1,7 +1,53 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
+
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  addressLabel: string;
+  hoursLabel: string;
+  weekdays: string;
+  saturday: string;
+  sunday: string;
+  contactLabel: string;
+}> = {
+  es: {
+    eyebrow: 'Encuéntranos',
+    title: 'UBICACIÓN',
+    addressLabel: 'Dirección',
+    hoursLabel: 'Horario',
+    weekdays: 'Lunes - Viernes: 8:00 AM - 7:00 PM',
+    saturday: 'Sábados: 9:00 AM - 12:00 PM',
+    sunday: 'Domingos: Cerrado',
+    contactLabel: 'Contacto',
+  },
+  en: {
+    eyebrow: 'Find us',
+    title: 'LOCATION',
+    addressLabel: 'Address',
+    hoursLabel: 'Hours',
+    weekdays: 'Monday - Friday: 8:00 AM - 7:00 PM',
+    saturday: 'Saturdays: 9:00 AM - 12:00 PM',
+    sunday: 'Sundays: Closed',
+    contactLabel: 'Contact',
+  },
+  fr: {
+    eyebrow: 'Nous trouver',
+    title: 'EMPLACEMENT',
+    addressLabel: 'Adresse',
+    hoursLabel: 'Horaires',
+    weekdays: 'Lundi - Vendredi : 8h00 - 19h00',
+    saturday: 'Samedi : 9h00 - 12h00',
+    sunday: 'Dimanche : Fermé',
+    contactLabel: 'Contact',
+  },
+};
 
 export default function MapSection() {
+  const { lang } = useLang();
+  const c = content[lang];
   return (
     <section className="map-section section" style={{ background: 'var(--bg-navy)' }}>
       <div className="section-container">
@@ -13,10 +59,10 @@ export default function MapSection() {
           transition={{ duration: 0.6 }}
           style={{ color: 'rgba(255,255,255,0.4)' }}
         >
-          Encuéntranos
+          {c.eyebrow}
         </motion.span>
         <RevealText tag="h2" className="section-title" style={{ color: '#FFFFFF' }}>
-          UBICACIÓN
+          {c.title}
         </RevealText>
 
         <motion.div
@@ -28,18 +74,18 @@ export default function MapSection() {
         >
           <div className="map-section__info">
             <div className="map-section__detail">
-              <span className="map-section__detail-label">Dirección</span>
+              <span className="map-section__detail-label">{c.addressLabel}</span>
               <span className="map-section__detail-value">Av. Lincoln 901</span>
               <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Santo Domingo, República Dominicana</span>
             </div>
             <div className="map-section__detail">
-              <span className="map-section__detail-label">Horario</span>
-              <span className="map-section__detail-value">Lunes - Viernes: 8:00 AM - 7:00 PM</span>
-              <span className="map-section__detail-value">Sábados: 9:00 AM - 12:00 PM</span>
-              <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Domingos: Cerrado</span>
+              <span className="map-section__detail-label">{c.hoursLabel}</span>
+              <span className="map-section__detail-value">{c.weekdays}</span>
+              <span className="map-section__detail-value">{c.saturday}</span>
+              <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>{c.sunday}</span>
             </div>
             <div className="map-section__detail">
-              <span className="map-section__detail-label">Contacto</span>
+              <span className="map-section__detail-label">{c.contactLabel}</span>
               <a href="tel:+18095473387" className="map-section__detail-value map-section__link">(809) 547-3387</a>
               <a href="tel:+18099439216" className="map-section__detail-value map-section__link">(809) 943-9216</a>
               <a href="mailto:dra.taverasdlama@gmail.com" className="map-section__detail-value map-section__link">dra.taverasdlama@gmail.com</a>

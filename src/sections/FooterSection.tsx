@@ -22,11 +22,11 @@ export default function FooterSection() {
           </div>
 
           <ul className="footer__links">
-            <li><a href="#servicios" className="footer__link">Servicios</a></li>
-            <li><a href="#transformaciones" className="footer__link">Transformaciones</a></li>
-            <li><a href="#equipo" className="footer__link">Equipo</a></li>
-            <li><a href="#tecnologia" className="footer__link">Tecnología</a></li>
-            <li><a href="#reservar" className="footer__link">Reservar</a></li>
+            <li><a href="#servicios" className="footer__link">{t('nav.services')}</a></li>
+            <li><a href="#transformaciones" className="footer__link">{t('nav.transformations')}</a></li>
+            <li><a href="#equipo" className="footer__link">{t('nav.team')}</a></li>
+            <li><a href="#tecnologia" className="footer__link">{t('nav.technology')}</a></li>
+            <li><a href="#reservar" className="footer__link">{t('nav.book')}</a></li>
           </ul>
 
           <div className="footer__social">

@@ -2,29 +2,25 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const testimonials = [
-  {
-    text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo Daniel mantienen la misma calidad y calidez de siempre.',
-    name: 'Carmen R.',
-    treatment: 'Odontología General',
-    rating: 5,
-  },
-  {
-    text: 'El Dr. Daniel me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.',
-    name: 'Miguel A.',
-    treatment: 'Cirugía Oral',
-    rating: 5,
-  },
-  {
-    text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.',
-    name: 'Patricia L.',
-    treatment: 'Odontopediatría',
-    rating: 5,
-  },
-];
-
-const gridTestimonials = testimonials.slice(1);
+const testimonialsByLang: Record<Lang, { text: string; name: string; treatment: string; rating: number }[]> = {
+  es: [
+    { text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo Daniel mantienen la misma calidad y calidez de siempre.', name: 'Carmen R.', treatment: 'Odontología General', rating: 5 },
+    { text: 'El Dr. Daniel me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.', name: 'Miguel A.', treatment: 'Cirugía Oral', rating: 5 },
+    { text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.', name: 'Patricia L.', treatment: 'Odontopediatría', rating: 5 },
+  ],
+  en: [
+    { text: 'Over 30 years visiting this practice. Dr. Lilian and now her son Daniel keep the same quality and warmth as always.', name: 'Carmen R.', treatment: 'General Dentistry', rating: 5 },
+    { text: 'Dr. Daniel performed oral surgery on me and everything went perfectly. The training and family dedication really show.', name: 'Miguel A.', treatment: 'Oral Surgery', rating: 5 },
+    { text: 'I bring my whole family here. Dr. Taveras has incredible patience with children and the results are always excellent.', name: 'Patricia L.', treatment: 'Pediatric Dentistry', rating: 5 },
+  ],
+  fr: [
+    { text: "Plus de 30 ans à fréquenter ce cabinet. La Dre Lilian et maintenant son fils Daniel conservent la même qualité et la même chaleur que toujours.", name: 'Carmen R.', treatment: 'Dentisterie Générale', rating: 5 },
+    { text: "Le Dr Daniel m'a réalisé une chirurgie orale et tout s'est parfaitement déroulé. On sent la formation et le dévouement familial.", name: 'Miguel A.', treatment: 'Chirurgie Orale', rating: 5 },
+    { text: "J'emmène toute ma famille ici. La Dre Taveras a une patience incroyable avec les enfants et les résultats sont toujours excellents.", name: 'Patricia L.', treatment: 'Dentisterie Pédiatrique', rating: 5 },
+  ],
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -37,7 +33,9 @@ const cardVariants = {
 };
 
 export default function TestimonialsSection() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const testimonials = testimonialsByLang[lang];
+  const gridTestimonials = testimonials.slice(1);
   const [featuredIdx, setFeaturedIdx] = useState(0);
 
   const nextFeatured = useCallback(() => {

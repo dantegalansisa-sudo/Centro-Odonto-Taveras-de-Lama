@@ -1,38 +1,54 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const certifications = [
-  {
-    abbr: 'CDO',
-    name: 'Colegio Dominicano de Odontología',
-    subtitle: 'Miembro Activo',
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  footer: string;
+  certifications: { abbr: string; name: string; subtitle: string }[];
+}> = {
+  es: {
+    eyebrow: 'Respaldo profesional',
+    title: 'CERTIFICACIONES',
+    footer: 'Profesionales certificados con formación internacional continua',
+    certifications: [
+      { abbr: 'CDO', name: 'Colegio Dominicano de Odontología', subtitle: 'Miembro Activo' },
+      { abbr: 'ADA', name: 'American Dental Association', subtitle: 'Miembro Internacional' },
+      { abbr: 'INV', name: 'Invisalign Certified Provider', subtitle: 'Nivel Diamante' },
+      { abbr: 'ISO', name: 'ISO 9001:2015', subtitle: 'Gestión de Calidad' },
+      { abbr: 'STR', name: 'Straumann Partner', subtitle: 'Implantes Premium' },
+      { abbr: 'DSD', name: 'Digital Smile Design', subtitle: 'Clínica Certificada DSD' },
+    ],
   },
-  {
-    abbr: 'ADA',
-    name: 'American Dental Association',
-    subtitle: 'International Member',
+  en: {
+    eyebrow: 'Professional backing',
+    title: 'CERTIFICATIONS',
+    footer: 'Certified professionals with continuous international training',
+    certifications: [
+      { abbr: 'CDO', name: 'Dominican College of Dentistry', subtitle: 'Active Member' },
+      { abbr: 'ADA', name: 'American Dental Association', subtitle: 'International Member' },
+      { abbr: 'INV', name: 'Invisalign Certified Provider', subtitle: 'Diamond Level' },
+      { abbr: 'ISO', name: 'ISO 9001:2015', subtitle: 'Quality Management' },
+      { abbr: 'STR', name: 'Straumann Partner', subtitle: 'Premium Implants' },
+      { abbr: 'DSD', name: 'Digital Smile Design', subtitle: 'DSD Certified Clinic' },
+    ],
   },
-  {
-    abbr: 'INV',
-    name: 'Invisalign Certified Provider',
-    subtitle: 'Diamond Level',
+  fr: {
+    eyebrow: 'Soutien professionnel',
+    title: 'CERTIFICATIONS',
+    footer: 'Des professionnels certifiés avec une formation internationale continue',
+    certifications: [
+      { abbr: 'CDO', name: 'Collège Dominicain de Dentisterie', subtitle: 'Membre Actif' },
+      { abbr: 'ADA', name: 'American Dental Association', subtitle: 'Membre International' },
+      { abbr: 'INV', name: 'Invisalign Certified Provider', subtitle: 'Niveau Diamant' },
+      { abbr: 'ISO', name: 'ISO 9001:2015', subtitle: 'Gestion de la Qualité' },
+      { abbr: 'STR', name: 'Straumann Partner', subtitle: 'Implants Premium' },
+      { abbr: 'DSD', name: 'Digital Smile Design', subtitle: 'Clinique Certifiée DSD' },
+    ],
   },
-  {
-    abbr: 'ISO',
-    name: 'ISO 9001:2015',
-    subtitle: 'Gestión de Calidad',
-  },
-  {
-    abbr: 'STR',
-    name: 'Straumann Partner',
-    subtitle: 'Implantes Premium',
-  },
-  {
-    abbr: 'DSD',
-    name: 'Digital Smile Design',
-    subtitle: 'DSD Certified Clinic',
-  },
-];
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -49,19 +65,21 @@ const cardVariants = {
 };
 
 export default function CertificationsSection() {
+  const { lang } = useLang();
+  const c = content[lang];
   return (
     <section className="certs" style={{ background: 'var(--bg-navy)', padding: 'var(--section-padding)' }}>
       <div className="container">
         <span className="label-mono" style={{ color: 'rgba(255,255,255,0.6)' }}>
-          Respaldo profesional
+          {c.eyebrow}
         </span>
 
         <RevealText tag="h2" className="section-title" style={{ color: '#FFFFFF' }}>
-          CERTIFICACIONES
+          {c.title}
         </RevealText>
 
         <div className="certs__grid">
-          {certifications.map((cert, i) => (
+          {c.certifications.map((cert, i) => (
             <motion.div
               key={cert.abbr}
               className="certs__card"
@@ -85,7 +103,7 @@ export default function CertificationsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          Profesionales certificados con formación internacional continua
+          {c.footer}
         </motion.p>
       </div>
     </section>

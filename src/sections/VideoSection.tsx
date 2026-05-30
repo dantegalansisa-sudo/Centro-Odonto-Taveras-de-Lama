@@ -1,23 +1,45 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const highlights = [
-  {
-    icon: '🏥',
-    title: 'Instalaciones Modernas',
-    desc: 'Espacios diseñados para tu comodidad',
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  highlights: { icon: string; title: string; desc: string }[];
+}> = {
+  es: {
+    eyebrow: 'Conoce nuestra clínica',
+    title: 'NUESTRO TRABAJO',
+    subtitle: 'Mira de cerca cómo transformamos sonrisas en Taveras de Lama.',
+    highlights: [
+      { icon: '🏥', title: 'Instalaciones Modernas', desc: 'Espacios diseñados para tu comodidad' },
+      { icon: '⚡', title: 'Tecnología de Punta', desc: 'Equipos de última generación' },
+      { icon: '😁', title: 'Diseño de Sonrisa', desc: 'Transformaciones que cambian vidas' },
+    ],
   },
-  {
-    icon: '⚡',
-    title: 'Tecnología de Punta',
-    desc: 'Equipos de última generación',
+  en: {
+    eyebrow: 'Discover our clinic',
+    title: 'OUR WORK',
+    subtitle: 'Take a close look at how we transform smiles at Taveras de Lama.',
+    highlights: [
+      { icon: '🏥', title: 'Modern Facilities', desc: 'Spaces designed for your comfort' },
+      { icon: '⚡', title: 'Cutting-Edge Technology', desc: 'State-of-the-art equipment' },
+      { icon: '😁', title: 'Smile Design', desc: 'Transformations that change lives' },
+    ],
   },
-  {
-    icon: '😁',
-    title: 'Diseño de Sonrisa',
-    desc: 'Transformaciones que cambian vidas',
+  fr: {
+    eyebrow: 'Découvrez notre clinique',
+    title: 'NOTRE TRAVAIL',
+    subtitle: 'Découvrez de près comment nous transformons les sourires chez Taveras de Lama.',
+    highlights: [
+      { icon: '🏥', title: 'Installations Modernes', desc: 'Des espaces conçus pour votre confort' },
+      { icon: '⚡', title: 'Technologie de Pointe', desc: 'Des équipements de dernière génération' },
+      { icon: '😁', title: 'Conception du Sourire', desc: 'Des transformations qui changent des vies' },
+    ],
   },
-];
+};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -29,6 +51,9 @@ const cardVariants = {
 };
 
 export default function VideoSection() {
+  const { lang } = useLang();
+  const c = content[lang];
+  const highlights = c.highlights;
   return (
     <section className="vtour__section section" style={{ background: 'var(--bg-surface)' }}>
       <div className="section-container">
@@ -39,11 +64,11 @@ export default function VideoSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Conoce nuestra clínica
+          {c.eyebrow}
         </motion.span>
 
         <RevealText tag="h2" className="section-title">
-          NUESTRO TRABAJO
+          {c.title}
         </RevealText>
 
         <motion.p
@@ -53,7 +78,7 @@ export default function VideoSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Mira de cerca cómo transformamos sonrisas en Lalane Dental Team.
+          {c.subtitle}
         </motion.p>
 
         {/* Real clinic video — reel format (9:16) */}

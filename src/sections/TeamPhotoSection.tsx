@@ -1,6 +1,16 @@
 import { motion } from 'framer-motion';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
+
+const content: Record<Lang, { eyebrow: string; title: string }> = {
+  es: { eyebrow: 'Familia Taveras de Lama', title: 'NUESTRO EQUIPO' },
+  en: { eyebrow: 'Taveras de Lama Family', title: 'OUR TEAM' },
+  fr: { eyebrow: 'Famille Taveras de Lama', title: 'NOTRE ÉQUIPE' },
+};
 
 export default function TeamPhotoSection() {
+  const { lang } = useLang();
+  const c = content[lang];
   return (
     <section className="section" style={{ background: 'var(--bg)', paddingTop: '40px', paddingBottom: '40px' }}>
       <div className="section-container">
@@ -18,7 +28,7 @@ export default function TeamPhotoSection() {
         >
           <img
             src="/imagenes/lalane/team-group.png"
-            alt="Equipo completo de Lalane Dental Team"
+            alt={c.eyebrow}
             style={{
               width: '100%',
               height: 'auto',
@@ -44,7 +54,7 @@ export default function TeamPhotoSection() {
                 color: 'var(--accent)',
               }}
             >
-              Familia Lalane
+              {c.eyebrow}
             </span>
             <h3
               style={{
@@ -54,7 +64,7 @@ export default function TeamPhotoSection() {
                 marginTop: '4px',
               }}
             >
-              NUESTRO EQUIPO
+              {c.title}
             </h3>
           </div>
         </motion.div>

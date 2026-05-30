@@ -1,14 +1,54 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const galleryImages = [
-  { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Instalaciones', label: 'Instalaciones' },
-  { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Educación dental', label: 'Educación' },
-  { src: '/imagenes/taveras-de-lama/educacion-2.png', alt: 'Capacitación', label: 'Capacitación' },
-  { src: '/imagenes/taveras-de-lama/educacion-3.png', alt: 'Formación continua', label: 'Formación' },
-  { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Consultorio', label: 'Consultorio' },
-  { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Equipo profesional', label: 'Profesionalismo' },
-];
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  galleryImages: { src: string; alt: string; label: string }[];
+}> = {
+  es: {
+    eyebrow: 'Nuestro espacio',
+    title: 'INSTALACIONES',
+    subtitle: 'Instalaciones modernas diseñadas para tu comodidad y seguridad.',
+    galleryImages: [
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Instalaciones', label: 'Instalaciones' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Educación dental', label: 'Educación' },
+      { src: '/imagenes/taveras-de-lama/educacion-2.png', alt: 'Capacitación', label: 'Capacitación' },
+      { src: '/imagenes/taveras-de-lama/educacion-3.png', alt: 'Formación continua', label: 'Formación' },
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Consultorio', label: 'Consultorio' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Equipo profesional', label: 'Profesionalismo' },
+    ],
+  },
+  en: {
+    eyebrow: 'Our space',
+    title: 'FACILITIES',
+    subtitle: 'Modern facilities designed for your comfort and safety.',
+    galleryImages: [
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Facilities', label: 'Facilities' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Dental education', label: 'Education' },
+      { src: '/imagenes/taveras-de-lama/educacion-2.png', alt: 'Training', label: 'Training' },
+      { src: '/imagenes/taveras-de-lama/educacion-3.png', alt: 'Continuous training', label: 'Learning' },
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Office', label: 'Office' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Professional team', label: 'Professionalism' },
+    ],
+  },
+  fr: {
+    eyebrow: 'Notre espace',
+    title: 'INSTALLATIONS',
+    subtitle: 'Des installations modernes conçues pour votre confort et votre sécurité.',
+    galleryImages: [
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Installations', label: 'Installations' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Éducation dentaire', label: 'Éducation' },
+      { src: '/imagenes/taveras-de-lama/educacion-2.png', alt: 'Formation', label: 'Formation' },
+      { src: '/imagenes/taveras-de-lama/educacion-3.png', alt: 'Formation continue', label: 'Apprentissage' },
+      { src: '/imagenes/taveras-de-lama/instalacion.png', alt: 'Cabinet', label: 'Cabinet' },
+      { src: '/imagenes/taveras-de-lama/educacion-1.png', alt: 'Équipe professionnelle', label: 'Professionnalisme' },
+    ],
+  },
+};
 
 const containerVariants = {
   hidden: {},
@@ -26,6 +66,9 @@ const itemVariants = {
 };
 
 export default function GallerySection() {
+  const { lang } = useLang();
+  const c = content[lang];
+  const galleryImages = c.galleryImages;
   return (
     <section id="galeria" className="gallery section" style={{ background: 'var(--bg)' }}>
       <div className="section-container">
@@ -36,10 +79,10 @@ export default function GallerySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Nuestro espacio
+          {c.eyebrow}
         </motion.span>
         <RevealText tag="h2" className="section-title">
-          INSTALACIONES
+          {c.title}
         </RevealText>
         <motion.p
           className="gallery__subtitle"
@@ -48,7 +91,7 @@ export default function GallerySection() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Instalaciones modernas diseñadas para tu comodidad y seguridad.
+          {c.subtitle}
         </motion.p>
 
         <motion.div

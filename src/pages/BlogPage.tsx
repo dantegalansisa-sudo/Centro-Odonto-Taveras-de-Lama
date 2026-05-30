@@ -1,17 +1,72 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { articles } from '../data/articles';
+import { getArticles } from '../data/articles';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
+
+const ui: Record<Lang, {
+  notFound: string;
+  back: string;
+  readSuffix: string;
+  tipsTitle: string;
+  ctaTitle: string;
+  ctaDesc: string;
+  ctaBtn: string;
+  ctaPhone: string;
+  moreTitle: string;
+  waMsg: (title: string) => string;
+}> = {
+  es: {
+    notFound: 'Artículo no encontrado',
+    back: '← Volver al inicio',
+    readSuffix: 'de lectura',
+    tipsTitle: 'Datos clave',
+    ctaTitle: '¿Necesitas una consulta?',
+    ctaDesc: 'Nuestro equipo está listo para ayudarte. Agenda tu cita hoy.',
+    ctaBtn: 'Agendar por WhatsApp →',
+    ctaPhone: 'O llámanos: (809) 547-3387',
+    moreTitle: 'Más artículos',
+    waMsg: (title) => `Hola, leí el artículo "${title}" y me gustaría agendar una consulta.`,
+  },
+  en: {
+    notFound: 'Article not found',
+    back: '← Back to home',
+    readSuffix: 'read',
+    tipsTitle: 'Key facts',
+    ctaTitle: 'Need a consultation?',
+    ctaDesc: 'Our team is ready to help you. Book your appointment today.',
+    ctaBtn: 'Book via WhatsApp →',
+    ctaPhone: 'Or call us: (809) 547-3387',
+    moreTitle: 'More articles',
+    waMsg: (title) => `Hello, I read the article "${title}" and I would like to book a consultation.`,
+  },
+  fr: {
+    notFound: 'Article introuvable',
+    back: "← Retour à l'accueil",
+    readSuffix: 'de lecture',
+    tipsTitle: 'Points clés',
+    ctaTitle: "Besoin d'une consultation ?",
+    ctaDesc: 'Notre équipe est prête à vous aider. Prenez votre rendez-vous dès aujourd’hui.',
+    ctaBtn: 'Réserver via WhatsApp →',
+    ctaPhone: 'Ou appelez-nous : (809) 547-3387',
+    moreTitle: 'Plus d’articles',
+    waMsg: (title) => `Bonjour, j'ai lu l'article « ${title} » et je souhaiterais prendre rendez-vous pour une consultation.`,
+  },
+};
 
 export default function BlogPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { lang } = useLang();
+  const t = ui[lang];
+  const articles = getArticles(lang);
   const article = articles.find((a) => a.slug === slug);
 
   if (!article) {
     return (
       <div className="bp" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
         <div style={{ textAlign: 'center' }}>
-          <h1 style={{ fontFamily: 'var(--font-brutal)', fontSize: '48px', color: 'var(--primary)' }}>Artículo no encontrado</h1>
-          <Link to="/" className="bp__back-link" style={{ marginTop: '24px', display: 'inline-block' }}>← Volver al inicio</Link>
+          <h1 style={{ fontFamily: 'var(--font-brutal)', fontSize: '48px', color: 'var(--primary)' }}>{t.notFound}</h1>
+          <Link to="/" className="bp__back-link" style={{ marginTop: '24px', display: 'inline-block' }}>{t.back}</Link>
         </div>
       </div>
     );
@@ -29,10 +84,10 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           >
-            <Link to="/" className="bp__back-link">← Volver al inicio</Link>
+            <Link to="/" className="bp__back-link">{t.back}</Link>
             <div className="bp__hero-meta">
               <span className="bp__category">{article.category}</span>
-              <span className="bp__read-time">{article.readTime} de lectura</span>
+              <span className="bp__read-time">{article.readTime} {t.readSuffix}</span>
             </div>
             <h1 className="bp__title">{article.title}</h1>
             <p className="bp__excerpt">{article.excerpt}</p>
@@ -70,7 +125,7 @@ export default function BlogPage() {
 
               {article.tips && (
                 <div className="bp__tips">
-                  <h3 className="bp__tips-title">Datos clave</h3>
+                  <h3 className="bp__tips-title">{t.tipsTitle}</h3>
                   <ul className="bp__tips-list">
                     {article.tips.map((tip) => (
                       <li key={tip} className="bp__tip">
@@ -91,24 +146,24 @@ export default function BlogPage() {
               transition={{ delay: 0.4, duration: 0.8 }}
             >
               <div className="bp__cta-card">
-                <h3 className="bp__cta-title">¿Necesitas una consulta?</h3>
-                <p className="bp__cta-desc">Nuestro equipo está listo para ayudarte. Agenda tu cita hoy.</p>
+                <h3 className="bp__cta-title">{t.ctaTitle}</h3>
+                <p className="bp__cta-desc">{t.ctaDesc}</p>
                 <a
-                  href={`https://wa.me/18099439216?text=${encodeURIComponent(`Hola, leí el artículo "${article.title}" y me gustaría agendar una consulta.`)}`}
+                  href={`https://wa.me/18099439216?text=${encodeURIComponent(t.waMsg(article.title))}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bp__cta-btn"
                 >
-                  Agendar por WhatsApp →
+                  {t.ctaBtn}
                 </a>
                 <a href="tel:+18095473387" className="bp__cta-phone">
-                  O llámanos: (809) 547-3387
+                  {t.ctaPhone}
                 </a>
               </div>
 
               {otherArticles.length > 0 && (
                 <div className="bp__other">
-                  <h4 className="bp__other-title">Más artículos</h4>
+                  <h4 className="bp__other-title">{t.moreTitle}</h4>
                   {otherArticles.map((a) => (
                     <Link key={a.slug} to={`/blog/${a.slug}`} className="bp__other-link">
                       <span className="bp__other-category">{a.category}</span>

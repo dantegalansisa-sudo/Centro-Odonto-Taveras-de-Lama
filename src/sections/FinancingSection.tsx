@@ -1,28 +1,48 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const paymentMethods = [
-  {
-    icon: '💵',
-    title: 'Efectivo',
-    description: 'Pago en efectivo en nuestras instalaciones.',
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  paymentMethods: { icon: string; title: string; description: string }[];
+}> = {
+  es: {
+    eyebrow: 'Formas de pago',
+    title: 'MÉTODOS DE PAGO',
+    subtitle: 'Aceptamos efectivo y todas las tarjetas de crédito para tu comodidad.',
+    paymentMethods: [
+      { icon: '💵', title: 'Efectivo', description: 'Pago en efectivo en nuestras instalaciones.' },
+      { icon: '💳', title: 'VISA', description: 'Tarjeta de crédito y débito VISA.' },
+      { icon: '💳', title: 'Mastercard', description: 'Tarjeta de crédito y débito Mastercard.' },
+      { icon: '💳', title: 'American Express', description: 'Tarjeta de crédito American Express.' },
+    ],
   },
-  {
-    icon: '💳',
-    title: 'VISA',
-    description: 'Tarjeta de crédito y débito VISA.',
+  en: {
+    eyebrow: 'Payment options',
+    title: 'PAYMENT METHODS',
+    subtitle: 'We accept cash and all credit cards for your convenience.',
+    paymentMethods: [
+      { icon: '💵', title: 'Cash', description: 'Cash payment at our facilities.' },
+      { icon: '💳', title: 'VISA', description: 'VISA credit and debit card.' },
+      { icon: '💳', title: 'Mastercard', description: 'Mastercard credit and debit card.' },
+      { icon: '💳', title: 'American Express', description: 'American Express credit card.' },
+    ],
   },
-  {
-    icon: '💳',
-    title: 'Mastercard',
-    description: 'Tarjeta de crédito y débito Mastercard.',
+  fr: {
+    eyebrow: 'Moyens de paiement',
+    title: 'MOYENS DE PAIEMENT',
+    subtitle: 'Nous acceptons les espèces et toutes les cartes de crédit pour votre confort.',
+    paymentMethods: [
+      { icon: '💵', title: 'Espèces', description: 'Paiement en espèces dans nos locaux.' },
+      { icon: '💳', title: 'VISA', description: 'Carte de crédit et de débit VISA.' },
+      { icon: '💳', title: 'Mastercard', description: 'Carte de crédit et de débit Mastercard.' },
+      { icon: '💳', title: 'American Express', description: 'Carte de crédit American Express.' },
+    ],
   },
-  {
-    icon: '💳',
-    title: 'American Express',
-    description: 'Tarjeta de crédito American Express.',
-  },
-];
+};
 
 const containerVariants = {
   hidden: {},
@@ -39,6 +59,9 @@ const itemVariants = {
 };
 
 export default function FinancingSection() {
+  const { lang } = useLang();
+  const c = content[lang];
+  const paymentMethods = c.paymentMethods;
   return (
     <section className="financing section" style={{ background: 'var(--bg)' }}>
       <div className="section-container">
@@ -49,10 +72,10 @@ export default function FinancingSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Formas de pago
+          {c.eyebrow}
         </motion.span>
         <RevealText tag="h2" className="section-title">
-          MÉTODOS DE PAGO
+          {c.title}
         </RevealText>
         <motion.p
           className="financing__subtitle"
@@ -61,7 +84,7 @@ export default function FinancingSection() {
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Aceptamos efectivo y todas las tarjetas de crédito para tu comodidad.
+          {c.subtitle}
         </motion.p>
 
         <motion.div

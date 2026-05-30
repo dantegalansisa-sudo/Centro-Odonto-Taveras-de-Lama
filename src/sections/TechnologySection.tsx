@@ -1,13 +1,47 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useLang } from '../i18n/LanguageContext';
+import type { Lang } from '../i18n/translations';
 
-const technologies = [
-  { icon: '⬡', name: 'Escáner Intraoral 3D', desc: 'Impresiones digitales. Precisión de 0.01mm.' },
-  { icon: '◈', name: 'Radiografía Cone Beam', desc: 'Visión 3D de estructura ósea.' },
-  { icon: '◇', name: 'Láser Dental', desc: 'Sin bisturí, mínimo tiempo de recuperación.' },
-  { icon: '◉', name: 'CAD/CAM', desc: 'Coronas diseñadas y fabricadas digitalmente.' },
-  { icon: '✦', name: 'Blanqueamiento LED', desc: 'Resultados inmediatos y duraderos.' },
-];
+const content: Record<Lang, {
+  eyebrow: string;
+  title: string;
+  technologies: { icon: string; name: string; desc: string }[];
+}> = {
+  es: {
+    eyebrow: 'Innovación',
+    title: 'TECNOLOGÍA',
+    technologies: [
+      { icon: '⬡', name: 'Escáner Intraoral 3D', desc: 'Impresiones digitales. Precisión de 0.01mm.' },
+      { icon: '◈', name: 'Radiografía Cone Beam', desc: 'Visión 3D de estructura ósea.' },
+      { icon: '◇', name: 'Láser Dental', desc: 'Sin bisturí, mínimo tiempo de recuperación.' },
+      { icon: '◉', name: 'CAD/CAM', desc: 'Coronas diseñadas y fabricadas digitalmente.' },
+      { icon: '✦', name: 'Blanqueamiento LED', desc: 'Resultados inmediatos y duraderos.' },
+    ],
+  },
+  en: {
+    eyebrow: 'Innovation',
+    title: 'TECHNOLOGY',
+    technologies: [
+      { icon: '⬡', name: '3D Intraoral Scanner', desc: 'Digital impressions. 0.01mm precision.' },
+      { icon: '◈', name: 'Cone Beam X-ray', desc: '3D view of bone structure.' },
+      { icon: '◇', name: 'Dental Laser', desc: 'No scalpel, minimal recovery time.' },
+      { icon: '◉', name: 'CAD/CAM', desc: 'Crowns designed and made digitally.' },
+      { icon: '✦', name: 'LED Whitening', desc: 'Immediate, long-lasting results.' },
+    ],
+  },
+  fr: {
+    eyebrow: 'Innovation',
+    title: 'TECHNOLOGIE',
+    technologies: [
+      { icon: '⬡', name: 'Scanner Intra-oral 3D', desc: 'Empreintes numériques. Précision de 0,01 mm.' },
+      { icon: '◈', name: 'Radiographie Cone Beam', desc: 'Vision 3D de la structure osseuse.' },
+      { icon: '◇', name: 'Laser Dentaire', desc: 'Sans bistouri, temps de récupération minimal.' },
+      { icon: '◉', name: 'CAO/FAO', desc: 'Couronnes conçues et fabriquées numériquement.' },
+      { icon: '✦', name: 'Blanchiment LED', desc: 'Des résultats immédiats et durables.' },
+    ],
+  },
+};
 
 const containerVariants = {
   hidden: {},
@@ -25,6 +59,9 @@ const cardVariants = {
 };
 
 export default function TechnologySection() {
+  const { lang } = useLang();
+  const c = content[lang];
+  const technologies = c.technologies;
   return (
     <section id="tecnologia" className="section" style={{ background: 'var(--bg)' }}>
       <div className="section-container">
@@ -35,10 +72,10 @@ export default function TechnologySection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Innovación
+          {c.eyebrow}
         </motion.span>
         <RevealText tag="h2" className="section-title">
-          TECNOLOGÍA
+          {c.title}
         </RevealText>
 
         <motion.div
