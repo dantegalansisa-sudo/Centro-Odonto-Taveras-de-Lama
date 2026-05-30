@@ -84,7 +84,8 @@ function Navbar() {
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <a href="/" className="navbar__logo">
-          <img src="/imagenes/taveras-de-lama/logo.jpeg" alt="Centro Odonto Taveras de Lama" className="navbar__logo-img" style={{ height: '50px', width: 'auto' }} />
+          <img src="/imagenes/ChatGPT logo.png" alt="Centro Odontológico Taveras de Lama" className="navbar__logo-img" />
+          <span className="navbar__logo-text">TAVERAS<span className="navbar__logo-accent">DE LAMA</span></span>
         </a>
 
         <ul className="navbar__links">
