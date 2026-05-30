@@ -99,6 +99,19 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Accessibility
     'a11y.skip': 'Saltar al contenido',
 
+    // Service detail page
+    'sp.back': '← Volver al inicio',
+    'sp.notFound': 'Servicio no encontrado',
+    'sp.about': 'Sobre este servicio',
+    'sp.treatments': 'Tratamientos incluidos',
+    'sp.benefits': 'Beneficios',
+    'sp.faqs': 'Preguntas frecuentes',
+    'sp.ctaTitle': '¿Te interesa este tratamiento?',
+    'sp.ctaDesc': 'Agenda tu consulta de evaluación y recibe un plan personalizado.',
+    'sp.ctaBtn': 'Consultar por WhatsApp →',
+    'sp.ctaPhone': 'O llámanos: (809) 547-3387',
+    'sp.other': 'Otros servicios',
+
     // General
     'lang.toggle': 'EN',
   },
@@ -201,6 +214,19 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Accessibility
     'a11y.skip': 'Skip to content',
 
+    // Service detail page
+    'sp.back': '← Back to home',
+    'sp.notFound': 'Service not found',
+    'sp.about': 'About this service',
+    'sp.treatments': 'Treatments included',
+    'sp.benefits': 'Benefits',
+    'sp.faqs': 'Frequently asked questions',
+    'sp.ctaTitle': 'Interested in this treatment?',
+    'sp.ctaDesc': 'Book your evaluation consultation and receive a personalized plan.',
+    'sp.ctaBtn': 'Ask via WhatsApp →',
+    'sp.ctaPhone': 'Or call us: (809) 547-3387',
+    'sp.other': 'Other services',
+
     // General
     'lang.toggle': 'ES',
   },
@@ -302,6 +328,19 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     // Accessibility
     'a11y.skip': 'Aller au contenu',
+
+    // Service detail page
+    'sp.back': "← Retour à l'accueil",
+    'sp.notFound': 'Service introuvable',
+    'sp.about': 'À propos de ce service',
+    'sp.treatments': 'Traitements inclus',
+    'sp.benefits': 'Avantages',
+    'sp.faqs': 'Questions fréquentes',
+    'sp.ctaTitle': 'Ce traitement vous intéresse ?',
+    'sp.ctaDesc': 'Réservez votre consultation d\'évaluation et recevez un plan personnalisé.',
+    'sp.ctaBtn': 'Demander via WhatsApp →',
+    'sp.ctaPhone': 'Ou appelez-nous : (809) 547-3387',
+    'sp.other': 'Autres services',
 
     // General
     'lang.toggle': 'FR',

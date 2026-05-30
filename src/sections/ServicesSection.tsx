@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import RevealText from '../components/RevealText';
-import { services } from '../data/services';
+import { getServices } from '../data/services';
 import { useLang } from '../i18n/LanguageContext';
 
 const containerVariants = {
@@ -36,25 +36,17 @@ const categoryKeys = [
   { key: 'services.diagnostic', value: 'diagnostico' },
 ] as const;
 
-const categoryMap: Record<string, string[]> = {
-  estetica: ['ORTODONCIA', 'ESTÉTICA'],
-  cirugia: ['IMPLANTES', 'ENDODONCIA', 'CIRUGÍA ORAL'],
-  prevencion: ['ODONTOPEDIATRÍA', 'PERIODONCIA'],
-  diagnostico: ['DIAGNÓSTICO 3D'],
-};
-
 export default function ServicesSection() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
 
+  const services = useMemo(() => getServices(lang), [lang]);
+
   const filteredServices = useMemo(() => {
     return services.filter((s) => {
-      // Category filter
-      if (activeCategory !== 'all') {
-        const allowed = categoryMap[activeCategory];
-        if (!allowed || !allowed.includes(s.title)) return false;
-      }
+      // Category filter (language-independent)
+      if (activeCategory !== 'all' && s.category !== activeCategory) return false;
 
       // Search filter
       if (searchQuery.trim()) {
@@ -67,7 +59,7 @@ export default function ServicesSection() {
 
       return true;
     });
-  }, [searchQuery, activeCategory]);
+  }, [services, searchQuery, activeCategory]);
 
   return (
     <section id="servicios" className="section" style={{ background: 'var(--bg)' }}>

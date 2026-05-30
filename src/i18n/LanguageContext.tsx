@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import { translations, type Lang } from './translations';
 
 interface LanguageContextType {
@@ -13,14 +13,25 @@ const LanguageContext = createContext<LanguageContextType>({
   toggleLang: () => {},
 });
 
+const STORAGE_KEY = 'tdl-lang';
+const LANGS: Lang[] = ['es', 'en', 'fr'];
+
+function getInitialLang(): Lang {
+  if (typeof window === 'undefined') return 'es';
+  const stored = window.localStorage.getItem(STORAGE_KEY) as Lang | null;
+  return stored && LANGS.includes(stored) ? stored : 'es';
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('es');
+  const [lang, setLang] = useState<Lang>(getInitialLang);
+
+  useEffect(() => {
+    window.localStorage.setItem(STORAGE_KEY, lang);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const toggleLang = useCallback(() => {
-    setLang((prev) => {
-      const order: Lang[] = ['es', 'en', 'fr'];
-      return order[(order.indexOf(prev) + 1) % order.length];
-    });
+    setLang((prev) => LANGS[(LANGS.indexOf(prev) + 1) % LANGS.length]);
   }, []);
 
   const t = useCallback(
