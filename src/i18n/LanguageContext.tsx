@@ -17,7 +17,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>('es');
 
   const toggleLang = useCallback(() => {
-    setLang((prev) => (prev === 'es' ? 'en' : 'es'));
+    setLang((prev) => {
+      const order: Lang[] = ['es', 'en', 'fr'];
+      return order[(order.indexOf(prev) + 1) % order.length];
+    });
   }, []);
 
   const t = useCallback(

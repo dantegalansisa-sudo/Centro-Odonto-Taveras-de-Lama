@@ -1,4 +1,4 @@
-export type Lang = 'es' | 'en';
+export type Lang = 'es' | 'en' | 'fr';
 
 export const translations: Record<Lang, Record<string, string>> = {
   es: {
@@ -203,5 +203,107 @@ export const translations: Record<Lang, Record<string, string>> = {
 
     // General
     'lang.toggle': 'ES',
+  },
+
+  fr: {
+    // Navbar
+    'nav.services': 'Services',
+    'nav.transformations': 'Transformations',
+    'nav.team': 'Équipe',
+    'nav.technology': 'Technologie',
+    'nav.book': 'Prendre Rendez-vous',
+
+    // Hero
+    'hero.tagline': 'Centre Dentaire Familial',
+    'hero.title1': 'VOTRE',
+    'hero.title2': 'SOURIRE',
+    'hero.title3': 'PARFAIT',
+    'hero.subtitle': 'Plus de 30 ans à prendre soin des sourires en famille.',
+    'hero.cta': 'Prendre Rendez-vous →',
+    'hero.explore': 'Découvrir les Services',
+    'hero.smiles': 'Sourires Transformés',
+    'hero.years': 'Années d\'Expérience',
+    'hero.satisfaction': 'Satisfaction',
+    'hero.scroll': 'DÉFILER',
+
+    // Emergency
+    'emergency.title': 'URGENCES DENTAIRES',
+    'emergency.desc': 'Soins professionnels immédiats quand vous en avez le plus besoin',
+    'emergency.subtitle': 'Soins immédiats pour les urgences',
+    'emergency.cta': 'Appeler Maintenant',
+    'emergency.whatsapp': 'Ou écrivez-nous sur WhatsApp →',
+    'emergency.pain': 'Douleur dentaire sévère',
+    'emergency.fracture': 'Dent fracturée ou cassée',
+    'emergency.abscess': 'Abcès ou infection',
+    'emergency.trauma': 'Traumatisme dentaire',
+
+    // Promo
+    'promo.badge': 'OFFRE SPÉCIALE',
+    'promo.title': 'PREMIÈRE CONSULTATION GRATUITE',
+    'promo.subtitle': 'Comprend une évaluation complète, une radiographie panoramique et un plan de traitement personnalisé',
+    'promo.value': 'Évaluée à',
+    'promo.urgency': 'Places limitées ce mois-ci',
+    'promo.cta': 'Réserver Ma Consultation Gratuite →',
+    'promo.disclaimer': 'Offre valable pour les nouveaux patients. Sous réserve de disponibilité.',
+
+    // Manifesto
+    'manifesto.label': '— Notre philosophie —',
+    'manifesto.quote': 'Votre sourire n\'est pas qu\'une question d\'esthétique. C\'est votre première impression, votre confiance, votre force.',
+    'manifesto.body': 'Deux générations de professionnels dédiés à votre santé bucco-dentaire. Nous allions expérience, chaleur humaine et technologie pour vous offrir les meilleurs soins dentaires.',
+    'manifesto.p1.title': 'Précision',
+    'manifesto.p1.desc': 'Diagnostic et planification minutieux pour chaque cas',
+    'manifesto.p2.title': 'Confiance',
+    'manifesto.p2.desc': 'Plus de 10 000 patients traités avec succès',
+    'manifesto.p3.title': 'Élégance',
+    'manifesto.p3.desc': 'Des résultats naturels, harmonieux et durables',
+    'manifesto.p4.title': 'Chaleur',
+    'manifesto.p4.desc': 'Des soins humains et personnalisés à chaque visite',
+
+    // Services
+    'services.label': 'Ce que nous faisons',
+    'services.title': 'SERVICES',
+    'services.more': 'En savoir plus →',
+    'services.book': 'Prendre rendez-vous →',
+    'services.search': 'Rechercher un service...',
+    'services.all': 'Tous',
+    'services.aesthetic': 'Esthétique',
+    'services.surgery': 'Chirurgie',
+    'services.prevention': 'Prévention',
+    'services.diagnostic': 'Diagnostic',
+    'services.empty': 'Aucun service trouvé',
+
+    // Testimonials
+    'testimonials.label': 'Témoignages',
+    'testimonials.title': 'CE QUE DISENT NOS PATIENTS',
+    'testimonials.avgRating': 'Note Moyenne',
+    'testimonials.verified': 'Avis Vérifiés',
+    'testimonials.recommend': 'Recommanderaient',
+
+    // Booking
+    'booking.label': 'Planifiez votre visite',
+    'booking.title': 'RÉSERVEZ VOTRE RENDEZ-VOUS',
+    'booking.subtitle': 'Le premier pas vers votre nouveau sourire.',
+    'booking.form': 'Formulaire',
+    'booking.online': 'Réserver en Ligne',
+    'booking.name': 'Nom complet',
+    'booking.phone': 'Téléphone / WhatsApp',
+    'booking.service': 'Service souhaité',
+    'booking.message': 'Message optionnel (parlez-nous de votre cas)',
+    'booking.submit': 'Réserver via WhatsApp →',
+    'booking.sent': 'Envoyé ! Vérifiez WhatsApp',
+
+    // Footer
+    'footer.tagline': 'Centre Dentaire Familial',
+    'footer.rights': '© 2026 Centro Odontológico Taveras de Lama. Tous droits réservés.',
+    'footer.credit': 'Conçu par',
+    'footer.privacy': 'Politique de Confidentialité',
+    'footer.legal': 'Mentions Légales',
+    'footer.terms': 'Conditions Générales',
+
+    // Accessibility
+    'a11y.skip': 'Aller au contenu',
+
+    // General
+    'lang.toggle': 'FR',
   },
 };
