@@ -13,7 +13,7 @@ const content: Record<Lang, {
     title: 'ESPECIALISTAS',
     doctors: [
       { name: 'Dra. Lilian Taveras de Lama', specialty: 'Odontóloga — Directora', bio: 'Más de 30 años de experiencia en odontología general y preventiva.', img: '/imagenes/taveras-de-lama/ceo.png' },
-      { name: 'Dr. Daniel Lama Taveras', specialty: 'Cirujano Dental', bio: 'Especialista en cirugía oral y tratamientos avanzados.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
+      { name: 'Dr. Ismael Lama Taveras', specialty: 'Cirujano Dental', bio: 'Especialista en cirugía oral y tratamientos avanzados.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
     ],
   },
   en: {
@@ -21,7 +21,7 @@ const content: Record<Lang, {
     title: 'SPECIALISTS',
     doctors: [
       { name: 'Dr. Lilian Taveras de Lama', specialty: 'Dentist — Director', bio: 'Over 30 years of experience in general and preventive dentistry.', img: '/imagenes/taveras-de-lama/ceo.png' },
-      { name: 'Dr. Daniel Lama Taveras', specialty: 'Dental Surgeon', bio: 'Specialist in oral surgery and advanced treatments.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
+      { name: 'Dr. Ismael Lama Taveras', specialty: 'Dental Surgeon', bio: 'Specialist in oral surgery and advanced treatments.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
     ],
   },
   fr: {
@@ -29,7 +29,7 @@ const content: Record<Lang, {
     title: 'SPÉCIALISTES',
     doctors: [
       { name: 'Dre Lilian Taveras de Lama', specialty: 'Dentiste — Directrice', bio: "Plus de 30 ans d'expérience en dentisterie générale et préventive.", img: '/imagenes/taveras-de-lama/ceo.png' },
-      { name: 'Dr Daniel Lama Taveras', specialty: 'Chirurgien-Dentiste', bio: 'Spécialiste en chirurgie orale et traitements avancés.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
+      { name: 'Dr Ismael Lama Taveras', specialty: 'Chirurgien-Dentiste', bio: 'Spécialiste en chirurgie orale et traitements avancés.', img: '/imagenes/taveras-de-lama/dr-lama.png' },
     ],
   },
 };

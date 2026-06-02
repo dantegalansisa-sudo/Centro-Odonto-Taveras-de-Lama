@@ -28,21 +28,26 @@ import MagneticButton from './components/MagneticButton';
 import LanguageToggle from './components/LanguageToggle';
 import ServicePage from './pages/ServicePage';
 import BlogPage from './pages/BlogPage';
+import ResearchPage from './pages/ResearchPage';
+import VideoPage from './pages/VideoPage';
 import EmergencySection from './sections/EmergencySection';
 import FinancingSection from './sections/FinancingSection';
 import CertificationsSection from './sections/CertificationsSection';
-// VideoSection removed — no video
+import ConsultationCostSection from './sections/ConsultationCostSection';
+import ResearchSection from './sections/ResearchSection';
+import VideoPromoSection from './sections/VideoPromoSection';
 import { useLang } from './i18n/LanguageContext';
 
 /* ═══════ NAVBAR ═══════ */
 const NAV_LINK_KEYS = [
   { href: '#servicios', key: 'nav.services' },
-  { href: '#transformaciones', key: 'nav.transformations' },
   { href: '#equipo', key: 'nav.team' },
+  { href: '#investigaciones', key: 'nav.research' },
+  { href: '#videos', key: 'nav.videos' },
   { href: '#tecnologia', key: 'nav.technology' },
 ];
 
-const SECTION_IDS = ['servicios', 'transformaciones', 'equipo', 'tecnologia', 'reservar'];
+const SECTION_IDS = ['servicios', 'equipo', 'investigaciones', 'videos', 'tecnologia', 'reservar'];
 
 function Navbar() {
   const { t } = useLang();
@@ -177,12 +182,15 @@ function HomePage() {
         <PatientsSection />
         <TestimonialsSection />
         <GallerySection />
+        <VideoPromoSection />
         <TechnologySection />
         <StatsSection />
         <CertificationsSection />
         <InsuranceSection />
         <FinancingSection />
+        <ConsultationCostSection />
         <BlogSection />
+        <ResearchSection />
         <FAQSection />
         <EmergencySection />
         <BookingSection />
@@ -240,6 +248,24 @@ function App() {
               <>
                 <Navbar />
                 <BlogPage />
+                <FooterSection />
+                <WhatsAppButton />
+                <CallButton />
+              </>
+            } />
+            <Route path="/investigaciones/:slug" element={
+              <>
+                <Navbar />
+                <ResearchPage />
+                <FooterSection />
+                <WhatsAppButton />
+                <CallButton />
+              </>
+            } />
+            <Route path="/videos/:slug" element={
+              <>
+                <Navbar />
+                <VideoPage />
                 <FooterSection />
                 <WhatsAppButton />
                 <CallButton />

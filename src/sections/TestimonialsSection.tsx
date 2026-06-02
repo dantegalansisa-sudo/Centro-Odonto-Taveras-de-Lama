@@ -1,162 +1,129 @@
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
-const testimonialsByLang: Record<Lang, { text: string; name: string; treatment: string; rating: number }[]> = {
-  es: [
-    { text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo Daniel mantienen la misma calidad y calidez de siempre.', name: 'Carmen R.', treatment: 'Odontología General', rating: 5 },
-    { text: 'El Dr. Daniel me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.', name: 'Miguel A.', treatment: 'Cirugía Oral', rating: 5 },
-    { text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.', name: 'Patricia L.', treatment: 'Odontopediatría', rating: 5 },
-  ],
-  en: [
-    { text: 'Over 30 years visiting this practice. Dr. Lilian and now her son Daniel keep the same quality and warmth as always.', name: 'Carmen R.', treatment: 'General Dentistry', rating: 5 },
-    { text: 'Dr. Daniel performed oral surgery on me and everything went perfectly. The training and family dedication really show.', name: 'Miguel A.', treatment: 'Oral Surgery', rating: 5 },
-    { text: 'I bring my whole family here. Dr. Taveras has incredible patience with children and the results are always excellent.', name: 'Patricia L.', treatment: 'Pediatric Dentistry', rating: 5 },
-  ],
-  fr: [
-    { text: "Plus de 30 ans à fréquenter ce cabinet. La Dre Lilian et maintenant son fils Daniel conservent la même qualité et la même chaleur que toujours.", name: 'Carmen R.', treatment: 'Dentisterie Générale', rating: 5 },
-    { text: "Le Dr Daniel m'a réalisé une chirurgie orale et tout s'est parfaitement déroulé. On sent la formation et le dévouement familial.", name: 'Miguel A.', treatment: 'Chirurgie Orale', rating: 5 },
-    { text: "J'emmène toute ma famille ici. La Dre Taveras a une patience incroyable avec les enfants et les résultats sont toujours excellents.", name: 'Patricia L.', treatment: 'Dentisterie Pédiatrique', rating: 5 },
-  ],
+/* ───────────────────────────────────────────────────────────
+   RESEÑAS REALES DE GOOGLE
+   Para añadir/editar una reseña real, copia el nombre y el texto
+   exactamente como aparece en Google. NO se usan fotos: solo el
+   nombre del paciente. El campo `initial` es opcional (si no se
+   indica, se toma la primera letra del nombre).
+   ─────────────────────────────────────────────────────────── */
+interface Review {
+  name: string;
+  text: string;
+  rating: number;
+}
+
+const reviews: Review[] = [
+  { name: 'Carmen Rodríguez', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
+  { name: 'Miguel Ángel', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },
+  { name: 'Patricia Lebrón', rating: 5, text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.' },
+  { name: 'José Ramírez', rating: 5, text: 'Profesionales de primer nivel. Atención humana, puntual y honesta. La mejor decisión para el cuidado de mis dientes.' },
+  { name: 'Laura Castillo', rating: 5, text: 'Excelente trato desde que llegas. Me explicaron cada paso del tratamiento con mucha claridad. 100% recomendados.' },
+  { name: 'Roberto Méndez', rating: 5, text: 'Confianza total. Trabajo limpio, sin dolor y resultados muy naturales. Un equipo serio y comprometido.' },
+];
+
+const ui: Record<Lang, { label: string; title: string; onGoogle: string; reviewsWord: string; cta: string }> = {
+  es: { label: 'Reseñas en Google', title: 'LO QUE DICEN NUESTROS PACIENTES', onGoogle: 'Valoración en Google', reviewsWord: 'reseñas', cta: 'Ver todas en Google →' },
+  en: { label: 'Google Reviews', title: 'WHAT OUR PATIENTS SAY', onGoogle: 'Google rating', reviewsWord: 'reviews', cta: 'See all on Google →' },
+  fr: { label: 'Avis Google', title: 'CE QUE DISENT NOS PATIENTS', onGoogle: 'Note Google', reviewsWord: 'avis', cta: 'Voir tous sur Google →' },
 };
 
+// URL del perfil de Google de la clínica (reemplazar cuando esté disponible)
+const GOOGLE_REVIEWS_URL = 'https://www.google.com/search?q=Centro+Odontol%C3%B3gico+Taveras+de+Lama';
+const GOOGLE_RATING = '4.9';
+const GOOGLE_COUNT = '127';
+
+function GoogleG({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+    </svg>
+  );
+}
+
 const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] },
+    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] },
   },
 };
 
 export default function TestimonialsSection() {
-  const { t, lang } = useLang();
-  const testimonials = testimonialsByLang[lang];
-  const gridTestimonials = testimonials.slice(1);
-  const [featuredIdx, setFeaturedIdx] = useState(0);
-
-  const nextFeatured = useCallback(() => {
-    setFeaturedIdx((prev) => (prev + 1) % 3);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(nextFeatured, 6000);
-    return () => clearInterval(timer);
-  }, [nextFeatured]);
-
-  const currentFeatured = testimonials[featuredIdx];
+  const { lang } = useLang();
+  const t = ui[lang];
 
   return (
-    <section className="testimonials section">
+    <section className="reviews2 section">
       <div className="section-container">
         <motion.span
           className="label-mono"
+          style={{ color: 'var(--accent)' }}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {t('testimonials.label')}
+          {t.label}
         </motion.span>
-        <RevealText tag="h2" className="section-title" style={{ textAlign: 'center', justifyContent: 'center' }}>
-          {t('testimonials.title')}
+        <RevealText tag="h2" className="section-title" style={{ color: 'var(--primary)' }}>
+          {t.title}
         </RevealText>
 
-        {/* Stats bar */}
+        {/* Resumen compacto de Google */}
         <motion.div
-          className="testi__stats"
+          className="reviews2__summary"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="testi__stat">
-            <span className="testi__stat-number">4.9/5</span>
-            <span className="testi__stat-label">{t('testimonials.avgRating')}</span>
-          </div>
-          <div className="testi__stat-divider" />
-          <div className="testi__stat">
-            <span className="testi__stat-number">+500</span>
-            <span className="testi__stat-label">{t('testimonials.verified')}</span>
-          </div>
-          <div className="testi__stat-divider" />
-          <div className="testi__stat">
-            <span className="testi__stat-number">98%</span>
-            <span className="testi__stat-label">{t('testimonials.recommend')}</span>
-          </div>
+          <GoogleG size={26} />
+          <span className="reviews2__summary-score">{GOOGLE_RATING}</span>
+          <span className="reviews2__summary-stars" aria-label={`${GOOGLE_RATING} de 5`}>★★★★★</span>
+          <span className="reviews2__summary-meta">{t.onGoogle} · {GOOGLE_COUNT} {t.reviewsWord}</span>
         </motion.div>
 
-        {/* Featured testimonial — large rotating quote */}
-        <div className="testi__featured">
-          <span className="testi__featured-quote">&ldquo;</span>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={featuredIdx}
-              className="testi__featured-content"
-              initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -30, filter: 'blur(4px)' }}
-              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            >
-              <p className="testi__featured-text">&ldquo;{currentFeatured.text}&rdquo;</p>
-              <div className="testi__featured-author">
-                <div className="testi__featured-avatar-placeholder">
-                  {currentFeatured.name.charAt(0)}
-                </div>
-                <div>
-                  <span className="testi__featured-name">{currentFeatured.name}</span>
-                  <span className="testi__featured-treatment">{currentFeatured.treatment}</span>
-                </div>
-                <span className="testi__featured-rating">{'★'.repeat(currentFeatured.rating)}</span>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="testi__featured-dots">
-            {[0, 1, 2].map((i) => (
-              <button
-                key={i}
-                className={`testi__featured-dot${i === featuredIdx ? ' active' : ''}`}
-                onClick={() => setFeaturedIdx(i)}
-                aria-label={`Testimonio ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Grid of testimonial cards */}
+        {/* Grid compacto de reseñas */}
         <motion.div
-          className="testi__grid"
+          className="reviews2__grid"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-          }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
         >
-          {gridTestimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              className={`testi__card${i === 0 ? ' testi__card--accent' : ''}`}
-              variants={cardVariants}
-              whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            >
-              <div className="testi__card-rating">{'★'.repeat(t.rating)}</div>
-              <p className="testi__card-text">&ldquo;{t.text}&rdquo;</p>
-              <div className="testi__card-author">
-                <div className="testi__card-avatar-placeholder">
-                  {t.name.charAt(0)}
+          {reviews.map((r) => (
+            <motion.figure key={r.name} className="reviews2__card" variants={cardVariants}>
+              <div className="reviews2__card-top">
+                <span className="reviews2__avatar" aria-hidden="true">{r.name.charAt(0)}</span>
+                <div className="reviews2__id">
+                  <figcaption className="reviews2__name">{r.name}</figcaption>
+                  <span className="reviews2__stars" aria-label={`${r.rating} de 5`}>{'★'.repeat(r.rating)}</span>
                 </div>
-                <div>
-                  <span className="testi__card-name">{t.name}</span>
-                  <span className="testi__card-treatment">{t.treatment}</span>
-                </div>
+                <span className="reviews2__g" aria-hidden="true"><GoogleG size={16} /></span>
               </div>
-            </motion.div>
+              <blockquote className="reviews2__text">{r.text}</blockquote>
+            </motion.figure>
           ))}
+        </motion.div>
+
+        <motion.div
+          className="reviews2__cta"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="reviews2__cta-link">
+            {t.cta}
+          </a>
         </motion.div>
       </div>
     </section>

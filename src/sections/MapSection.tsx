@@ -75,7 +75,7 @@ export default function MapSection() {
           <div className="map-section__info">
             <div className="map-section__detail">
               <span className="map-section__detail-label">{c.addressLabel}</span>
-              <span className="map-section__detail-value">Av. Lincoln 901</span>
+              <span className="map-section__detail-value">Av. Abraham Lincoln 901</span>
               <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Santo Domingo, República Dominicana</span>
             </div>
             <div className="map-section__detail">
@@ -94,7 +94,7 @@ export default function MapSection() {
 
           <div className="map-section__embed">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.5!2d-69.95!3d18.47!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDI4JzEyLjAiTiA2OcKwNTcnMDAuMCJX!5e0!3m2!1ses!2sdo!4v1709000000000!5m2!1ses!2sdo"
+              src="https://maps.google.com/maps?q=Av.%20Abraham%20Lincoln%20901,%20Santo%20Domingo,%20Rep%C3%BAblica%20Dominicana&t=&z=16&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, borderRadius: '16px' }}

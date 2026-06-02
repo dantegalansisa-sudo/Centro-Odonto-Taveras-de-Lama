@@ -15,12 +15,17 @@ const serviceOptions = [
 ];
 
 const infoItems = [
-  { icon: '📍', label: 'Dirección', value: 'Av. Lincoln 901, Santo Domingo' },
+  { icon: '📍', label: 'Dirección', value: 'Av. Abraham Lincoln 901, Santo Domingo' },
   { icon: '📞', label: 'Teléfono', value: '(809) 547-3387' },
   { icon: '⏰', label: 'Horario', value: 'Lun - Vie: 8:00 AM - 7:00 PM | Sáb: 9:00 AM - 12:00 PM' },
   { icon: '💬', label: 'WhatsApp', value: '(809) 943-9216' },
   { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com' },
 ];
+
+// Email de destino del formulario. TODO: reemplazar / conectar a un servicio
+// de correo transaccional (EmailJS, Resend, Formspree) cuando esté configurado.
+const CLINIC_EMAIL = 'dra.taverasdlama@gmail.com';
+const WHATSAPP_NUMBER = '18099439216';
 
 const containerVariants = {
   hidden: {},
@@ -166,18 +171,37 @@ export default function BookingSection() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = data.get('name') as string;
-    const phone = data.get('phone') as string;
+    const name = (data.get('name') as string)?.trim();
+    const email = (data.get('email') as string)?.trim();
+    const phone = (data.get('phone') as string)?.trim();
     const service = data.get('service') as string;
     const date = data.get('date') as string;
-    const message = data.get('message') as string;
+    const message = (data.get('message') as string)?.trim();
 
-    const text = `Hola, quiero reservar una cita.%0A%0A*Nombre:* ${name}%0A*Teléfono:* ${phone}%0A*Servicio:* ${service}%0A*Fecha preferida:* ${date}${message ? `%0A*Mensaje:* ${message}` : ''}`;
+    // Envío por email: abre el cliente de correo con la solicitud prellenada.
+    // Cuando se configure el correo de la clínica, se conecta aquí el servicio
+    // transaccional (EmailJS / Resend / Formspree) en lugar del mailto.
+    const subject = `Nueva solicitud de cita — ${name}`;
+    const bodyLines = [
+      `Nombre: ${name}`,
+      `Email: ${email}`,
+      `Teléfono / WhatsApp: ${phone}`,
+      `Servicio de interés: ${service}`,
+      `Fecha preferida: ${date}`,
+      message ? `Mensaje: ${message}` : '',
+      '',
+      'Enviado desde el formulario de la web — Centro Odontológico Taveras de Lama.',
+    ].filter(Boolean);
 
-    window.open(`https://wa.me/18099439216?text=${text}`, '_blank');
+    const mailto = `mailto:${CLINIC_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+    window.location.href = mailto;
+
     setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    form.reset();
+    setTimeout(() => setSent(false), 5000);
   };
+
+  const whatsAppHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, quiero reservar una cita en Taveras de Lama.')}`;
 
   return (
     <section id="reservar" className="booking section">
@@ -260,8 +284,9 @@ export default function BookingSection() {
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <input type="text" name="name" placeholder={t('booking.name')} required />
-                  <input type="tel" name="phone" placeholder={t('booking.phone')} required />
+                  <input type="text" name="name" placeholder={t('booking.name')} required autoComplete="name" />
+                  <input type="email" name="email" placeholder={t('booking.email')} required autoComplete="email" />
+                  <input type="tel" name="phone" placeholder={t('booking.phone')} required autoComplete="tel" />
                   <select name="service" required defaultValue="">
                     <option value="" disabled>
                       {t('booking.service')}
@@ -275,6 +300,19 @@ export default function BookingSection() {
                   <button type="submit" className="booking-cta interactive">
                     {sent ? t('booking.sent') : t('booking.submit')}
                   </button>
+                  <div className="booking-form__divider"><span>{t('booking.or')}</span></div>
+                  <a
+                    href={whatsAppHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="booking-form__whatsapp interactive"
+                  >
+                    <svg className="booking-form__whatsapp-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                      <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.748-.957zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                    </svg>
+                    {t('booking.whatsapp')}
+                  </a>
+                  <p className="booking-form__note">{t('booking.privacy')}</p>
                 </motion.form>
               ) : (
                 <motion.div
