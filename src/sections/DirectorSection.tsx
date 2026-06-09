@@ -8,6 +8,8 @@ const content: Record<Lang, {
   name: string;
   credentials: string[];
   quote: string;
+  rolesTitle: string;
+  roles: { name: string; role: string; focus: string }[];
   stats: { value: string; label: string }[];
   role: string;
   signatureName: string;
@@ -17,6 +19,11 @@ const content: Record<Lang, {
     name: 'Dra. Lilian & Dr. Ismael',
     credentials: ['+30 Años de Experiencia', '2 Generaciones', 'Tradición Familiar'],
     quote: '"Esta clínica la dirigimos juntos, madre e hijo. La Dra. Lilian aporta más de 30 años de trayectoria y el Dr. Ismael la visión de la nueva generación de la odontología. Cada paciente es atendido personalmente por nosotros, con la cercanía y el compromiso de una verdadera tradición familiar."',
+    rolesTitle: 'En qué se enfoca cada uno',
+    roles: [
+      { name: 'Dra. Lilian Taveras de Lama', role: 'Odontóloga — Directora', focus: 'Odontología general y preventiva' },
+      { name: 'Dr. Ismael Lama Taveras', role: 'Cirujano Dental', focus: 'Cirugía oral y tratamientos avanzados' },
+    ],
     stats: [
       { value: '+30', label: 'Años de trayectoria' },
       { value: '+10,000', label: 'Pacientes atendidos' },
@@ -30,6 +37,11 @@ const content: Record<Lang, {
     name: 'Dr. Lilian & Dr. Ismael',
     credentials: ['+30 Years of Experience', '2 Generations', 'Family Tradition'],
     quote: '"We run this clinic together, mother and son. Dr. Lilian brings over 30 years of experience and Dr. Ismael the vision of a new generation of dentistry. Every patient is cared for personally by us, with the closeness and commitment of a true family tradition."',
+    rolesTitle: 'What each one focuses on',
+    roles: [
+      { name: 'Dr. Lilian Taveras de Lama', role: 'Dentist — Director', focus: 'General and preventive dentistry' },
+      { name: 'Dr. Ismael Lama Taveras', role: 'Dental Surgeon', focus: 'Oral surgery and advanced treatments' },
+    ],
     stats: [
       { value: '+30', label: 'Years of practice' },
       { value: '+10,000', label: 'Patients treated' },
@@ -43,6 +55,11 @@ const content: Record<Lang, {
     name: 'Dre Lilian & Dr Ismael',
     credentials: ["+30 Ans d'Expérience", '2 Générations', 'Tradition Familiale'],
     quote: "« Nous dirigeons cette clinique ensemble, mère et fils. La Dre Lilian apporte plus de 30 ans d'expérience et le Dr Ismael la vision d'une nouvelle génération de la dentisterie. Chaque patient est suivi personnellement par nous, avec la proximité et l'engagement d'une véritable tradition familiale. »",
+    rolesTitle: 'Le domaine de chacun',
+    roles: [
+      { name: 'Dre Lilian Taveras de Lama', role: 'Dentiste — Directrice', focus: 'Dentisterie générale et préventive' },
+      { name: 'Dr Ismael Lama Taveras', role: 'Chirurgien-Dentiste', focus: 'Chirurgie orale et traitements avancés' },
+    ],
     stats: [
       { value: '+30', label: 'Années de pratique' },
       { value: '+10 000', label: 'Patients soignés' },
@@ -116,6 +133,39 @@ export default function DirectorSection() {
             >
               {c.quote}
             </motion.blockquote>
+
+            <motion.div
+              className="director__roles"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
+              }}
+            >
+              <span className="director__roles-title">{c.rolesTitle}</span>
+              <div className="director__roles-grid">
+                {c.roles.map((doc) => (
+                  <motion.div
+                    key={doc.name}
+                    className="director__role-card"
+                    variants={{
+                      hidden: { opacity: 0, y: 16 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] },
+                      },
+                    }}
+                  >
+                    <span className="director__role-name">{doc.name}</span>
+                    <span className="director__role-tag">{doc.role}</span>
+                    <span className="director__role-focus">{doc.focus}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
 
             <motion.div
               className="director__stats"

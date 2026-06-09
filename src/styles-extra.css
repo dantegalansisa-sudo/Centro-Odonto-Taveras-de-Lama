@@ -477,3 +477,52 @@
 @media (prefers-reduced-motion: reduce) {
   .director__photo--float { animation: none; }
 }
+
+/* ─── DIRECCIÓN: especialidades / enfoque de cada doctor ─── */
+.director__roles { margin: 28px 0 8px; }
+.director__roles-title {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.director__roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.director__role-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+}
+.director__role-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+}
+.director__role-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.director__role-focus {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 2px;
+}
+@media (max-width: 560px) {
+  .director__roles-grid { grid-template-columns: 1fr; }
+}
