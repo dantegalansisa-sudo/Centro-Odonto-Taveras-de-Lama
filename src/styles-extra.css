@@ -706,3 +706,23 @@
 @media (max-width: 768px) {
   .vreel { width: min(78vw, 300px); }
 }
+
+/* ─── BLOG: imagenes verticales (posts IG) sin recorte ─── */
+.blog__card-img-wrap {
+  aspect-ratio: 3 / 4;
+  background: var(--bg-surface);
+}
+.blog__card-img {
+  object-fit: contain;
+}
+/* Imagen del articulo (pagina de detalle) en formato vertical, completa */
+.bp__image {
+  width: auto;
+  max-width: min(100%, 360px);
+  height: auto;
+  max-height: 78vh;
+  margin: 0 auto;
+  display: block;
+  object-fit: contain;
+  background: var(--bg-surface);
+}

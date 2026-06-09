@@ -29,7 +29,7 @@ interface ArticleBase {
 const articleData: ArticleBase[] = [
   {
     slug: 'carillas-o-blanqueamiento',
-    img: '/imagenes/lalane/blog-estetica.png',
+    img: '/imagenes/taveras-de-lama/blog-estetica.png',
     i18n: {
       es: {
         category: 'Estética',
@@ -95,7 +95,7 @@ const articleData: ArticleBase[] = [
   },
   {
     slug: 'mitos-implantes-dentales',
-    img: '/imagenes/lalane/blog-implantes.png',
+    img: '/imagenes/taveras-de-lama/blog-implantes.png',
     i18n: {
       es: {
         category: 'Implantes',
@@ -164,7 +164,7 @@ const articleData: ArticleBase[] = [
   },
   {
     slug: 'rutina-higiene-dental',
-    img: '/imagenes/lalane/blog-prevencion.png',
+    img: '/imagenes/taveras-de-lama/blog-prevencion.png',
     i18n: {
       es: {
         category: 'Prevención',
