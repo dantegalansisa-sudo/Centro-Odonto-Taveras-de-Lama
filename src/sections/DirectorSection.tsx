@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useParallax } from '../hooks/useParallax';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -73,13 +74,16 @@ const content: Record<Lang, {
 export default function DirectorSection() {
   const { lang } = useLang();
   const c = content[lang];
+  const { ref: photoRef, y: photoY } = useParallax(46);
   return (
     <section id="equipo" className="director section">
       <div className="section-container">
         <div className="director__grid">
           {/* Photo side */}
           <motion.div
+            ref={photoRef}
             className="director__photo-wrapper"
+            style={{ y: photoY }}
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.1 }}

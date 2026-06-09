@@ -1,15 +1,27 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
 import { useLang } from '../i18n/LanguageContext';
 
 export default function HeroSection() {
   const { t } = useLang();
+  const ref = useRef<HTMLElement>(null);
+
+  // Scroll storytelling: el video hace zoom y el contenido se desvanece al bajar.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+  const videoY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
-    <section className="hero">
+    <section className="hero" ref={ref}>
       {/* Video background with poster fallback */}
-      <div className="hero__video-container">
+      <motion.div className="hero__video-container" style={{ scale: videoScale, y: videoY }}>
         <video
           autoPlay
           muted
@@ -20,12 +32,12 @@ export default function HeroSection() {
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero__video-overlay" />
-      </div>
+      </motion.div>
 
       {/* Grain texture */}
       <div className="hero__grain" />
 
-      <div className="hero__content">
+      <motion.div className="hero__content" style={{ y: contentY, opacity: contentOpacity }}>
         {/* Brand name — protagonista */}
         <motion.div
           className="hero__brand"
@@ -121,7 +133,7 @@ export default function HeroSection() {
             <span className="data-label">{t('hero.satisfaction')}</span>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
