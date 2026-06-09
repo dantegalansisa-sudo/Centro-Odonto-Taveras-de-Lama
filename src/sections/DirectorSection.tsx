@@ -57,7 +57,7 @@ export default function DirectorSection() {
   const { lang } = useLang();
   const c = content[lang];
   return (
-    <section className="director section">
+    <section id="equipo" className="director section">
       <div className="section-container">
         <div className="director__grid">
           {/* Photo side */}

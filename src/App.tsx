@@ -12,7 +12,6 @@ import ManifestoSection from './sections/ManifestoSection';
 import ServicesSection from './sections/ServicesSection';
 import TransformationSection from './sections/TransformationSection';
 import DirectorSection from './sections/DirectorSection';
-import TeamSection from './sections/TeamSection';
 import TechnologySection from './sections/TechnologySection';
 import StatsSection from './sections/StatsSection';
 import TestimonialsSection from './sections/TestimonialsSection';
@@ -177,7 +176,6 @@ function HomePage() {
         <ManifestoSection />
         <ServicesSection />
         <DirectorSection />
-        <TeamSection />
         <TransformationSection />
         <PatientsSection />
         <TestimonialsSection />
