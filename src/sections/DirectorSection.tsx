@@ -5,43 +5,51 @@ import type { Lang } from '../i18n/translations';
 
 const content: Record<Lang, {
   label: string;
+  name: string;
   credentials: string[];
   quote: string;
   stats: { value: string; label: string }[];
   role: string;
+  signatureName: string;
 }> = {
   es: {
-    label: 'Directora',
-    credentials: ['Odontología General', '+30 Años de Experiencia', 'Tradición Familiar'],
-    quote: '"Con más de 30 años dedicados a la odontología, mi compromiso es brindar a cada paciente una atención de calidad, cercana y profesional. Junto a mi hijo, continuamos construyendo sonrisas saludables generación tras generación."',
+    label: 'Dirección de la clínica',
+    name: 'Dra. Lilian & Dr. Ismael',
+    credentials: ['+30 Años de Experiencia', '2 Generaciones', 'Tradición Familiar'],
+    quote: '"Esta clínica la dirigimos juntos, madre e hijo. La Dra. Lilian aporta más de 30 años de trayectoria y el Dr. Ismael la visión de la nueva generación de la odontología. Cada paciente es atendido personalmente por nosotros, con la cercanía y el compromiso de una verdadera tradición familiar."',
     stats: [
       { value: '+30', label: 'Años de trayectoria' },
       { value: '+10,000', label: 'Pacientes atendidos' },
-      { value: '2', label: 'Generaciones de odontólogos' },
+      { value: '2', label: 'Generaciones al frente' },
     ],
-    role: 'Directora — Centro Odontológico Taveras de Lama',
+    role: 'Dirección — Centro Odontológico Taveras de Lama',
+    signatureName: 'Dra. Lilian Taveras de Lama · Dr. Ismael Lama Taveras',
   },
   en: {
-    label: 'Director',
-    credentials: ['General Dentistry', '+30 Years of Experience', 'Family Tradition'],
-    quote: '"With over 30 years dedicated to dentistry, my commitment is to give every patient quality, warm and professional care. Together with my son, we keep building healthy smiles generation after generation."',
+    label: 'Clinic direction',
+    name: 'Dr. Lilian & Dr. Ismael',
+    credentials: ['+30 Years of Experience', '2 Generations', 'Family Tradition'],
+    quote: '"We run this clinic together, mother and son. Dr. Lilian brings over 30 years of experience and Dr. Ismael the vision of a new generation of dentistry. Every patient is cared for personally by us, with the closeness and commitment of a true family tradition."',
     stats: [
       { value: '+30', label: 'Years of practice' },
       { value: '+10,000', label: 'Patients treated' },
-      { value: '2', label: 'Generations of dentists' },
+      { value: '2', label: 'Generations leading' },
     ],
-    role: 'Director — Centro Odontológico Taveras de Lama',
+    role: 'Direction — Centro Odontológico Taveras de Lama',
+    signatureName: 'Dr. Lilian Taveras de Lama · Dr. Ismael Lama Taveras',
   },
   fr: {
-    label: 'Directrice',
-    credentials: ['Dentisterie Générale', "+30 Ans d'Expérience", 'Tradition Familiale'],
-    quote: "« Avec plus de 30 ans consacrés à la dentisterie, mon engagement est d'offrir à chaque patient des soins de qualité, chaleureux et professionnels. Avec mon fils, nous continuons à construire des sourires sains, génération après génération. »",
+    label: 'Direction de la clinique',
+    name: 'Dre Lilian & Dr Ismael',
+    credentials: ["+30 Ans d'Expérience", '2 Générations', 'Tradition Familiale'],
+    quote: "« Nous dirigeons cette clinique ensemble, mère et fils. La Dre Lilian apporte plus de 30 ans d'expérience et le Dr Ismael la vision d'une nouvelle génération de la dentisterie. Chaque patient est suivi personnellement par nous, avec la proximité et l'engagement d'une véritable tradition familiale. »",
     stats: [
       { value: '+30', label: 'Années de pratique' },
       { value: '+10 000', label: 'Patients soignés' },
-      { value: '2', label: 'Générations de dentistes' },
+      { value: '2', label: 'Générations à la tête' },
     ],
-    role: 'Directrice — Centro Odontológico Taveras de Lama',
+    role: 'Direction — Centro Odontológico Taveras de Lama',
+    signatureName: 'Dre Lilian Taveras de Lama · Dr Ismael Lama Taveras',
   },
 };
 
@@ -61,9 +69,10 @@ export default function DirectorSection() {
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] }}
           >
             <img
-              src="/imagenes/taveras-de-lama/ceo.png"
-              alt="Dra. Lilian Taveras de Lama — Directora"
+              src="/imagenes/taveras-de-lama/directores.png"
+              alt="Dra. Lilian Taveras de Lama y Dr. Ismael Lama Taveras — Dirección"
               className="director__photo"
+              style={{ aspectRatio: '4 / 5', objectPosition: 'center top' }}
             />
             {/* Accent frame */}
             <div className="director__frame" />
@@ -82,7 +91,7 @@ export default function DirectorSection() {
             </motion.span>
 
             <RevealText tag="h2" className="director__name">
-              Dra. Lilian Taveras de Lama
+              {c.name}
             </RevealText>
 
             <motion.div
@@ -146,7 +155,7 @@ export default function DirectorSection() {
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               <div className="director__signature-line" />
-              <span className="director__signature-name">Dra. Lilian Taveras de Lama</span>
+              <span className="director__signature-name">{c.signatureName}</span>
               <span className="director__signature-role">{c.role}</span>
             </motion.div>
           </div>
