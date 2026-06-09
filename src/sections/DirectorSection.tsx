@@ -71,8 +71,7 @@ export default function DirectorSection() {
             <img
               src="/imagenes/taveras-de-lama/directores.png"
               alt="Dra. Lilian Taveras de Lama y Dr. Ismael Lama Taveras — Dirección"
-              className="director__photo"
-              style={{ aspectRatio: '4 / 5', objectPosition: 'center top' }}
+              className="director__photo director__photo--float"
             />
             {/* Accent frame */}
             <div className="director__frame" />

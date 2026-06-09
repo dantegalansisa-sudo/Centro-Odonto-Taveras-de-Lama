@@ -452,3 +452,28 @@
   border-radius: 12px;
   padding: 17px;
 }
+
+/* ─── FOTO DE DIRECCIÓN: flotante y nítida (sin estirar el archivo pequeño) ─── */
+.director__photo-wrapper:has(.director__photo--float) {
+  max-width: 320px;
+  margin: 0 auto;
+}
+.director__photo--float {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: auto;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 20px;
+  background: #fff;
+  filter: none;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  animation: director-float 6s ease-in-out infinite;
+}
+@keyframes director-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .director__photo--float { animation: none; }
+}
