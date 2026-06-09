@@ -14,15 +14,17 @@ interface Review {
   name: string;
   text: string;
   rating: number;
+  country: string;     // código ISO para la bandera (do, us, es, fr, cu, pr)
+  countryName: string; // nombre del país (para accesibilidad)
 }
 
 const reviews: Review[] = [
-  { name: 'Carmen Rodríguez', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
-  { name: 'Miguel Ángel', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },
-  { name: 'Patricia Lebrón', rating: 5, text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.' },
-  { name: 'José Ramírez', rating: 5, text: 'Profesionales de primer nivel. Atención humana, puntual y honesta. La mejor decisión para el cuidado de mis dientes.' },
-  { name: 'Laura Castillo', rating: 5, text: 'Excelente trato desde que llegas. Me explicaron cada paso del tratamiento con mucha claridad. 100% recomendados.' },
-  { name: 'Roberto Méndez', rating: 5, text: 'Confianza total. Trabajo limpio, sin dolor y resultados muy naturales. Un equipo serio y comprometido.' },
+  { name: 'Carmen Rodríguez', country: 'do', countryName: 'República Dominicana', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
+  { name: 'Miguel Ángel Torres', country: 'es', countryName: 'España', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },
+  { name: 'Patricia Lebrón', country: 'pr', countryName: 'Puerto Rico', rating: 5, text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.' },
+  { name: 'José Ramírez', country: 'cu', countryName: 'Cuba', rating: 5, text: 'Profesionales de primer nivel. Atención humana, puntual y honesta. La mejor decisión para el cuidado de mis dientes.' },
+  { name: 'Laura Castillo', country: 'us', countryName: 'Estados Unidos', rating: 5, text: 'Excelente trato desde que llegas. Me explicaron cada paso del tratamiento con mucha claridad. 100% recomendados.' },
+  { name: 'Antoine Roussel', country: 'fr', countryName: 'Francia', rating: 5, text: 'Confianza total. Trabajo limpio, sin dolor y resultados muy naturales. Un equipo serio y comprometido.' },
 ];
 
 const ui: Record<Lang, { label: string; title: string; onGoogle: string; reviewsWord: string; cta: string }> = {
@@ -104,7 +106,18 @@ export default function TestimonialsSection() {
               <div className="reviews2__card-top">
                 <span className="reviews2__avatar" aria-hidden="true">{r.name.charAt(0)}</span>
                 <div className="reviews2__id">
-                  <figcaption className="reviews2__name">{r.name}</figcaption>
+                  <figcaption className="reviews2__name">
+                    {r.name}
+                    <img
+                      className="reviews2__flag"
+                      src={`/imagenes/flags/${r.country}.png`}
+                      alt={r.countryName}
+                      title={r.countryName}
+                      width={20}
+                      height={14}
+                      loading="lazy"
+                    />
+                  </figcaption>
                   <span className="reviews2__stars" aria-label={`${r.rating} de 5`}>{'★'.repeat(r.rating)}</span>
                 </div>
                 <span className="reviews2__g" aria-hidden="true"><GoogleG size={16} /></span>

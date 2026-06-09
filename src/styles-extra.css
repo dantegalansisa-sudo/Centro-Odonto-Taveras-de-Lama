@@ -772,3 +772,18 @@
   .socialbar__link svg { width: 17px; height: 17px; }
   .socialbar__line { display: none; }
 }
+
+/* ─── Bandera del país junto al nombre en las reseñas ─── */
+.reviews2__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.reviews2__flag {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(10, 37, 64, 0.12);
+  flex-shrink: 0;
+}
