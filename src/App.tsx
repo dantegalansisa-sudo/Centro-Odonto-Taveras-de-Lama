@@ -22,7 +22,6 @@ import BlogSection from './sections/BlogSection';
 import FAQSection from './sections/FAQSection';
 import MapSection from './sections/MapSection';
 import FooterSection from './sections/FooterSection';
-import PatientsSection from './sections/PatientsSection';
 import MagneticButton from './components/MagneticButton';
 import LanguageToggle from './components/LanguageToggle';
 import ServicePage from './pages/ServicePage';
@@ -177,7 +176,6 @@ function HomePage() {
         <ServicesSection />
         <DirectorSection />
         <TransformationSection />
-        <PatientsSection />
         <TestimonialsSection />
         <GallerySection />
         <VideoPromoSection />
