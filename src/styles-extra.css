@@ -734,6 +734,8 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 900;
+}
+.socialbar__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -767,10 +769,25 @@
 }
 
 @media (max-width: 768px) {
-  .socialbar { left: 10px; gap: 9px; }
-  .socialbar__link { width: 38px; height: 38px; }
-  .socialbar__link svg { width: 17px; height: 17px; }
+  .socialbar { left: 5px; }
+  .socialbar__inner { gap: 8px; }
+  .socialbar__link { width: 34px; height: 34px; }
+  .socialbar__link svg { width: 16px; height: 16px; }
   .socialbar__line { display: none; }
+}
+
+/* ─── FIX MÓVIL: enlaces del footer se envuelven (evita desborde horizontal) ─── */
+@media (max-width: 768px) {
+  .footer__links {
+    flex-wrap: wrap;
+    gap: 14px 22px;
+  }
+  /* Las métricas de transformaciones se envuelven para no desbordar */
+  .transformations__metrics {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
 }
 
 /* ─── Bandera del país junto al nombre en las reseñas ─── */
@@ -787,3 +804,8 @@
   box-shadow: 0 0 0 1px rgba(10, 37, 64, 0.12);
   flex-shrink: 0;
 }
+
+/* ─── FIX GLOBAL MÓVIL: sin desbordamiento horizontal ─── */
+html { overflow-x: hidden; }
+/* Recorta los resplandores/orbes decorativos para que no expandan el ancho */
+.emergency__section { overflow: hidden; }

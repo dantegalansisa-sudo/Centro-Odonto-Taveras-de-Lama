@@ -37,26 +37,27 @@ const SOCIALS = [
 
 export default function SocialBar() {
   return (
-    <motion.aside
-      className="socialbar"
-      aria-label="Redes sociales"
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 1, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-    >
-      {SOCIALS.map((s) => (
-        <a
-          key={s.name}
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`socialbar__link interactive ${s.className}`}
-          aria-label={s.name}
-        >
-          {s.icon}
-        </a>
-      ))}
-      <span className="socialbar__line" aria-hidden="true" />
-    </motion.aside>
+    <aside className="socialbar" aria-label="Redes sociales">
+      <motion.div
+        className="socialbar__inner"
+        initial={{ opacity: 0, x: -24 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+      >
+        {SOCIALS.map((s) => (
+          <a
+            key={s.name}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`socialbar__link interactive ${s.className}`}
+            aria-label={s.name}
+          >
+            {s.icon}
+          </a>
+        ))}
+        <span className="socialbar__line" aria-hidden="true" />
+      </motion.div>
+    </aside>
   );
 }
