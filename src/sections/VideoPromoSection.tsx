@@ -1,37 +1,29 @@
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import RevealText from '../components/RevealText';
-import { getVideos } from '../data/videos';
+import { videos } from '../data/videos';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
-const ui: Record<Lang, { eyebrow: string; title: string; subtitle: string; watch: string; soon: string }> = {
+const ui: Record<Lang, { eyebrow: string; title: string; subtitle: string; soon: string }> = {
   es: {
     eyebrow: 'Espacio de videos',
     title: 'VIDEOS',
-    subtitle: 'Un espacio donde nuestros doctores comparten contenido en video con sus pacientes e invitados.',
-    watch: 'Ver video',
+    subtitle: 'Un vistazo a nuestro día a día: el equipo, los pacientes y el trabajo en Taveras de Lama.',
     soon: 'Próximamente',
   },
   en: {
     eyebrow: 'Video space',
     title: 'VIDEOS',
-    subtitle: 'A space where our doctors share video content with their patients and guests.',
-    watch: 'Watch video',
+    subtitle: 'A glimpse of our day-to-day: the team, the patients and the work at Taveras de Lama.',
     soon: 'Coming soon',
   },
   fr: {
     eyebrow: 'Espace vidéos',
     title: 'VIDÉOS',
-    subtitle: 'Un espace où nos médecins partagent du contenu vidéo avec leurs patients et invités.',
-    watch: 'Voir la vidéo',
+    subtitle: 'Un aperçu de notre quotidien : l’équipe, les patients et le travail chez Taveras de Lama.',
     soon: 'Prochainement',
   },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 };
 
 const cardVariants = {
@@ -45,14 +37,45 @@ const cardVariants = {
 
 function PlayIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+  );
+}
+
+function VideoReel({ src, poster, index }: { src: string; poster?: string; index: number }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const handlePlay = () => {
+    const v = ref.current;
+    if (!v) return;
+    v.play();
+  };
+
+  return (
+    <motion.div className="vreel" variants={cardVariants}>
+      <video
+        ref={ref}
+        src={src}
+        poster={poster}
+        className="vreel__video"
+        playsInline
+        preload="metadata"
+        controls={playing}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+      />
+      {!playing && (
+        <button className="vreel__overlay" onClick={handlePlay} aria-label={`Reproducir video ${index + 1}`}>
+          <span className="vreel__play"><PlayIcon /></span>
+        </button>
+      )}
+    </motion.div>
   );
 }
 
 export default function VideoPromoSection() {
   const { lang } = useLang();
   const t = ui[lang];
-  const videos = getVideos(lang);
   const hasVideos = videos.length > 0;
 
   return (
@@ -83,40 +106,23 @@ export default function VideoPromoSection() {
 
         {hasVideos ? (
           <motion.div
-            className="vpromo__grid"
-            variants={containerVariants}
+            className="vreel__row"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
           >
-            {videos.map((v) => (
-              <Link key={v.slug} to={`/videos/${v.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <motion.article
-                  className="vpromo__card"
-                  variants={cardVariants}
-                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                >
-                  <div className="vpromo__thumb">
-                    <img src={v.poster} alt={v.title} className="vpromo__thumb-img" loading="lazy" />
-                    <span className="vpromo__play" aria-hidden="true"><PlayIcon /></span>
-                  </div>
-                  <div className="vpromo__body">
-                    <span className="vpromo__date">{v.date}</span>
-                    <h3 className="vpromo__title">{v.title}</h3>
-                    <p className="vpromo__desc">{v.description}</p>
-                    <span className="vpromo__link">{t.watch} →</span>
-                  </div>
-                </motion.article>
-              </Link>
+            {videos.map((v, i) => (
+              <VideoReel key={v.src} src={v.src} poster={v.poster} index={i} />
             ))}
           </motion.div>
         ) : (
           <motion.div
             className="vpromo__grid placeholder-grid placeholder-grid--dark"
-            variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
           >
             {[0, 1, 2].map((i) => (
               <motion.div key={i} className="placeholder-card placeholder-card--video" variants={cardVariants}>

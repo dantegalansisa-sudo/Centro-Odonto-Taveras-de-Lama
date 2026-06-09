@@ -27,7 +27,6 @@ import LanguageToggle from './components/LanguageToggle';
 import ServicePage from './pages/ServicePage';
 import BlogPage from './pages/BlogPage';
 import ResearchPage from './pages/ResearchPage';
-import VideoPage from './pages/VideoPage';
 import EmergencySection from './sections/EmergencySection';
 import FinancingSection from './sections/FinancingSection';
 import CertificationsSection from './sections/CertificationsSection';
@@ -253,15 +252,6 @@ function App() {
               <>
                 <Navbar />
                 <ResearchPage />
-                <FooterSection />
-                <WhatsAppButton />
-                <CallButton />
-              </>
-            } />
-            <Route path="/videos/:slug" element={
-              <>
-                <Navbar />
-                <VideoPage />
                 <FooterSection />
                 <WhatsAppButton />
                 <CallButton />
