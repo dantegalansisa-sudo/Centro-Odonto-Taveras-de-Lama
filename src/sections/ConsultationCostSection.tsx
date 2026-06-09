@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useParallax } from '../hooks/useParallax';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -69,6 +70,7 @@ const stepVariants = {
 export default function ConsultationCostSection() {
   const { lang } = useLang();
   const c = content[lang];
+  const { ref: stepsRef, y: stepsY } = useParallax(28);
   return (
     <section className="ccost section">
       <div className="section-container">
@@ -103,7 +105,9 @@ export default function ConsultationCostSection() {
 
           {/* Pasos */}
           <motion.div
+            ref={stepsRef}
             className="ccost__steps"
+            style={{ y: stepsY }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}

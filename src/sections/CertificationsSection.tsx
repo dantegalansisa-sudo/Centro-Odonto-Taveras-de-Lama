@@ -88,6 +88,7 @@ export default function CertificationsSection() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               custom={i}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
             >
               <span className="certs__abbr">{cert.abbr}</span>
               <span className="certs__name">{cert.name}</span>

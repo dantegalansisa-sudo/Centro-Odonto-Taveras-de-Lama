@@ -99,6 +99,7 @@ export default function FinancingSection() {
               key={method.title}
               className="financing__card"
               variants={itemVariants}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
             >
               <span className="financing__icon">{method.icon}</span>
               <h3 className="financing__card-title">{method.title}</h3>

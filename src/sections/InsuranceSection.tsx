@@ -142,7 +142,7 @@ export default function InsuranceSection() {
             viewport={{ once: true, amount: 0.1 }}
           >
             {insurances.map((ins) => (
-              <motion.div key={ins.name} className="insurance__card" variants={itemVariants}>
+              <motion.div key={ins.name} className="insurance__card" variants={itemVariants} whileHover={{ y: -5, transition: { duration: 0.25 } }}>
                 <span className="insurance__card-name">{ins.name}</span>
                 <span className="insurance__card-type">{ins.type}</span>
               </motion.div>
