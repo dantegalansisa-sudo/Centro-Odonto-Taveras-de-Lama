@@ -7,6 +7,7 @@ import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
 import WhatsAppButton from './components/WhatsAppButton';
 import CallButton from './components/CallButton';
+import SocialBar from './components/SocialBar';
 import HeroSection from './sections/HeroSection';
 import ManifestoSection from './sections/ManifestoSection';
 import ServicesSection from './sections/ServicesSection';
@@ -228,6 +229,7 @@ function App() {
         >
           <ScrollProgress />
           <CustomCursor />
+          <SocialBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/servicios/:slug" element={
