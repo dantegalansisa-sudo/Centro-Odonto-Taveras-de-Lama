@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useParallax } from '../hooks/useParallax';
+import { useSanity } from '../sanity/SanityContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -73,7 +74,9 @@ const content: Record<Lang, {
 
 export default function DirectorSection() {
   const { lang } = useLang();
+  const { directorPhoto } = useSanity();
   const c = content[lang];
+  const photoSrc = directorPhoto || '/imagenes/taveras-de-lama/directores.png';
   const { ref: photoRef, y: photoY } = useParallax(46);
   return (
     <section id="equipo" className="director section">
@@ -90,7 +93,7 @@ export default function DirectorSection() {
             transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] as [number, number, number, number] }}
           >
             <img
-              src="/imagenes/taveras-de-lama/directores.png"
+              src={photoSrc}
               alt="Dra. Lilian Taveras de Lama y Dr. Ismael Lama Taveras — Dirección"
               className="director__photo director__photo--float"
             />

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useParallax } from '../hooks/useParallax';
+import { useSanity } from '../sanity/SanityContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -69,7 +70,9 @@ const stepVariants = {
 
 export default function ConsultationCostSection() {
   const { lang } = useLang();
+  const { consultationPrice } = useSanity();
   const c = content[lang];
+  const price = consultationPrice || c.price;
   const { ref: stepsRef, y: stepsY } = useParallax(28);
   return (
     <section className="ccost section">
@@ -97,7 +100,7 @@ export default function ConsultationCostSection() {
             transition={{ duration: 0.7 }}
           >
             <span className="ccost__price-label">{c.priceNote}</span>
-            <span className="ccost__price">{c.price}</span>
+            <span className="ccost__price">{price}</span>
             <span className="ccost__badge">✓ {c.highlight}</span>
             <p className="ccost__lead">{c.lead}</p>
             <a href="#reservar" className="ccost__cta interactive">{c.cta}</a>

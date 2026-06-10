@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useSanity } from '../sanity/SanityContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
-const images = Array.from({ length: 18 }, (_, i) => `/imagenes/galeria/g${i + 1}.png`);
-const rowA = images.slice(0, 9);
-const rowB = images.slice(9);
+const DEFAULT_IMAGES = Array.from({ length: 18 }, (_, i) => `/imagenes/galeria/g${i + 1}.png`);
 
 const ui: Record<Lang, { eyebrow: string; title: string; subtitle: string; hint: string; close: string }> = {
   es: {
@@ -55,7 +54,12 @@ function MarqueeRow({ imgs, reverse, onOpen }: { imgs: string[]; reverse?: boole
 
 export default function GallerySection() {
   const { lang } = useLang();
+  const { gallery } = useSanity();
   const t = ui[lang];
+  const images = gallery && gallery.length ? gallery : DEFAULT_IMAGES;
+  const mid = Math.ceil(images.length / 2);
+  const rowA = images.slice(0, mid);
+  const rowB = images.slice(mid);
   const [active, setActive] = useState<string | null>(null);
   const close = useCallback(() => setActive(null), []);
 

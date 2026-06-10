@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
+import { useSanity } from '../sanity/SanityContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -18,7 +19,7 @@ interface Review {
   countryName: string; // nombre del país (para accesibilidad)
 }
 
-const reviews: Review[] = [
+const DEFAULT_REVIEWS: Review[] = [
   { name: 'Carmen Rodríguez', country: 'do', countryName: 'República Dominicana', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
   { name: 'Miguel Ángel Torres', country: 'es', countryName: 'España', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },
   { name: 'Patricia Lebrón', country: 'pr', countryName: 'Puerto Rico', rating: 5, text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.' },
@@ -60,7 +61,9 @@ const cardVariants = {
 
 export default function TestimonialsSection() {
   const { lang } = useLang();
+  const { reviews: sanityReviews } = useSanity();
   const t = ui[lang];
+  const reviews = sanityReviews && sanityReviews.length ? sanityReviews : DEFAULT_REVIEWS;
 
   return (
     <section className="reviews2 section">
