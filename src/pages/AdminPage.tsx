@@ -72,10 +72,11 @@ function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, e
     if (!files || !files.length) return;
     setBusy(true); setMsg('');
     try {
-      let base = Date.now();
+      let base = items.length ? Math.max(...items.map((it) => it.sort)) + 1 : 0;
       for (const file of Array.from(files)) {
         const publicUrl = await uploadFile(file, folder);
-        await supabase.from(table).insert({ [field]: publicUrl, title: baseName(file.name), sort: base++ });
+        const { error } = await supabase.from(table).insert({ [field]: publicUrl, title: baseName(file.name), sort: base++ });
+        if (error) throw error;
       }
       await load();
       setMsg(`✓ ${itemWord}(s) subido(s) correctamente`);
@@ -107,11 +108,12 @@ function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, e
     if (!confirm('Esto traerá al panel el contenido que ya aparece en la web, para que puedas gestionarlo. ¿Continuar?')) return;
     setBusy(true); setMsg('');
     try {
-      let base = Date.now();
+      let base = 0;
       for (const s of seedItems) {
         const row: Record<string, unknown> = { [field]: s.value, title: s.title, sort: base++ };
         if (s.poster) row.poster = s.poster;
-        await supabase.from(table).insert(row);
+        const { error } = await supabase.from(table).insert(row);
+        if (error) throw error;
       }
       await load();
       setMsg('✓ Contenido actual importado al panel');
@@ -185,7 +187,8 @@ function ReviewManager() {
     e.preventDefault();
     if (!name.trim() || !text.trim()) return;
     setMsg('');
-    const { error } = await supabase.from('reviews').insert({ name: name.trim(), text: text.trim(), rating, country, sort: Date.now() });
+    const sort = items.length ? Math.max(...items.map((i) => i.sort)) + 1 : 0;
+    const { error } = await supabase.from('reviews').insert({ name: name.trim(), text: text.trim(), rating, country, sort });
     if (error) { setMsg('Error: ' + error.message); return; }
     setName(''); setText(''); setRating(5); setCountry('do');
     await load();
@@ -201,12 +204,15 @@ function ReviewManager() {
   const importDefaults = async () => {
     if (!confirm('Esto traerá al panel las reseñas que ya aparecen en la web. ¿Continuar?')) return;
     setMsg('');
-    let base = Date.now();
-    for (const r of DEFAULT_REVIEWS) {
-      await supabase.from('reviews').insert({ ...r, sort: base++ });
-    }
-    await load();
-    setMsg('✓ Reseñas actuales importadas');
+    try {
+      let base = 0;
+      for (const r of DEFAULT_REVIEWS) {
+        const { error } = await supabase.from('reviews').insert({ ...r, sort: base++ });
+        if (error) throw error;
+      }
+      await load();
+      setMsg('✓ Reseñas actuales importadas');
+    } catch (err) { setMsg('Error: ' + (err as Error).message); }
   };
 
   return (
