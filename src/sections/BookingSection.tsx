@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import RevealText from '../components/RevealText';
+import { supabase } from '../supabase/client';
 import { useLang } from '../i18n/LanguageContext';
 
 const serviceOptions = [
@@ -22,10 +24,18 @@ const infoItems = [
   { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com' },
 ];
 
-// Email de destino del formulario. TODO: reemplazar / conectar a un servicio
-// de correo transaccional (EmailJS, Resend, Formspree) cuando esté configurado.
 const CLINIC_EMAIL = 'dra.taverasdlama@gmail.com';
 const WHATSAPP_NUMBER = '18099439216';
+
+// EmailJS — completar con los 3 datos de la cuenta de la clínica.
+// Mientras digan 'TODO_...', el correo no se envía (pero la solicitud SÍ se
+// guarda en el panel /admin). Al poner los datos reales, empieza a enviar.
+const EMAILJS = {
+  serviceId: 'TODO_SERVICE_ID',
+  templateId: 'TODO_TEMPLATE_ID',
+  publicKey: 'TODO_PUBLIC_KEY',
+};
+const emailjsReady = !EMAILJS.serviceId.startsWith('TODO');
 
 const containerVariants = {
   hidden: {},
@@ -167,7 +177,7 @@ export default function BookingSection() {
   const [sent, setSent] = useState(false);
   const [activeTab, setActiveTab] = useState<BookingTab>('form');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -178,26 +188,26 @@ export default function BookingSection() {
     const date = data.get('date') as string;
     const message = (data.get('message') as string)?.trim();
 
-    // Envío por email: abre el cliente de correo con la solicitud prellenada.
-    // Cuando se configure el correo de la clínica, se conecta aquí el servicio
-    // transaccional (EmailJS / Resend / Formspree) en lugar del mailto.
-    const subject = `Nueva solicitud de cita — ${name}`;
-    const bodyLines = [
-      `Nombre: ${name}`,
-      `Email: ${email}`,
-      `Teléfono / WhatsApp: ${phone}`,
-      `Servicio de interés: ${service}`,
-      `Fecha preferida: ${date}`,
-      message ? `Mensaje: ${message}` : '',
-      '',
-      'Enviado desde el formulario de la web — Centro Odontológico Taveras de Lama.',
-    ].filter(Boolean);
-
-    const mailto = `mailto:${CLINIC_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-    window.location.href = mailto;
-
     setSent(true);
     form.reset();
+
+    // 1) Guardar la solicitud en el panel (respaldo: nunca se pierde un cliente).
+    try {
+      await supabase.from('leads').insert({ name, email, phone, service, preferred_date: date, message });
+    } catch { /* sin bloquear al usuario */ }
+
+    // 2) Enviar el correo a la clínica vía EmailJS (cuando esté configurado).
+    if (emailjsReady) {
+      try {
+        await emailjs.send(
+          EMAILJS.serviceId,
+          EMAILJS.templateId,
+          { name, email, phone, service, date, message: message || '(sin mensaje)', to_email: CLINIC_EMAIL },
+          { publicKey: EMAILJS.publicKey },
+        );
+      } catch { /* la solicitud ya quedó guardada en el panel */ }
+    }
+
     setTimeout(() => setSent(false), 5000);
   };
 

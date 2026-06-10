@@ -919,3 +919,5 @@ html { overflow-x: hidden; }
 /* Botón secundario sobre paneles claros (importar contenido) */
 .admin-btn--ghost-dark { background: var(--bg-surface); color: var(--primary); border: 1px solid var(--border-accent); }
 .admin-btn--ghost-dark:hover { background: #eaf6ff; }
+
+.admin-lead-date { display: block; margin-top: 6px; font-size: 12px; color: var(--text-muted); }

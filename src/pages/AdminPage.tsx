@@ -331,6 +331,45 @@ function SettingsManager() {
   );
 }
 
+/* ═══════ SOLICITUDES (formularios recibidos) ═══════ */
+interface LeadRow { id: string; name: string; email: string; phone: string; service: string; preferred_date: string; message: string; created_at: string; }
+function LeadsManager() {
+  const [items, setItems] = useState<LeadRow[]>([]);
+  const load = useCallback(async () => {
+    const { data } = await supabase.from('leads').select('*').order('created_at', { ascending: false });
+    setItems((data as LeadRow[]) || []);
+  }, []);
+  useEffect(() => { load(); }, [load]);
+
+  const remove = async (id: string) => {
+    if (!confirm('¿Eliminar esta solicitud?')) return;
+    await supabase.from('leads').delete().eq('id', id);
+    await load();
+  };
+
+  return (
+    <div className="admin-panel">
+      <h3 className="admin-subtitle">Solicitudes recibidas ({items.length})</h3>
+      <div className="admin-list">
+        {items.map((it) => (
+          <div key={it.id} className="admin-list-item">
+            <div>
+              <strong>{it.name}</strong> · {it.service}
+              <p className="admin-list-text">
+                ✉️ {it.email} · 📞 {it.phone}{it.preferred_date ? ` · 📅 ${it.preferred_date}` : ''}
+                {it.message ? <><br />💬 {it.message}</> : null}
+              </p>
+              <span className="admin-lead-date">{new Date(it.created_at).toLocaleString()}</span>
+            </div>
+            <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>🗑 Eliminar</button>
+          </div>
+        ))}
+        {!items.length && <p className="admin-empty">No hay solicitudes aún. Aparecerán aquí cuando un cliente llene el formulario de la web.</p>}
+      </div>
+    </div>
+  );
+}
+
 /* ═══════ LOGIN ═══════ */
 function LoginView() {
   const [email, setEmail] = useState('');
@@ -361,11 +400,11 @@ function LoginView() {
 }
 
 /* ═══════ APP DEL PANEL ═══════ */
-type Tab = 'galeria' | 'videos' | 'resenas' | 'config';
+type Tab = 'solicitudes' | 'galeria' | 'videos' | 'resenas' | 'config';
 export default function AdminPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
-  const [tab, setTab] = useState<Tab>('galeria');
+  const [tab, setTab] = useState<Tab>('solicitudes');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => { setSession(data.session); setReady(true); });
@@ -386,11 +425,12 @@ export default function AdminPage() {
         </div>
       </header>
       <nav className="admin-tabs">
-        {([['galeria', '📷 Galería'], ['videos', '🎬 Videos'], ['resenas', '⭐ Reseñas'], ['config', '⚙️ Configuración']] as [Tab, string][]).map(([k, label]) => (
+        {([['solicitudes', '📩 Solicitudes'], ['galeria', '📷 Galería'], ['videos', '🎬 Videos'], ['resenas', '⭐ Reseñas'], ['config', '⚙️ Configuración']] as [Tab, string][]).map(([k, label]) => (
           <button key={k} className={`admin-tab${tab === k ? ' admin-tab--active' : ''}`} onClick={() => setTab(k)}>{label}</button>
         ))}
       </nav>
       <main className="admin-main">
+        {tab === 'solicitudes' && <LeadsManager />}
         {tab === 'galeria' && (
           <MediaManager
             table="gallery_images" field="url" folder="galeria" accept="image/*" isVideo={false}
