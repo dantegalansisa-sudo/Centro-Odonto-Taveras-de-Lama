@@ -16,6 +16,21 @@ const COUNTRIES = [
   { value: 'pr', label: 'Puerto Rico' },
 ];
 
+/* Contenido que ya está en la web (por defecto). Se puede "importar" al panel
+   con un clic para poder gestionarlo (verlo, eliminarlo, reordenarlo). */
+const DEFAULT_GALLERY = Array.from({ length: 18 }, (_, i) => ({ value: `/imagenes/galeria/g${i + 1}.png`, title: `Foto ${i + 1}` }));
+const DEFAULT_VIDEOS = [1, 2, 3].map((n) => ({ value: `/videos/v${n}.mp4`, poster: `/videos/v${n}.jpg`, title: `Video ${n}` }));
+const DEFAULT_REVIEWS = [
+  { name: 'Carmen Rodríguez', country: 'do', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
+  { name: 'Miguel Ángel Torres', country: 'es', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },
+  { name: 'Patricia Lebrón', country: 'pr', rating: 5, text: 'Llevo a toda mi familia aquí. La Dra. Taveras tiene una paciencia increíble con los niños y los resultados siempre son excelentes.' },
+  { name: 'José Ramírez', country: 'cu', rating: 5, text: 'Profesionales de primer nivel. Atención humana, puntual y honesta. La mejor decisión para el cuidado de mis dientes.' },
+  { name: 'Laura Castillo', country: 'us', rating: 5, text: 'Excelente trato desde que llegas. Me explicaron cada paso del tratamiento con mucha claridad. 100% recomendados.' },
+  { name: 'Antoine Roussel', country: 'fr', rating: 5, text: 'Confianza total. Trabajo limpio, sin dolor y resultados muy naturales. Un equipo serio y comprometido.' },
+];
+const DEFAULT_PRICE = 'US$200 / €200';
+const DEFAULT_DIRECTOR_PHOTO = '/imagenes/taveras-de-lama/directores.png';
+
 async function uploadFile(file: File, folder: string): Promise<string> {
   const ext = (file.name.split('.').pop() || 'bin').toLowerCase();
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
@@ -30,7 +45,7 @@ function baseName(filename: string) {
 
 /* ═══════ GESTOR DE MEDIOS (galería y videos comparten estructura) ═══════ */
 interface MediaRow { id: string; sort: number; title: string | null; url?: string; src?: string }
-function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, emptyLabel, itemWord }: {
+function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, emptyLabel, itemWord, seedItems }: {
   table: 'gallery_images' | 'videos';
   field: 'url' | 'src';
   folder: string;
@@ -40,6 +55,7 @@ function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, e
   hint: string;
   emptyLabel: string;
   itemWord: string;
+  seedItems: { value: string; poster?: string; title: string }[];
 }) {
   const [items, setItems] = useState<MediaRow[]>([]);
   const [busy, setBusy] = useState(false);
@@ -87,6 +103,22 @@ function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, e
     await load();
   };
 
+  const importDefaults = async () => {
+    if (!confirm('Esto traerá al panel el contenido que ya aparece en la web, para que puedas gestionarlo. ¿Continuar?')) return;
+    setBusy(true); setMsg('');
+    try {
+      let base = Date.now();
+      for (const s of seedItems) {
+        const row: Record<string, unknown> = { [field]: s.value, title: s.title, sort: base++ };
+        if (s.poster) row.poster = s.poster;
+        await supabase.from(table).insert(row);
+      }
+      await load();
+      setMsg('✓ Contenido actual importado al panel');
+    } catch (err) { setMsg('Error: ' + (err as Error).message); }
+    setBusy(false);
+  };
+
   return (
     <div className="admin-panel">
       <div className="admin-row">
@@ -94,6 +126,11 @@ function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, e
           {busy ? 'Subiendo…' : addLabel}
           <input type="file" accept={accept} multiple hidden disabled={busy} onChange={onUpload} />
         </label>
+        {!!seedItems.length && !items.length && (
+          <button className="admin-btn admin-btn--ghost-dark" disabled={busy} onClick={importDefaults}>
+            ↓ Importar el contenido actual de la web ({seedItems.length})
+          </button>
+        )}
         {msg && <span className="admin-msg">{msg}</span>}
       </div>
       <p className="admin-hint">{hint} · Tienes <strong>{items.length}</strong> {itemWord}(s). No hay límite, puedes agregar los que quieras.</p>
@@ -161,6 +198,17 @@ function ReviewManager() {
     await load();
   };
 
+  const importDefaults = async () => {
+    if (!confirm('Esto traerá al panel las reseñas que ya aparecen en la web. ¿Continuar?')) return;
+    setMsg('');
+    let base = Date.now();
+    for (const r of DEFAULT_REVIEWS) {
+      await supabase.from('reviews').insert({ ...r, sort: base++ });
+    }
+    await load();
+    setMsg('✓ Reseñas actuales importadas');
+  };
+
   return (
     <div className="admin-panel">
       <form className="admin-form" onSubmit={add}>
@@ -183,7 +231,14 @@ function ReviewManager() {
         {msg && <span className="admin-msg">{msg}</span>}
       </form>
 
-      <h3 className="admin-subtitle" style={{ marginTop: 28 }}>Reseñas actuales ({items.length})</h3>
+      <div className="admin-row" style={{ marginTop: 28 }}>
+        <h3 className="admin-subtitle" style={{ margin: 0 }}>Reseñas actuales ({items.length})</h3>
+        {!items.length && (
+          <button className="admin-btn admin-btn--ghost-dark" onClick={importDefaults}>
+            ↓ Importar las {DEFAULT_REVIEWS.length} reseñas que ya están en la web
+          </button>
+        )}
+      </div>
       <div className="admin-list">
         {items.map((it) => (
           <div key={it.id} className="admin-list-item">
@@ -233,8 +288,24 @@ function SettingsManager() {
     setBusy(false);
   };
 
+  const importDefaults = async () => {
+    await supabase.from('settings').upsert({ id: 1, consultation_price: DEFAULT_PRICE, director_photo: DEFAULT_DIRECTOR_PHOTO });
+    setPrice(DEFAULT_PRICE);
+    setPhoto(DEFAULT_DIRECTOR_PHOTO);
+    setMsg('✓ Configuración actual importada');
+  };
+
+  const isEmpty = !price && !photo;
+
   return (
     <div className="admin-panel">
+      {isEmpty && (
+        <div className="admin-row" style={{ marginBottom: 20 }}>
+          <button className="admin-btn admin-btn--ghost-dark" onClick={importDefaults}>
+            ↓ Importar la configuración actual de la web (precio y foto)
+          </button>
+        </div>
+      )}
       <label className="admin-label admin-label--block">Precio de la consulta (ej.: US$200 / €200)</label>
       <div className="admin-row">
         <input className="admin-input" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="US$200 / €200" />
@@ -317,17 +388,17 @@ export default function AdminPage() {
         {tab === 'galeria' && (
           <MediaManager
             table="gallery_images" field="url" folder="galeria" accept="image/*" isVideo={false}
-            addLabel="+ Subir foto(s)" itemWord="foto"
+            addLabel="+ Subir foto(s)" itemWord="foto" seedItems={DEFAULT_GALLERY}
             hint="Fotos verticales (formato Instagram), se muestran completas en la galería."
-            emptyLabel="No hay fotos aún. Pulsa “+ Subir foto(s)” para agregar la primera."
+            emptyLabel="No hay fotos aún. Pulsa “+ Subir foto(s)”, o importa las que ya están en la web."
           />
         )}
         {tab === 'videos' && (
           <MediaManager
             table="videos" field="src" folder="videos" accept="video/*" isVideo={true}
-            addLabel="+ Subir video(s) .mp4" itemWord="video"
+            addLabel="+ Subir video(s) .mp4" itemWord="video" seedItems={DEFAULT_VIDEOS}
             hint="Videos verticales (formato reel) en .mp4."
-            emptyLabel="No hay videos aún. Pulsa “+ Subir video(s)” para agregar el primero."
+            emptyLabel="No hay videos aún. Pulsa “+ Subir video(s)”, o importa los que ya están en la web."
           />
         )}
         {tab === 'resenas' && <ReviewManager />}
