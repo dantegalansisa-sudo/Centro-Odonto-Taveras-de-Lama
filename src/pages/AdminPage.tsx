@@ -24,73 +24,31 @@ async function uploadFile(file: File, folder: string): Promise<string> {
   return supabase.storage.from(MEDIA_BUCKET).getPublicUrl(path).data.publicUrl;
 }
 
-/* ═══════ GALERÍA ═══════ */
-interface GalleryRow { id: string; url: string; sort: number; }
-function GalleryManager() {
-  const [items, setItems] = useState<GalleryRow[]>([]);
-  const [busy, setBusy] = useState(false);
-  const [msg, setMsg] = useState('');
-
-  const load = useCallback(async () => {
-    const { data } = await supabase.from('gallery_images').select('*').order('sort', { ascending: true });
-    setItems((data as GalleryRow[]) || []);
-  }, []);
-  useEffect(() => { load(); }, [load]);
-
-  const onUpload = async (e: FormEvent<HTMLInputElement> | { currentTarget: HTMLInputElement }) => {
-    const files = (e.currentTarget as HTMLInputElement).files;
-    if (!files || !files.length) return;
-    setBusy(true); setMsg('');
-    try {
-      for (const file of Array.from(files)) {
-        const url = await uploadFile(file, 'galeria');
-        await supabase.from('gallery_images').insert({ url, sort: 100 });
-      }
-      await load();
-      setMsg('✓ Foto(s) subida(s)');
-    } catch (err) { setMsg('Error: ' + (err as Error).message); }
-    setBusy(false);
-  };
-
-  const remove = async (id: string) => {
-    if (!confirm('¿Eliminar esta foto?')) return;
-    await supabase.from('gallery_images').delete().eq('id', id);
-    await load();
-  };
-
-  return (
-    <div className="admin-panel">
-      <div className="admin-row">
-        <label className="admin-btn admin-btn--primary">
-          {busy ? 'Subiendo…' : '+ Subir foto(s)'}
-          <input type="file" accept="image/*" multiple hidden disabled={busy} onChange={onUpload} />
-        </label>
-        {msg && <span className="admin-msg">{msg}</span>}
-      </div>
-      <div className="admin-grid">
-        {items.map((it) => (
-          <div key={it.id} className="admin-card">
-            <img src={it.url} alt="" className="admin-thumb" />
-            <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>Eliminar</button>
-          </div>
-        ))}
-        {!items.length && <p className="admin-empty">No hay fotos aún. Sube la primera.</p>}
-      </div>
-    </div>
-  );
+function baseName(filename: string) {
+  return filename.replace(/\.[^.]+$/, '');
 }
 
-/* ═══════ VIDEOS ═══════ */
-interface VideoRow { id: string; src: string; poster: string | null; sort: number; }
-function VideoManager() {
-  const [items, setItems] = useState<VideoRow[]>([]);
+/* ═══════ GESTOR DE MEDIOS (galería y videos comparten estructura) ═══════ */
+interface MediaRow { id: string; sort: number; title: string | null; url?: string; src?: string }
+function MediaManager({ table, field, folder, accept, isVideo, addLabel, hint, emptyLabel, itemWord }: {
+  table: 'gallery_images' | 'videos';
+  field: 'url' | 'src';
+  folder: string;
+  accept: string;
+  isVideo: boolean;
+  addLabel: string;
+  hint: string;
+  emptyLabel: string;
+  itemWord: string;
+}) {
+  const [items, setItems] = useState<MediaRow[]>([]);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState('');
 
   const load = useCallback(async () => {
-    const { data } = await supabase.from('videos').select('*').order('sort', { ascending: true });
-    setItems((data as VideoRow[]) || []);
-  }, []);
+    const { data } = await supabase.from(table).select('*').order('sort', { ascending: true });
+    setItems((data as MediaRow[]) || []);
+  }, [table]);
   useEffect(() => { load(); }, [load]);
 
   const onUpload = async (e: { currentTarget: HTMLInputElement }) => {
@@ -98,19 +56,34 @@ function VideoManager() {
     if (!files || !files.length) return;
     setBusy(true); setMsg('');
     try {
+      let base = Date.now();
       for (const file of Array.from(files)) {
-        const src = await uploadFile(file, 'videos');
-        await supabase.from('videos').insert({ src, sort: 100 });
+        const publicUrl = await uploadFile(file, folder);
+        await supabase.from(table).insert({ [field]: publicUrl, title: baseName(file.name), sort: base++ });
       }
       await load();
-      setMsg('✓ Video(s) subido(s)');
+      setMsg(`✓ ${itemWord}(s) subido(s) correctamente`);
     } catch (err) { setMsg('Error: ' + (err as Error).message); }
     setBusy(false);
+    e.currentTarget.value = '';
+  };
+
+  const saveTitle = async (id: string, title: string) => {
+    await supabase.from(table).update({ title }).eq('id', id);
+  };
+
+  const move = async (index: number, dir: -1 | 1) => {
+    const j = index + dir;
+    if (j < 0 || j >= items.length) return;
+    const a = items[index], b = items[j];
+    await supabase.from(table).update({ sort: b.sort }).eq('id', a.id);
+    await supabase.from(table).update({ sort: a.sort }).eq('id', b.id);
+    await load();
   };
 
   const remove = async (id: string) => {
-    if (!confirm('¿Eliminar este video?')) return;
-    await supabase.from('videos').delete().eq('id', id);
+    if (!confirm(`¿Seguro que quieres ELIMINAR este ${itemWord}? Esta acción no se puede deshacer.`)) return;
+    await supabase.from(table).delete().eq('id', id);
     await load();
   };
 
@@ -118,21 +91,39 @@ function VideoManager() {
     <div className="admin-panel">
       <div className="admin-row">
         <label className="admin-btn admin-btn--primary">
-          {busy ? 'Subiendo…' : '+ Subir video(s) .mp4'}
-          <input type="file" accept="video/*" multiple hidden disabled={busy} onChange={onUpload} />
+          {busy ? 'Subiendo…' : addLabel}
+          <input type="file" accept={accept} multiple hidden disabled={busy} onChange={onUpload} />
         </label>
         {msg && <span className="admin-msg">{msg}</span>}
       </div>
-      <p className="admin-hint">Los videos son verticales (formato reel). Sube archivos .mp4.</p>
-      <div className="admin-grid">
-        {items.map((it) => (
-          <div key={it.id} className="admin-card">
-            <video src={it.src} className="admin-thumb admin-thumb--video" muted playsInline preload="metadata" />
-            <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>Eliminar</button>
-          </div>
-        ))}
-        {!items.length && <p className="admin-empty">No hay videos aún. Sube el primero.</p>}
-      </div>
+      <p className="admin-hint">{hint} · Tienes <strong>{items.length}</strong> {itemWord}(s). No hay límite, puedes agregar los que quieras.</p>
+
+      {!items.length ? (
+        <p className="admin-empty">{emptyLabel}</p>
+      ) : (
+        <div className="admin-grid">
+          {items.map((it, i) => (
+            <div key={it.id} className="admin-mediacard">
+              {isVideo
+                ? <video src={it[field]} className="admin-thumb admin-thumb--video" muted playsInline preload="metadata" />
+                : <img src={it[field]} alt="" className="admin-thumb" />}
+              <input
+                className="admin-input admin-mediacard__title"
+                defaultValue={it.title || ''}
+                placeholder="Nombre para identificarla"
+                onBlur={(e) => saveTitle(it.id, e.target.value)}
+              />
+              <div className="admin-mediacard__actions">
+                <div className="admin-move">
+                  <button title="Subir" disabled={i === 0} onClick={() => move(i, -1)}>▲</button>
+                  <button title="Bajar" disabled={i === items.length - 1} onClick={() => move(i, 1)}>▼</button>
+                </div>
+                <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>🗑 Eliminar</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -157,7 +148,7 @@ function ReviewManager() {
     e.preventDefault();
     if (!name.trim() || !text.trim()) return;
     setMsg('');
-    const { error } = await supabase.from('reviews').insert({ name: name.trim(), text: text.trim(), rating, country, sort: 100 });
+    const { error } = await supabase.from('reviews').insert({ name: name.trim(), text: text.trim(), rating, country, sort: Date.now() });
     if (error) { setMsg('Error: ' + error.message); return; }
     setName(''); setText(''); setRating(5); setCountry('do');
     await load();
@@ -165,7 +156,7 @@ function ReviewManager() {
   };
 
   const remove = async (id: string) => {
-    if (!confirm('¿Eliminar esta reseña?')) return;
+    if (!confirm('¿Seguro que quieres ELIMINAR esta reseña?')) return;
     await supabase.from('reviews').delete().eq('id', id);
     await load();
   };
@@ -173,6 +164,7 @@ function ReviewManager() {
   return (
     <div className="admin-panel">
       <form className="admin-form" onSubmit={add}>
+        <h3 className="admin-subtitle">Agregar una reseña nueva</h3>
         <input className="admin-input" placeholder="Nombre de la persona" value={name} onChange={(e) => setName(e.target.value)} />
         <textarea className="admin-input" placeholder="Texto de la reseña" rows={3} value={text} onChange={(e) => setText(e.target.value)} />
         <div className="admin-row">
@@ -190,6 +182,8 @@ function ReviewManager() {
         </div>
         {msg && <span className="admin-msg">{msg}</span>}
       </form>
+
+      <h3 className="admin-subtitle" style={{ marginTop: 28 }}>Reseñas actuales ({items.length})</h3>
       <div className="admin-list">
         {items.map((it) => (
           <div key={it.id} className="admin-list-item">
@@ -197,7 +191,7 @@ function ReviewManager() {
               <strong>{it.name}</strong> · {'★'.repeat(it.rating)} · {COUNTRIES.find((c) => c.value === it.country)?.label || it.country}
               <p className="admin-list-text">{it.text}</p>
             </div>
-            <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>Eliminar</button>
+            <button className="admin-btn admin-btn--danger" onClick={() => remove(it.id)}>🗑 Eliminar</button>
           </div>
         ))}
         {!items.length && <p className="admin-empty">No hay reseñas aún.</p>}
@@ -320,8 +314,22 @@ export default function AdminPage() {
         ))}
       </nav>
       <main className="admin-main">
-        {tab === 'galeria' && <GalleryManager />}
-        {tab === 'videos' && <VideoManager />}
+        {tab === 'galeria' && (
+          <MediaManager
+            table="gallery_images" field="url" folder="galeria" accept="image/*" isVideo={false}
+            addLabel="+ Subir foto(s)" itemWord="foto"
+            hint="Fotos verticales (formato Instagram), se muestran completas en la galería."
+            emptyLabel="No hay fotos aún. Pulsa “+ Subir foto(s)” para agregar la primera."
+          />
+        )}
+        {tab === 'videos' && (
+          <MediaManager
+            table="videos" field="src" folder="videos" accept="video/*" isVideo={true}
+            addLabel="+ Subir video(s) .mp4" itemWord="video"
+            hint="Videos verticales (formato reel) en .mp4."
+            emptyLabel="No hay videos aún. Pulsa “+ Subir video(s)” para agregar el primero."
+          />
+        )}
         {tab === 'resenas' && <ReviewManager />}
         {tab === 'config' && <SettingsManager />}
       </main>

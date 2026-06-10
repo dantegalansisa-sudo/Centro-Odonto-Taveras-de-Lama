@@ -893,3 +893,25 @@ html { overflow-x: hidden; }
 
 .admin-msg { font-size: 13px; color: #1e8e3e; font-weight: 600; }
 .admin-msg--error { color: #c0392b; }
+
+/* ─── Panel: tarjetas de medios con nombre, orden y eliminar ─── */
+.admin-subtitle { font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+.admin-mediacard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+}
+.admin-mediacard__title { width: 100%; padding: 8px 10px; font-size: 13px; }
+.admin-mediacard__actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.admin-move { display: flex; gap: 4px; }
+.admin-move button {
+  width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border); background: #fff; color: var(--primary); font-size: 13px;
+  transition: background 0.2s;
+}
+.admin-move button:hover:not(:disabled) { background: var(--bg-surface); }
+.admin-move button:disabled { opacity: 0.35; cursor: default; }
