@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useParallax } from '../hooks/useParallax';
-import { useSanity } from '../sanity/SanityContext';
+import { useContent } from '../supabase/ContentContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -74,7 +74,7 @@ const content: Record<Lang, {
 
 export default function DirectorSection() {
   const { lang } = useLang();
-  const { directorPhoto } = useSanity();
+  const { directorPhoto } = useContent();
   const c = content[lang];
   const photoSrc = directorPhoto || '/imagenes/taveras-de-lama/directores.png';
   const { ref: photoRef, y: photoY } = useParallax(46);

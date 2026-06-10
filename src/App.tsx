@@ -27,6 +27,7 @@ import MagneticButton from './components/MagneticButton';
 import LanguageToggle from './components/LanguageToggle';
 import ServicePage from './pages/ServicePage';
 import BlogPage from './pages/BlogPage';
+import AdminPage from './pages/AdminPage';
 import ResearchPage from './pages/ResearchPage';
 import EmergencySection from './sections/EmergencySection';
 import FinancingSection from './sections/FinancingSection';
@@ -216,6 +217,15 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // El panel /admin es una página limpia (sin intro, cursor ni barras flotantes).
+  if (location.pathname.startsWith('/admin')) {
+    return (
+      <Routes>
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    );
+  }
 
   return (
     <>

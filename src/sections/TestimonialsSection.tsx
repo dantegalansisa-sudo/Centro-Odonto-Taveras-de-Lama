@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
-import { useSanity } from '../sanity/SanityContext';
+import { useContent } from '../supabase/ContentContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -61,7 +61,7 @@ const cardVariants = {
 
 export default function TestimonialsSection() {
   const { lang } = useLang();
-  const { reviews: sanityReviews } = useSanity();
+  const { reviews: sanityReviews } = useContent();
   const t = ui[lang];
   const reviews = sanityReviews && sanityReviews.length ? sanityReviews : DEFAULT_REVIEWS;
 

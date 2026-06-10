@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { videos as defaultVideos } from '../data/videos';
-import { useSanity } from '../sanity/SanityContext';
+import { useContent } from '../supabase/ContentContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -76,7 +76,7 @@ function VideoReel({ src, poster, index }: { src: string; poster?: string; index
 
 export default function VideoPromoSection() {
   const { lang } = useLang();
-  const { videos: sanityVideos } = useSanity();
+  const { videos: sanityVideos } = useContent();
   const t = ui[lang];
   const videos = sanityVideos && sanityVideos.length ? sanityVideos : defaultVideos;
   const hasVideos = videos.length > 0;

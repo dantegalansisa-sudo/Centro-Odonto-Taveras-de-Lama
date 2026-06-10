@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import RevealText from '../components/RevealText';
-import { useSanity } from '../sanity/SanityContext';
+import { useContent } from '../supabase/ContentContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -54,7 +54,7 @@ function MarqueeRow({ imgs, reverse, onOpen }: { imgs: string[]; reverse?: boole
 
 export default function GallerySection() {
   const { lang } = useLang();
-  const { gallery } = useSanity();
+  const { gallery } = useContent();
   const t = ui[lang];
   const images = gallery && gallery.length ? gallery : DEFAULT_IMAGES;
   const mid = Math.ceil(images.length / 2);

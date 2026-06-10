@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import RevealText from '../components/RevealText';
 import { useParallax } from '../hooks/useParallax';
-import { useSanity } from '../sanity/SanityContext';
+import { useContent } from '../supabase/ContentContext';
 import { useLang } from '../i18n/LanguageContext';
 import type { Lang } from '../i18n/translations';
 
@@ -70,7 +70,7 @@ const stepVariants = {
 
 export default function ConsultationCostSection() {
   const { lang } = useLang();
-  const { consultationPrice } = useSanity();
+  const { consultationPrice } = useContent();
   const c = content[lang];
   const price = consultationPrice || c.price;
   const { ref: stepsRef, y: stepsY } = useParallax(28);
