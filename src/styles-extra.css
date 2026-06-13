@@ -921,3 +921,36 @@ html { overflow-x: hidden; }
 .admin-btn--ghost-dark:hover { background: #eaf6ff; }
 
 .admin-lead-date { display: block; margin-top: 6px; font-size: 12px; color: var(--text-muted); }
+
+/* ─── Contacto directo del doctor en el formulario ─── */
+.booking__doctor {
+  margin-top: 10px;
+  padding: 18px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.booking__doctor-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.booking__doctor-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14.5px;
+  color: var(--primary);
+  transition: color 0.2s;
+  word-break: break-word;
+}
+.booking__doctor-link:hover { color: var(--accent); }
+.booking__doctor-link--ig { color: #C13584; }
+.booking__doctor-link--ig:hover { color: #E1306C; }

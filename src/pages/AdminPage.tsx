@@ -28,7 +28,7 @@ const DEFAULT_REVIEWS = [
   { name: 'Laura Castillo', country: 'us', rating: 5, text: 'Excelente trato desde que llegas. Me explicaron cada paso del tratamiento con mucha claridad. 100% recomendados.' },
   { name: 'Antoine Roussel', country: 'fr', rating: 5, text: 'Confianza total. Trabajo limpio, sin dolor y resultados muy naturales. Un equipo serio y comprometido.' },
 ];
-const DEFAULT_PRICE = 'US$200 / €200';
+const DEFAULT_PRICE = 'US$30 / €30';
 const DEFAULT_DIRECTOR_PHOTO = '/imagenes/taveras-de-lama/directores.png';
 
 async function uploadFile(file: File, folder: string): Promise<string> {
