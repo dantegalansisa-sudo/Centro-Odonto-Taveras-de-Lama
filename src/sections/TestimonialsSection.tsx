@@ -59,6 +59,12 @@ const cardVariants = {
   },
 };
 
+/* Muestra solo el nombre (quita el apellido = última palabra). */
+function firstNameOnly(full: string): string {
+  const parts = full.trim().split(/\s+/);
+  return parts.length > 1 ? parts.slice(0, -1).join(' ') : parts[0];
+}
+
 export default function TestimonialsSection() {
   const { lang } = useLang();
   const { reviews: sanityReviews } = useContent();
@@ -110,7 +116,7 @@ export default function TestimonialsSection() {
                 <span className="reviews2__avatar" aria-hidden="true">{r.name.charAt(0)}</span>
                 <div className="reviews2__id">
                   <figcaption className="reviews2__name">
-                    {r.name}
+                    {firstNameOnly(r.name)}
                     <img
                       className="reviews2__flag"
                       src={`/imagenes/flags/${r.country}.png`}
