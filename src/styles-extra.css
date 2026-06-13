@@ -954,3 +954,7 @@ html { overflow-x: hidden; }
 .booking__doctor-link:hover { color: var(--accent); }
 .booking__doctor-link--ig { color: #C13584; }
 .booking__doctor-link--ig:hover { color: #E1306C; }
+
+/* Investigaciones: encuadre vertical para las fotos de los doctores */
+.research__card-img-wrap { aspect-ratio: 4 / 5; }
+.research__card-img { object-position: center top; }

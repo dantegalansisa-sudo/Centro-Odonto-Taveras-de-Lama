@@ -44,7 +44,7 @@ interface ResearchBase {
 const researchData: ResearchBase[] = [
   {
     slug: 'manifestaciones-orofaciales-diabetes-mellitus',
-    img: '/imagenes/taveras-de-lama/educacion-1.png',
+    img: '/imagenes/taveras-de-lama/dr-ismael.png',
     authors: [
       'Ismael David Lama Taveras',
       'Francineide Pereira Da Silva Peña',
@@ -106,7 +106,7 @@ const researchData: ResearchBase[] = [
   },
   {
     slug: 'microfiltracion-marginal-cavidades-clase-2',
-    img: '/imagenes/taveras-de-lama/educacion-2.png',
+    img: '/imagenes/taveras-de-lama/dr-ismael.png',
     authors: ['Dr. Ismael D. Lama Taveras'],
     i18n: {
       es: {
@@ -158,7 +158,7 @@ const researchData: ResearchBase[] = [
   },
   {
     slug: 'estrategia-prevencion-deglucion-atipica-adultos',
-    img: '/imagenes/taveras-de-lama/educacion-3.png',
+    img: '/imagenes/taveras-de-lama/dra-lilian.png',
     authors: ['Dra. Lilian A. Taveras-Rivera'],
     i18n: {
       es: {
