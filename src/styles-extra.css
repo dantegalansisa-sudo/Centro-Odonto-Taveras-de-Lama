@@ -958,3 +958,22 @@ html { overflow-x: hidden; }
 /* Investigaciones: encuadre vertical para las fotos de los doctores */
 .research__card-img-wrap { aspect-ratio: 4 / 5; }
 .research__card-img { object-position: center top; }
+
+/* ─── Navbar: nombre completo en lockup de dos líneas ─── */
+.navbar__logo-lockup { display: flex; flex-direction: column; justify-content: center; }
+.navbar__logo-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  transition: color 0.4s;
+}
+.navbar.scrolled .navbar__logo-eyebrow { color: var(--text-secondary); }
+.navbar__logo-lockup .navbar__logo-text { line-height: 0.9; }
+@media (max-width: 768px) {
+  .navbar__logo-eyebrow { font-size: 7.5px; letter-spacing: 1.4px; margin-bottom: 2px; }
+  .navbar__logo-eyebrow-extra { display: none; }
+}

@@ -95,8 +95,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'booking.privacy': 'Tus datos solo se usan para gestionar tu cita. No compartimos tu información.',
 
     // Footer
-    'footer.tagline': 'Centro Odontológico Familiar',
-    'footer.rights': '© 2026 Centro Odontológico Taveras de Lama. Todos los derechos reservados.',
+    'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
+    'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. Todos los derechos reservados.',
     'footer.credit': 'Diseñado por',
     'footer.privacy': 'Política de Privacidad',
     'footer.legal': 'Aviso Legal',
@@ -216,8 +216,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'booking.privacy': 'Your data is only used to manage your appointment. We never share your information.',
 
     // Footer
-    'footer.tagline': 'Family Dental Center',
-    'footer.rights': '© 2026 Centro Odontológico Taveras de Lama. All rights reserved.',
+    'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
+    'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. All rights reserved.',
     'footer.credit': 'Designed by',
     'footer.privacy': 'Privacy Policy',
     'footer.legal': 'Legal Notice',
@@ -337,8 +337,8 @@ export const translations: Record<Lang, Record<string, string>> = {
     'booking.privacy': 'Vos données ne servent qu’à gérer votre rendez-vous. Nous ne partageons jamais vos informations.',
 
     // Footer
-    'footer.tagline': 'Centre Dentaire Familial',
-    'footer.rights': '© 2026 Centro Odontológico Taveras de Lama. Tous droits réservés.',
+    'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
+    'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. Tous droits réservés.',
     'footer.credit': 'Conçu par',
     'footer.privacy': 'Politique de Confidentialité',
     'footer.legal': 'Mentions Légales',

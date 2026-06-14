@@ -86,9 +86,12 @@ function Navbar() {
   return (
     <>
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
-        <a href="/" className="navbar__logo">
+        <a href="/" className="navbar__logo" aria-label="Centro Odontológico Dra. Lilian Taveras de Lama">
           <img src="/imagenes/logo-taveras.png" alt="" aria-hidden="true" className="navbar__logo-img" />
-          <span className="navbar__logo-text">TAVERAS<span className="navbar__logo-accent">DE LAMA</span></span>
+          <span className="navbar__logo-lockup">
+            <span className="navbar__logo-eyebrow">Centro Odontológico<span className="navbar__logo-eyebrow-extra"> · Dra. Lilian</span></span>
+            <span className="navbar__logo-text">TAVERAS<span className="navbar__logo-accent">DE LAMA</span></span>
+          </span>
         </a>
 
         <ul className="navbar__links">
