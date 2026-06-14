@@ -83,16 +83,16 @@ export default function IntroSequence({ onComplete }: IntroSequenceProps) {
               </motion.span>
             ))}
             <div className="intro__subtext">
-              {'— Centro Odontológico Familiar —'.split('').map((char, i) => (
+              {'Centro Odontológico Dra. Lilian Taveras de Lama'.split('').map((char, i) => (
                 <motion.span
                   key={`sub-${i}`}
                   initial={{ opacity: 0 }}
                   animate={
                     isActive('text') ? { opacity: 1 } : { opacity: 0 }
                   }
-                  transition={{ delay: 0.25 + i * 0.015, duration: 0.06 }}
+                  transition={{ delay: 0.22 + i * 0.009, duration: 0.05 }}
                 >
-                  {char}
+                  {char === ' ' ? ' ' : char}
                 </motion.span>
               ))}
             </div>

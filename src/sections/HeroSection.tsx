@@ -38,29 +38,11 @@ export default function HeroSection() {
       <div className="hero__grain" />
 
       <motion.div className="hero__content" style={{ y: contentY, opacity: contentOpacity }}>
-        {/* Brand name — protagonista */}
-        <motion.div
-          className="hero__brand"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 1, ease: [0.76, 0, 0.24, 1] }}
-        >
-          <span className="hero__brand-name">Taveras</span>
-          <span className="hero__brand-name hero__brand-name--accent">de Lama</span>
-        </motion.div>
-
-        <motion.div
-          className="hero__brand-line"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 0.8, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-        />
-
         <motion.span
           className="hero__tagline"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
         >
           {t('hero.tagline')}
         </motion.span>
