@@ -106,7 +106,7 @@ const researchData: ResearchBase[] = [
   },
   {
     slug: 'microfiltracion-marginal-cavidades-clase-2',
-    img: '/imagenes/taveras-de-lama/dr-ismael.png',
+    img: '/imagenes/taveras-de-lama/dr-ismael-2.jpeg',
     authors: ['Dr. Ismael D. Lama Taveras'],
     i18n: {
       es: {
