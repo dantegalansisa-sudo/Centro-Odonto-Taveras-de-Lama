@@ -235,11 +235,8 @@ function App() {
       {!introComplete && isHome && <IntroSequence onComplete={handleIntroComplete} />}
 
       {(introComplete || !isHome) && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
+        /* Sin fundido de entrada: evita ver el fondo blanco (destello) al cerrar la intro. */
+        <div>
           <ScrollProgress />
           <CustomCursor />
           <SocialBar />
@@ -273,7 +270,7 @@ function App() {
               </>
             } />
           </Routes>
-        </motion.div>
+        </div>
       )}
     </>
   );
