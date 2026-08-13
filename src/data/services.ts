@@ -14,6 +14,7 @@ export interface ServiceContent {
 
 export interface Service extends ServiceContent {
   slug: string;
+  img: string;
   number: string;
   icon: string;
   category: ServiceCategory;
@@ -21,6 +22,7 @@ export interface Service extends ServiceContent {
 
 interface ServiceBase {
   slug: string;
+  img: string;
   number: string;
   icon: string;
   category: ServiceCategory;
@@ -30,6 +32,7 @@ interface ServiceBase {
 const serviceData: ServiceBase[] = [
   {
     slug: 'ortodoncia',
+    img: '/imagenes/servicios/ortodoncia.jpg',
     number: '01',
     icon: '◈',
     category: 'estetica',
@@ -74,6 +77,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'estetica-dental',
+    img: '/imagenes/servicios/estetica-dental.jpg',
     number: '02',
     icon: '◇',
     category: 'estetica',
@@ -118,6 +122,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'implantes-dentales',
+    img: '/imagenes/servicios/implantes-dentales.jpg',
     number: '03',
     icon: '◉',
     category: 'cirugia',
@@ -162,6 +167,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'endodoncia',
+    img: '/imagenes/servicios/endodoncia.jpg',
     number: '04',
     icon: '◎',
     category: 'cirugia',
@@ -206,6 +212,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'odontopediatria',
+    img: '/imagenes/servicios/odontopediatria.jpg',
     number: '05',
     icon: '◦',
     category: 'prevencion',
@@ -250,6 +257,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'periodoncia',
+    img: '/imagenes/servicios/periodoncia.jpg',
     number: '06',
     icon: '◌',
     category: 'prevencion',
@@ -294,6 +302,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'cirugia-oral',
+    img: '/imagenes/servicios/cirugia-oral.jpg',
     number: '07',
     icon: '✦',
     category: 'cirugia',
@@ -338,6 +347,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'diagnostico-3d',
+    img: '/imagenes/servicios/diagnostico-3d.png',
     number: '08',
     icon: '⬡',
     category: 'diagnostico',

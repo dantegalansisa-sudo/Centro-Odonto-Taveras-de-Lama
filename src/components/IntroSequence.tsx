@@ -7,16 +7,17 @@ interface IntroSequenceProps {
 
 export default function IntroSequence({ onComplete }: IntroSequenceProps) {
   const [phase, setPhase] = useState<
-    'black' | 'line' | 'glow' | 'text' | 'flash' | 'done'
+    'black' | 'line' | 'glow' | 'text' | 'hold' | 'done'
   >('black');
 
-  // Timed sequence: black(0.5s) → line(0.8s) → glow(0.5s) → text(0.8s) → flash(0.3s)
+  // Timed sequence: black(0.5s) → line(0.8s) → glow(0.5s) → text(0.8s) → hold(0.3s)
+  // Sin flash: la intro cierra con un fundido suave.
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
     timers.push(setTimeout(() => setPhase('line'), 500));
     timers.push(setTimeout(() => setPhase('glow'), 1300));
     timers.push(setTimeout(() => setPhase('text'), 1800));
-    timers.push(setTimeout(() => setPhase('flash'), 2600));
+    timers.push(setTimeout(() => setPhase('hold'), 2600));
     timers.push(setTimeout(() => {
       setPhase('done');
       onComplete();
@@ -25,7 +26,7 @@ export default function IntroSequence({ onComplete }: IntroSequenceProps) {
   }, [onComplete]);
 
   const isActive = (from: string) => {
-    const order = ['black', 'line', 'glow', 'text', 'flash', 'done'];
+    const order = ['black', 'line', 'glow', 'text', 'hold', 'done'];
     return order.indexOf(phase) >= order.indexOf(from);
   };
 
@@ -98,17 +99,6 @@ export default function IntroSequence({ onComplete }: IntroSequenceProps) {
             </div>
           </motion.div>
 
-          {/* White flash */}
-          <AnimatePresence>
-            {phase === 'flash' && (
-              <motion.div
-                className="intro__flash"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0.9, 0] }}
-                transition={{ duration: 0.3, times: [0, 0.4, 1] }}
-              />
-            )}
-          </AnimatePresence>
         </motion.div>
       )}
     </AnimatePresence>

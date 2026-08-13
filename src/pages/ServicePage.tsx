@@ -48,6 +48,22 @@ export default function ServicePage() {
         </div>
       </section>
 
+      {/* Foto del servicio */}
+      {service.img && (
+        <section className="sp__image-section">
+          <div className="section-container">
+            <motion.figure
+              className="sp__image-wrap"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            >
+              <img src={service.img} alt={service.title} className="sp__image" />
+            </motion.figure>
+          </div>
+        </section>
+      )}
+
       {/* Content */}
       <section className="sp__content section">
         <div className="section-container">

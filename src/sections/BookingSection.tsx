@@ -40,6 +40,14 @@ const infoItems: { icon: ReactNode; label: string; value: string }[] = [
   { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com' },
 ];
 
+// Contacto directo de la Dra. Lilian (prioridad) — WhatsApp propio.
+const DOCTORA = {
+  name: 'Dra. Lilian Taveras de Lama',
+  whatsapp: '(809) 943-9216',
+  whatsappHref: 'https://wa.me/18099439216',
+  email: 'dra.taverasdlama@gmail.com',
+};
+
 // Contacto directo del Dr. Ismael (su Instagram personal, aparte del de la clínica).
 const DOCTOR = {
   name: 'Dr. Ismael Lama Taveras',
@@ -287,6 +295,20 @@ export default function BookingSection() {
                 </div>
               </motion.div>
             ))}
+
+            {/* Contacto directo de la doctora (prioridad) */}
+            <motion.div className="booking__doctor booking__doctor--primary" variants={itemVariants}>
+              <span className="booking__doctor-title">Contacto directo · {DOCTORA.name}</span>
+              <a
+                href={DOCTORA.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="booking__doctor-link booking__doctor-link--wa"
+              >
+                <WhatsAppGlyph /> {DOCTORA.whatsapp}
+              </a>
+              <a href={`mailto:${DOCTORA.email}`} className="booking__doctor-link">✉️ {DOCTORA.email}</a>
+            </motion.div>
 
             {/* Contacto directo del doctor (aparte del de la clínica) */}
             <motion.div className="booking__doctor" variants={itemVariants}>
