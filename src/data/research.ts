@@ -11,6 +11,7 @@ import type { Lang } from '../i18n/translations';
 
 export interface ResearchPaper {
   slug: string;
+  publication?: { country: string; doi: string };
   area: string;
   title: string;
   abstract: string;
@@ -35,6 +36,7 @@ interface ResearchContent {
 
 interface ResearchBase {
   slug: string;
+  publication?: { country: string; doi: string };
   img: string;
   pdf?: string;
   authors: string[];
@@ -44,6 +46,7 @@ interface ResearchBase {
 const researchData: ResearchBase[] = [
   {
     slug: 'manifestaciones-orofaciales-diabetes-mellitus',
+    publication: { country: 'br', doi: '10.55905/oelv23n2-043' },
     img: '/imagenes/taveras-de-lama/dr-ismael.png',
     authors: [
       'Ismael David Lama Taveras',
@@ -66,7 +69,6 @@ const researchData: ResearchBase[] = [
           'Método. Se realizó una revisión integradora en las bases de datos PubMed, Embase, Lilacs, Ibecs, BDEnf, Web of Science y Scopus entre marzo y abril de 2024, sin restricciones de idioma ni período. Se combinaron los descriptores controlados (MeSH y DeCS) "Oral Manifestations" y "Diabetes Mellitus" con los operadores booleanos "AND" y "OR".',
           'Resultados. Se identificaron 389 artículos, de los cuales 10 conformaron la muestra final, seleccionando los más relevantes para la construcción de la tabla sinóptica de resultados.',
           'Conclusión. Se observó un predominio significativo de complicaciones orales en personas con diabetes, como xerostomía, enfermedad periodontal y lesiones mucosas, lo que subraya la necesidad de un enfoque interdisciplinario para el manejo adecuado de estas afecciones.',
-          'Publicación científica · DOI: 10.55905/oelv23n2-043.',
         ],
         keywords: ['Diabetes mellitus', 'Manifestaciones orales', 'Xerostomía', 'Enfermedad periodontal'],
       },
@@ -82,7 +84,6 @@ const researchData: ResearchBase[] = [
           'Method. An integrative review was carried out in the PubMed, Embase, Lilacs, Ibecs, BDEnf, Web of Science and Scopus databases between March and April 2024, with no language or time restrictions, combining the controlled descriptors (MeSH and DeCS) "Oral Manifestations" and "Diabetes Mellitus".',
           'Results. 389 articles were identified, of which 10 made up the final sample.',
           'Conclusion. A significant predominance of oral complications was observed in people with diabetes, such as xerostomia, periodontal disease and mucosal lesions, underscoring the need for an interdisciplinary approach to their proper management.',
-          'Scientific publication · DOI: 10.55905/oelv23n2-043.',
         ],
         keywords: ['Diabetes mellitus', 'Oral manifestations', 'Xerostomia', 'Periodontal disease'],
       },
@@ -98,7 +99,6 @@ const researchData: ResearchBase[] = [
           'Méthode. Une revue intégrative a été réalisée dans les bases de données PubMed, Embase, Lilacs, Ibecs, BDEnf, Web of Science et Scopus, entre mars et avril 2024, en combinant les descripteurs contrôlés (MeSH et DeCS) « Oral Manifestations » et « Diabetes Mellitus ».',
           'Résultats. 389 articles ont été identifiés, dont 10 ont constitué l’échantillon final.',
           'Conclusion. Une prédominance significative des complications orales a été observée chez les personnes diabétiques, telles que la xérostomie, la maladie parodontale et les lésions muqueuses, soulignant la nécessité d’une approche interdisciplinaire.',
-          'Publication scientifique · DOI : 10.55905/oelv23n2-043.',
         ],
         keywords: ['Diabète sucré', 'Manifestations orales', 'Xérostomie', 'Maladie parodontale'],
       },

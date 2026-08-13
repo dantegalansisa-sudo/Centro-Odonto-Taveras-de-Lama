@@ -14,6 +14,8 @@ const ui: Record<Lang, {
   ctaTitle: string;
   ctaDesc: string;
   ctaBtn: string;
+  pubTitle: string;
+  pubIn: string;
 }> = {
   es: {
     notFound: 'Investigación no encontrada',
@@ -25,6 +27,8 @@ const ui: Record<Lang, {
     ctaTitle: '¿Interesado en nuestra práctica clínica?',
     ctaDesc: 'Agenda una consulta con nuestros especialistas.',
     ctaBtn: 'Agendar consulta →',
+    pubTitle: 'Publicación científica',
+    pubIn: 'Investigación publicada en',
   },
   en: {
     notFound: 'Research not found',
@@ -36,6 +40,8 @@ const ui: Record<Lang, {
     ctaTitle: 'Interested in our clinical practice?',
     ctaDesc: 'Book a consultation with our specialists.',
     ctaBtn: 'Book consultation →',
+    pubTitle: 'Scientific publication',
+    pubIn: 'Research published in',
   },
   fr: {
     notFound: 'Recherche introuvable',
@@ -47,7 +53,14 @@ const ui: Record<Lang, {
     ctaTitle: 'Intéressé par notre pratique clinique ?',
     ctaDesc: 'Prenez rendez-vous avec nos spécialistes.',
     ctaBtn: 'Prendre rendez-vous →',
+    pubTitle: 'Publication scientifique',
+    pubIn: 'Recherche publiée au',
   },
+};
+
+const COUNTRY_NAMES: Record<string, string> = {
+  br: 'Brasil',
+  do: 'República Dominicana',
 };
 
 export default function ResearchPage() {
@@ -124,6 +137,31 @@ export default function ResearchPage() {
                       <span key={k} className="research-page__keyword">{k}</span>
                     ))}
                   </div>
+                </div>
+              )}
+
+              {/* Publicación científica: país e identificador DOI (al final) */}
+              {paper.publication && (
+                <div className="research-page__pub">
+                  <span className="research-page__pub-label">{t.pubTitle}</span>
+                  <div className="research-page__pub-country">
+                    <img
+                      src={`/imagenes/flags/${paper.publication.country}.png`}
+                      alt={COUNTRY_NAMES[paper.publication.country] || ''}
+                      className="research-page__pub-flag"
+                      width={28}
+                      height={20}
+                    />
+                    <span>{t.pubIn} <strong>{COUNTRY_NAMES[paper.publication.country]}</strong></span>
+                  </div>
+                  <a
+                    href={`https://doi.org/${paper.publication.doi}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="research-page__pub-doi"
+                  >
+                    doi.org/{paper.publication.doi}
+                  </a>
                 </div>
               )}
             </motion.div>

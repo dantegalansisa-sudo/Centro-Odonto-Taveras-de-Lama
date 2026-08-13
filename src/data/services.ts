@@ -347,7 +347,7 @@ const serviceData: ServiceBase[] = [
   },
   {
     slug: 'diagnostico-3d',
-    img: '/imagenes/servicios/diagnostico-3d.png',
+    img: '/imagenes/servicios/diagnostico-3d.jpg',
     number: '08',
     icon: '⬡',
     category: 'diagnostico',

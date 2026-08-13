@@ -32,13 +32,16 @@ const serviceOptions = [
   'Diagnóstico 3D',
 ];
 
-const infoItems: { icon: ReactNode; label: string; value: string }[] = [
+const infoItems: { icon: ReactNode; label: string; value: string; href?: string }[] = [
   { icon: '📍', label: 'Dirección', value: 'Av. Abraham Lincoln 901, Santo Domingo' },
-  { icon: '📞', label: 'Teléfono fijo', value: '(809) 547-3387 · solo llamadas' },
-  { icon: <WhatsAppGlyph />, label: 'WhatsApp', value: '(809) 943-9216' },
+  { icon: '📞', label: 'Teléfono fijo', value: '(809) 547-3387 · solo llamadas', href: 'tel:+18095473387' },
+  { icon: <WhatsAppGlyph />, label: 'WhatsApp', value: '(809) 943-9216', href: 'https://wa.me/18099439216' },
   { icon: '⏰', label: 'Horario', value: 'Lun - Vie: 8:00 AM - 7:00 PM | Sáb: 9:00 AM - 12:00 PM' },
-  { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com' },
+  { icon: '✉️', label: 'Email', value: 'dra.taverasdlama@gmail.com', href: 'mailto:dra.taverasdlama@gmail.com' },
 ];
+
+// Instagram oficial de la clínica.
+const CLINIC_INSTAGRAM = { handle: 'odontotavedlama', href: 'https://www.instagram.com/odontotavedlama' };
 
 // Contacto directo de la Dra. Lilian (prioridad) — WhatsApp propio.
 const DOCTORA = {
@@ -291,7 +294,17 @@ export default function BookingSection() {
                 <div className="booking__info-icon">{item.icon}</div>
                 <div>
                   <span className="booking__info-label">{item.label}</span>
-                  <span className="booking__info-value">{item.value}</span>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="booking__info-value booking__info-value--link"
+                      {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span className="booking__info-value">{item.value}</span>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -308,6 +321,14 @@ export default function BookingSection() {
                 <WhatsAppGlyph /> {DOCTORA.whatsapp}
               </a>
               <a href={`mailto:${DOCTORA.email}`} className="booking__doctor-link">✉️ {DOCTORA.email}</a>
+              <a
+                href={CLINIC_INSTAGRAM.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="booking__doctor-link booking__doctor-link--ig"
+              >
+                <InstagramGlyph /> @{CLINIC_INSTAGRAM.handle}
+              </a>
             </motion.div>
 
             {/* Contacto directo del doctor (aparte del de la clínica) */}

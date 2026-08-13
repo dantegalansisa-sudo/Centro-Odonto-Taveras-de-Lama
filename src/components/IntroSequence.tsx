@@ -10,18 +10,19 @@ export default function IntroSequence({ onComplete }: IntroSequenceProps) {
     'black' | 'line' | 'glow' | 'text' | 'hold' | 'done'
   >('black');
 
-  // Timed sequence: black(0.5s) → line(0.8s) → glow(0.5s) → text(0.8s) → hold(0.3s)
-  // Sin flash: la intro cierra con un fundido suave.
+  // Secuencia: line(0.4s) → glow(1.1s) → text(1.5s) → hold(4.1s) → done(4.6s).
+  // El nombre principal se lee solo ~1.5s antes de que aparezca el nombre
+  // completo del centro debajo. Sin flash: la intro cierra con un fundido suave.
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
-    timers.push(setTimeout(() => setPhase('line'), 500));
-    timers.push(setTimeout(() => setPhase('glow'), 1300));
-    timers.push(setTimeout(() => setPhase('text'), 1800));
-    timers.push(setTimeout(() => setPhase('hold'), 2600));
+    timers.push(setTimeout(() => setPhase('line'), 400));
+    timers.push(setTimeout(() => setPhase('glow'), 1100));
+    timers.push(setTimeout(() => setPhase('text'), 1500));
+    timers.push(setTimeout(() => setPhase('hold'), 4100));
     timers.push(setTimeout(() => {
       setPhase('done');
       onComplete();
-    }, 2900));
+    }, 4600));
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
 
@@ -91,7 +92,7 @@ export default function IntroSequence({ onComplete }: IntroSequenceProps) {
                   animate={
                     isActive('text') ? { opacity: 1 } : { opacity: 0 }
                   }
-                  transition={{ delay: 0.22 + i * 0.009, duration: 0.05 }}
+                  transition={{ delay: 2.15 + i * 0.007, duration: 0.05 }}
                 >
                   {char === ' ' ? ' ' : char}
                 </motion.span>
