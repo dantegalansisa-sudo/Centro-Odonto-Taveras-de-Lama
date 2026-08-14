@@ -289,25 +289,34 @@ export default function BookingSection() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {infoItems.map((item) => (
-              <motion.div key={item.label} className="booking__info-item" variants={itemVariants}>
-                <div className="booking__info-icon">{item.icon}</div>
-                <div>
-                  <span className="booking__info-label">{item.label}</span>
+            {infoItems.map((item) => {
+              const contenido = (
+                <>
+                  <div className="booking__info-icon">{item.icon}</div>
+                  <div>
+                    <span className="booking__info-label">{item.label}</span>
+                    <span className="booking__info-value">{item.value}</span>
+                  </div>
+                </>
+              );
+              return (
+                <motion.div key={item.label} className="booking__info-item" variants={itemVariants}>
                   {item.href ? (
+                    /* Toda la fila (icono incluido) es clicable: más fácil de tocar. */
                     <a
                       href={item.href}
-                      className="booking__info-value booking__info-value--link"
+                      className="booking__info-link"
+                      aria-label={`${item.label}: ${item.value}`}
                       {...(item.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     >
-                      {item.value}
+                      {contenido}
                     </a>
                   ) : (
-                    <span className="booking__info-value">{item.value}</span>
+                    contenido
                   )}
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
 
             {/* Contacto directo de la doctora (prioridad) */}
             <motion.div className="booking__doctor booking__doctor--primary" variants={itemVariants}>

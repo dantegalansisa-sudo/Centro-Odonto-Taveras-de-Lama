@@ -1030,15 +1030,16 @@ html { overflow-x: hidden; }
 }
 .navbar.scrolled .navbar__logo-eyebrow-extra { color: #0072FF; }
 
-/* Mismo azul de la palabra "PERFECTA" del hero */
+/* Azul fuerte y sólido, igual que "Dra. Lilian" (sin degradado claro) */
 .navbar__logo-accent {
-  background: linear-gradient(135deg, #00C6FF, #0072FF);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #0072FF; /* respaldo si el navegador no soporta el degradado */
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: #1A86FF;
   font-weight: 500;
 }
+.navbar.scrolled .navbar__logo-accent { color: #0072FF; }
 
 /* ─── Tablet: usa el menú compacto para que no se deforme el botón ─── */
 @media (max-width: 1100px) {
@@ -1048,9 +1049,31 @@ html { overflow-x: hidden; }
 }
 .navbar__cta { white-space: nowrap; }
 
-/* Datos de contacto clicables en el formulario */
-.booking__info-value--link { transition: color 0.2s; }
-.booking__info-value--link:hover { color: var(--accent); }
+/* Datos de contacto clicables: toda la fila, incluido el icono */
+.booking__info-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  color: inherit;
+  border-radius: 14px;
+  transition: background 0.2s;
+}
+.booking__info-link .booking__info-icon,
+.booking__info-link .booking__info-value {
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.booking__info-link:hover { background: rgba(0, 198, 255, 0.05); }
+.booking__info-link:hover .booking__info-value { color: var(--accent); }
+.booking__info-link:hover .booking__info-icon {
+  border-color: var(--border-accent);
+  background: rgba(0, 198, 255, 0.1);
+  transform: scale(1.06);
+}
+.booking__info-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 /* ─── Bloque de publicación científica (país + DOI), al final del artículo ─── */
 .research-page__pub {
@@ -1110,4 +1133,16 @@ html { overflow-x: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero__video--layer { transition: none; }
+}
+
+/* ─── Tablet horizontal (1101–1400px): compacta la barra para que
+       el boton "Reservar Cita" quepa completo y no se corte ─── */
+@media (min-width: 1101px) and (max-width: 1400px) {
+  .navbar { padding: 20px 26px; }
+  .navbar__links { gap: 16px; }
+  .navbar__link { font-size: 12px; letter-spacing: 0.6px; }
+  .navbar__link-number { display: none; }
+  .navbar__right { gap: 10px; }
+  .navbar__cta { padding: 11px 18px; font-size: 11px; letter-spacing: 1px; }
+  .navbar__logo-img { max-height: 34px; }
 }
