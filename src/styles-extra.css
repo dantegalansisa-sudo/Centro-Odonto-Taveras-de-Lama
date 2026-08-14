@@ -1036,10 +1036,10 @@ html { overflow-x: hidden; }
   -webkit-background-clip: border-box;
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
-  color: #1A86FF;
+  color: #1272E8;
   font-weight: 500;
 }
-.navbar.scrolled .navbar__logo-accent { color: #0072FF; }
+.navbar.scrolled .navbar__logo-accent { color: #0047AB; }
 
 /* ─── Tablet: usa el menú compacto para que no se deforme el botón ─── */
 @media (max-width: 1100px) {
