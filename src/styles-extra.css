@@ -1037,7 +1037,10 @@ html { overflow-x: hidden; }
   background-clip: border-box;
   -webkit-text-fill-color: currentColor;
   color: #1272E8;
-  font-weight: 500;
+  /* Cormorant cursiva ahora sí tiene peso grueso cargado (600/700) */
+  font-weight: 700;
+  font-size: 21px;
+  letter-spacing: 1.5px;
 }
 .navbar.scrolled .navbar__logo-accent { color: #0047AB; }
 
