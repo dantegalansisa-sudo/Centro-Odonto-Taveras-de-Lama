@@ -16,6 +16,7 @@ const ui: Record<Lang, {
   ctaBtn: string;
   pubTitle: string;
   pubIn: string;
+  pubView: string;
 }> = {
   es: {
     notFound: 'Investigación no encontrada',
@@ -29,6 +30,7 @@ const ui: Record<Lang, {
     ctaBtn: 'Agendar consulta →',
     pubTitle: 'Publicación científica',
     pubIn: 'Investigación publicada en',
+    pubView: 'Ver publicación completa',
   },
   en: {
     notFound: 'Research not found',
@@ -42,6 +44,7 @@ const ui: Record<Lang, {
     ctaBtn: 'Book consultation →',
     pubTitle: 'Scientific publication',
     pubIn: 'Research published in',
+    pubView: 'View full publication',
   },
   fr: {
     notFound: 'Recherche introuvable',
@@ -55,6 +58,7 @@ const ui: Record<Lang, {
     ctaBtn: 'Prendre rendez-vous →',
     pubTitle: 'Publication scientifique',
     pubIn: 'Recherche publiée au',
+    pubView: 'Voir la publication complète',
   },
 };
 
@@ -140,28 +144,45 @@ export default function ResearchPage() {
                 </div>
               )}
 
-              {/* Publicación científica: país e identificador DOI (al final) */}
+              {/* Publicación científica: país, DOI y/o enlace externo (al final) */}
               {paper.publication && (
                 <div className="research-page__pub">
                   <span className="research-page__pub-label">{t.pubTitle}</span>
-                  <div className="research-page__pub-country">
-                    <img
-                      src={`/imagenes/flags/${paper.publication.country}.png`}
-                      alt={COUNTRY_NAMES[paper.publication.country] || ''}
-                      className="research-page__pub-flag"
-                      width={28}
-                      height={20}
-                    />
-                    <span>{t.pubIn} <strong>{COUNTRY_NAMES[paper.publication.country]}</strong></span>
-                  </div>
-                  <a
-                    href={`https://doi.org/${paper.publication.doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="research-page__pub-doi"
-                  >
-                    doi.org/{paper.publication.doi}
-                  </a>
+
+                  {paper.publication.country && (
+                    <div className="research-page__pub-country">
+                      <img
+                        src={`/imagenes/flags/${paper.publication.country}.png`}
+                        alt={COUNTRY_NAMES[paper.publication.country] || ''}
+                        className="research-page__pub-flag"
+                        width={28}
+                        height={20}
+                      />
+                      <span>{t.pubIn} <strong>{COUNTRY_NAMES[paper.publication.country]}</strong></span>
+                    </div>
+                  )}
+
+                  {paper.publication.doi && (
+                    <a
+                      href={`https://doi.org/${paper.publication.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="research-page__pub-doi"
+                    >
+                      doi.org/{paper.publication.doi}
+                    </a>
+                  )}
+
+                  {paper.publication.url && (
+                    <a
+                      href={paper.publication.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="research-page__pub-btn"
+                    >
+                      {t.pubView}{paper.publication.source ? ` · ${paper.publication.source}` : ''} →
+                    </a>
+                  )}
                 </div>
               )}
             </motion.div>

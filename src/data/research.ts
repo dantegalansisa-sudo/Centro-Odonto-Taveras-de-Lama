@@ -11,7 +11,7 @@ import type { Lang } from '../i18n/translations';
 
 export interface ResearchPaper {
   slug: string;
-  publication?: { country: string; doi: string };
+  publication?: { country?: string; doi?: string; url?: string; source?: string };
   area: string;
   title: string;
   abstract: string;
@@ -36,7 +36,7 @@ interface ResearchContent {
 
 interface ResearchBase {
   slug: string;
-  publication?: { country: string; doi: string };
+  publication?: { country?: string; doi?: string; url?: string; source?: string };
   img: string;
   pdf?: string;
   authors: string[];
@@ -106,6 +106,7 @@ const researchData: ResearchBase[] = [
   },
   {
     slug: 'microfiltracion-marginal-cavidades-clase-2',
+    publication: { url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4545850', source: 'SSRN' },
     img: '/imagenes/taveras-de-lama/dr-ismael-2.jpeg',
     authors: ['Dr. Ismael D. Lama Taveras'],
     i18n: {

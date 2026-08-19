@@ -32,8 +32,11 @@ const serviceOptions = [
   'Diagnóstico 3D',
 ];
 
+// Abre la ubicación exacta de la clínica en Google Maps.
+const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=Av.+Abraham+Lincoln+901,+Santo+Domingo,+Rep%C3%BAblica+Dominicana';
+
 const infoItems: { icon: ReactNode; label: string; value: string; href?: string }[] = [
-  { icon: '📍', label: 'Dirección', value: 'Av. Abraham Lincoln 901, Santo Domingo' },
+  { icon: '📍', label: 'Dirección', value: 'Av. Abraham Lincoln 901, Santo Domingo', href: MAPS_URL },
   { icon: '📞', label: 'Teléfono fijo', value: '(809) 547-3387 · solo llamadas', href: 'tel:+18095473387' },
   { icon: <WhatsAppGlyph />, label: 'WhatsApp', value: '(809) 943-9216', href: 'https://wa.me/18099439216' },
   { icon: '⏰', label: 'Horario', value: 'Lun - Vie: 8:00 AM - 7:00 PM | Sáb: 9:00 AM - 12:00 PM' },

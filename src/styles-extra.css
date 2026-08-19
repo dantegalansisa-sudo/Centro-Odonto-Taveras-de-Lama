@@ -975,7 +975,12 @@ html { overflow-x: hidden; }
 .navbar__logo-lockup .navbar__logo-text { line-height: 0.9; }
 @media (max-width: 768px) {
   .navbar__logo-eyebrow { font-size: 7.5px; letter-spacing: 1.4px; margin-bottom: 2px; }
-  .navbar__logo-eyebrow-extra { display: none; }
+  /* El nombre de la doctora también se ve en celular */
+  .navbar__logo-eyebrow-extra { display: inline; }
+}
+/* Pantallas muy pequeñas: encoge un poco para que quepa en una línea */
+@media (max-width: 400px) {
+  .navbar__logo-eyebrow { font-size: 7px; letter-spacing: 0.9px; }
 }
 
 /* Intro: nombre completo en el subtexto, que se envuelva en móvil */
@@ -1148,4 +1153,24 @@ html { overflow-x: hidden; }
   .navbar__right { gap: 10px; }
   .navbar__cta { padding: 11px 18px; font-size: 11px; letter-spacing: 1px; }
   .navbar__logo-img { max-height: 34px; }
+}
+
+/* Botón para abrir la publicación completa (enlace externo) */
+.research-page__pub-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--gradient-accent);
+  box-shadow: 0 6px 18px rgba(0, 198, 255, 0.22);
+  transition: transform 0.2s, box-shadow 0.25s;
+}
+.research-page__pub-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 198, 255, 0.32);
 }

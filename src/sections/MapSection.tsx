@@ -75,7 +75,7 @@ export default function MapSection() {
           <div className="map-section__info">
             <div className="map-section__detail">
               <span className="map-section__detail-label">{c.addressLabel}</span>
-              <span className="map-section__detail-value">Av. Abraham Lincoln 901</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=Av.+Abraham+Lincoln+901,+Santo+Domingo,+Rep%C3%BAblica+Dominicana" target="_blank" rel="noopener noreferrer" className="map-section__detail-value map-section__link">Av. Abraham Lincoln 901 →</a>
               <span className="map-section__detail-value" style={{ color: 'rgba(255,255,255,0.4)' }}>Santo Domingo, República Dominicana</span>
             </div>
             <div className="map-section__detail">
