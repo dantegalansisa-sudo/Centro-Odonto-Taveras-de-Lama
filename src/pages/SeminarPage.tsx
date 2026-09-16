@@ -79,8 +79,12 @@ export default function SeminarPage() {
               </ul>
 
               {/* Descripción oficial */}
-              <h3 className="bp__tips-title seminar-page__h3">{L.about}: {s.topic}</h3>
-              <p className="bp__paragraph">{s.description}</p>
+              {s.description && (
+                <>
+                  <h3 className="bp__tips-title seminar-page__h3">{L.about}: {s.topic}</h3>
+                  <p className="bp__paragraph">{s.description}</p>
+                </>
+              )}
 
               <p className="seminar-page__sponsor">
                 {L.sponsor} <strong>{seminarFacts.sponsor}</strong>

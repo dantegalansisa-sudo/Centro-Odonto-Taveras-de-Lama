@@ -71,11 +71,11 @@ export const seminarContent: Record<Lang, SeminarContent> = {
     date: 'Lunes, 30 de noviembre de 2026',
     dateShort: '30 Nov · 2:30 – 4:30',
     title: 'Seminario de Medio Día',
-    topic: 'Armonización y Estética Dental',
+    topic: 'Ortodoncia',
     cardLine: 'Con la participación de la Dra. Lilian Taveras de Lama como conferencista invitada.',
     cardBtn: 'Ver información',
-    intro: 'La Dra. Lilian Taveras de Lama ha sido invitada como conferencista a este seminario internacional sobre armonización y estética dental, junto a especialistas de toda Latinoamérica.',
-    description: 'Este curso tiene como objetivo analizar la evidencia científica actual en armonización orofacial y comprender su impacto en la salud integral del paciente. A lo largo del programa, se estudiará la anatomía aplicada de la cara y el cuello con el fin de garantizar procedimientos estéticos seguros y predecibles. Asimismo, se evaluará el rol de la odontología en la estética facial desde una perspectiva interdisciplinaria en colaboración con la medicina. Se fomentará el desarrollo del pensamiento crítico para la adecuada selección de materiales, técnicas y tecnologías según las características de cada caso clínico. Finalmente, se promoverá la investigación y la publicación de casos clínicos como estrategia para elevar el estándar de la práctica en Latinoamérica.',
+    intro: 'La Dra. Lilian Taveras de Lama ha sido invitada como conferencista a este seminario internacional de ortodoncia, junto a especialistas de toda Latinoamérica.',
+    description: '', // pendiente: texto oficial del curso de ortodoncia
     labels: {
       course: 'Curso',
       fee: 'Matrícula',
@@ -98,11 +98,11 @@ export const seminarContent: Record<Lang, SeminarContent> = {
     date: 'Monday, November 30, 2026',
     dateShort: 'Nov 30 · 2:30 – 4:30',
     title: 'Half-Day Seminar',
-    topic: 'Dental Harmonization & Aesthetics',
+    topic: 'Orthodontics',
     cardLine: 'Featuring Dr. Lilian Taveras de Lama as a guest speaker.',
     cardBtn: 'View details',
-    intro: 'Dr. Lilian Taveras de Lama has been invited as a speaker to this international seminar on orofacial harmonization and dental aesthetics, alongside specialists from across Latin America.',
-    description: 'This course aims to analyze the current scientific evidence on orofacial harmonization and understand its impact on the patient\'s overall health. Throughout the program, the applied anatomy of the face and neck will be studied to ensure safe and predictable aesthetic procedures. The role of dentistry in facial aesthetics will also be evaluated from an interdisciplinary perspective in collaboration with medicine. Critical thinking will be encouraged for the proper selection of materials, techniques and technologies according to each clinical case. Finally, research and the publication of clinical cases will be promoted as a strategy to raise the standard of practice in Latin America.',
+    intro: 'Dr. Lilian Taveras de Lama has been invited as a speaker to this international orthodontics seminar, alongside specialists from across Latin America.',
+    description: '', // pendiente: texto oficial del curso de ortodoncia
     labels: {
       course: 'Course',
       fee: 'Tuition',
@@ -125,11 +125,11 @@ export const seminarContent: Record<Lang, SeminarContent> = {
     date: 'Lundi 30 novembre 2026',
     dateShort: '30 nov. · 14h30 – 16h30',
     title: 'Séminaire d\'une demi-journée',
-    topic: 'Harmonisation et esthétique dentaire',
+    topic: 'Orthodontie',
     cardLine: 'Avec la participation de la Dre Lilian Taveras de Lama en tant que conférencière invitée.',
     cardBtn: 'Voir les détails',
     intro: 'La Dre Lilian Taveras de Lama a été invitée comme conférencière à ce séminaire international sur l\'harmonisation orofaciale et l\'esthétique dentaire, aux côtés de spécialistes de toute l\'Amérique latine.',
-    description: 'Ce cours vise à analyser les données scientifiques actuelles en harmonisation orofaciale et à comprendre leur impact sur la santé globale du patient. Tout au long du programme, l\'anatomie appliquée du visage et du cou sera étudiée afin de garantir des procédures esthétiques sûres et prévisibles. Le rôle de la dentisterie dans l\'esthétique faciale sera également évalué dans une perspective interdisciplinaire, en collaboration avec la médecine. Le développement de l\'esprit critique sera encouragé pour une sélection adéquate des matériaux, techniques et technologies selon chaque cas clinique. Enfin, la recherche et la publication de cas cliniques seront encouragées afin d\'élever le niveau de la pratique en Amérique latine.',
+    description: '', // pendiente: texto oficial del curso de ortodoncia
     labels: {
       course: 'Cours',
       fee: 'Inscription',
