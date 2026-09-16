@@ -1,6 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import RevealText from '../components/RevealText';
 import { supabase } from '../supabase/client';
 import { useLang } from '../i18n/LanguageContext';
@@ -64,18 +63,11 @@ const DOCTOR = {
   instagramHref: 'https://www.instagram.com/dr.ismaellamataveras',
 };
 
-const CLINIC_EMAIL = 'dra.taverasdlama@gmail.com';
 const WHATSAPP_NUMBER = '18099439216';
 
-// EmailJS — completar con los 3 datos de la cuenta de la clínica.
-// Mientras digan 'TODO_...', el correo no se envía (pero la solicitud SÍ se
-// guarda en el panel /admin). Al poner los datos reales, empieza a enviar.
-const EMAILJS = {
-  serviceId: 'TODO_SERVICE_ID',
-  templateId: 'TODO_TEMPLATE_ID',
-  publicKey: 'TODO_PUBLIC_KEY',
-};
-const emailjsReady = !EMAILJS.serviceId.startsWith('TODO');
+// Envío del correo: función serverless /api/send-lead (Resend). La clave
+// vive en las variables de entorno de Vercel, nunca en el navegador.
+const SEND_LEAD_ENDPOINT = '/api/send-lead';
 
 const containerVariants = {
   hidden: {},
@@ -236,17 +228,14 @@ export default function BookingSection() {
       await supabase.from('leads').insert({ name, email, phone, service, preferred_date: date, message });
     } catch { /* sin bloquear al usuario */ }
 
-    // 2) Enviar el correo a la clínica vía EmailJS (cuando esté configurado).
-    if (emailjsReady) {
-      try {
-        await emailjs.send(
-          EMAILJS.serviceId,
-          EMAILJS.templateId,
-          { name, email, phone, service, date, message: message || '(sin mensaje)', to_email: CLINIC_EMAIL },
-          { publicKey: EMAILJS.publicKey },
-        );
-      } catch { /* la solicitud ya quedó guardada en el panel */ }
-    }
+    // 2) Enviar el correo a la clínica vía Resend (función serverless).
+    try {
+      await fetch(SEND_LEAD_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, service, date, message }),
+      });
+    } catch { /* la solicitud ya quedó guardada en el panel */ }
 
     setTimeout(() => setSent(false), 5000);
   };

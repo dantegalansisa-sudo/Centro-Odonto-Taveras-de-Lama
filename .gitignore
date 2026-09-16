@@ -25,3 +25,9 @@ dist-ssr
 
 # Screenshots
 /*.png
+
+# Variables de entorno (claves) — nunca al repositorio
+.env
+.env.*
+!.env.example
+.vercel
