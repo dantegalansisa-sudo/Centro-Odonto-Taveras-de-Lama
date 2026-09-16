@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect } from 'react';
 import RevealText from '../components/RevealText';
 import MagneticButton from '../components/MagneticButton';
+import SeminarCard from '../components/SeminarCard';
 import { useLang } from '../i18n/LanguageContext';
 
 /** Segundos de fundido entre el final del video y su reinicio (el clip dura ~5s). */
@@ -172,7 +173,13 @@ export default function HeroSection() {
             <span className="data-label">{t('hero.satisfaction')}</span>
           </div>
         </motion.div>
+
+        {/* Seminario: versión compacta (tablet / móvil) */}
+        <SeminarCard variant="inline" />
       </motion.div>
+
+      {/* Seminario: tarjeta flotante a la derecha (escritorio) */}
+      <SeminarCard variant="float" />
 
       {/* Scroll indicator */}
       <motion.div

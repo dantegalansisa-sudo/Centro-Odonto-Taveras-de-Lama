@@ -19,7 +19,7 @@ const COUNTRIES = [
 /* Contenido que ya está en la web (por defecto). Se puede "importar" al panel
    con un clic para poder gestionarlo (verlo, eliminarlo, reordenarlo). */
 const DEFAULT_GALLERY = Array.from({ length: 18 }, (_, i) => ({ value: `/imagenes/galeria/g${i + 1}.png`, title: `Foto ${i + 1}` }));
-const DEFAULT_VIDEOS = [1, 2, 3].map((n) => ({ value: `/videos/v${n}.mp4`, poster: `/videos/v${n}.jpg`, title: `Video ${n}` }));
+const DEFAULT_VIDEOS = [1, 2, 3, 4].map((n) => ({ value: `/videos/v${n}.mp4`, poster: `/videos/v${n}.jpg`, title: `Video ${n}` }));
 const DEFAULT_REVIEWS = [
   { name: 'Carmen Rodríguez', country: 'do', rating: 5, text: 'Más de 30 años visitando este consultorio. La Dra. Lilian y ahora su hijo el Dr. Ismael mantienen la misma calidad y calidez de siempre.' },
   { name: 'Miguel Ángel Torres', country: 'es', rating: 5, text: 'El Dr. Ismael me realizó una cirugía oral y todo salió perfecto. Se nota la formación y la dedicación familiar.' },

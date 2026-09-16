@@ -29,6 +29,7 @@ import ServicePage from './pages/ServicePage';
 import BlogPage from './pages/BlogPage';
 import AdminPage from './pages/AdminPage';
 import ResearchPage from './pages/ResearchPage';
+import SeminarPage from './pages/SeminarPage';
 import EmergencySection from './sections/EmergencySection';
 import FinancingSection from './sections/FinancingSection';
 import CertificationsSection from './sections/CertificationsSection';
@@ -264,6 +265,15 @@ function App() {
               <>
                 <Navbar />
                 <ResearchPage />
+                <FooterSection />
+                <WhatsAppButton />
+                <CallButton />
+              </>
+            } />
+            <Route path="/seminario" element={
+              <>
+                <Navbar />
+                <SeminarPage />
                 <FooterSection />
                 <WhatsAppButton />
                 <CallButton />

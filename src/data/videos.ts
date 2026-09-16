@@ -15,4 +15,5 @@ export const videos: PromoVideo[] = [
   { src: '/videos/v1.mp4', poster: '/videos/v1.jpg' },
   { src: '/videos/v2.mp4', poster: '/videos/v2.jpg' },
   { src: '/videos/v3.mp4', poster: '/videos/v3.jpg' },
+  { src: '/videos/v4.mp4', poster: '/videos/v4.jpg' }, // Dra. Lilian
 ];
