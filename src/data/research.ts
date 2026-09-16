@@ -166,7 +166,7 @@ const researchData: ResearchBase[] = [
         area: 'Ortodoncia',
         title: 'Estrategia de prevención para disminuir la deglución atípica en pacientes adultos',
         abstract: 'Investigación orientada a desarrollar estrategias preventivas para disminuir la deglución atípica en pacientes adultos.',
-        date: '2025',
+        date: '2026',
         readTime: '6 min',
         content: [
           'La presente investigación tuvo como principal objetivo desarrollar estrategias para disminuir la deglución atípica en pacientes adultos. El estudio tuvo un enfoque cuantitativo, de tipo descriptivo, con un diseño no experimental.',
@@ -181,7 +181,7 @@ const researchData: ResearchBase[] = [
         area: 'Orthodontics',
         title: 'Prevention strategy to reduce atypical swallowing in adult patients',
         abstract: 'Research aimed at developing preventive strategies to reduce atypical swallowing in adult patients.',
-        date: '2025',
+        date: '2026',
         readTime: '6 min',
         content: [
           'The main objective of this research was to develop strategies to reduce atypical swallowing in adult patients. The study employed a quantitative, descriptive and non-experimental design.',
@@ -196,7 +196,7 @@ const researchData: ResearchBase[] = [
         area: 'Orthodontie',
         title: 'Stratégie de prévention pour réduire la déglutition atypique chez les patients adultes',
         abstract: 'Recherche visant à développer des stratégies préventives pour réduire la déglutition atypique chez les patients adultes.',
-        date: '2025',
+        date: '2026',
         readTime: '6 min',
         content: [
           'L’objectif principal de cette recherche était de développer des stratégies pour réduire la déglutition atypique chez les patients adultes. L’étude a adopté une approche quantitative, descriptive et non expérimentale.',
