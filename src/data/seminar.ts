@@ -42,7 +42,7 @@ export interface SeminarContent {
   date: string;         // fecha legible
   dateShort: string;    // fecha compacta para la tarjeta
   title: string;        // "Seminario de Medio Día"
-  topic: string;        // "Armonización y Estética Dental"
+  topic: string;        // "Ortodoncia"
   cardLine: string;     // mención de la doctora en la tarjeta
   cardBtn: string;
   intro: string;        // texto introductorio de la página
@@ -128,7 +128,7 @@ export const seminarContent: Record<Lang, SeminarContent> = {
     topic: 'Orthodontie',
     cardLine: 'Avec la participation de la Dre Lilian Taveras de Lama en tant que conférencière invitée.',
     cardBtn: 'Voir les détails',
-    intro: 'La Dre Lilian Taveras de Lama a été invitée comme conférencière à ce séminaire international sur l\'harmonisation orofaciale et l\'esthétique dentaire, aux côtés de spécialistes de toute l\'Amérique latine.',
+    intro: 'La Dre Lilian Taveras de Lama a été invitée comme conférencière à ce séminaire international d\'orthodontie, aux côtés de spécialistes de toute l\'Amérique latine.',
     description: '', // pendiente: texto oficial del curso de ortodoncia
     labels: {
       course: 'Cours',
