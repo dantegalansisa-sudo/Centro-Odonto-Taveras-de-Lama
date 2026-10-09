@@ -205,6 +205,9 @@ function HomePage() {
 }
 
 /* ═══════ APP ═══════ */
+/** Dominio oficial (Search Console / sitemap). */
+const SITE_URL = 'https://www.odontotavedlama.com';
+
 function App() {
   const [introComplete, setIntroComplete] = useState(false);
   const location = useLocation();
@@ -220,6 +223,18 @@ function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  // SEO: la URL canónica sigue a la ruta actual (cada página se indexa por sí misma).
+  useEffect(() => {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
+    }
+    link.href = `${SITE_URL}${path === '/' ? '/' : path}`;
   }, [location.pathname]);
 
   // El panel /admin es una página limpia (sin intro, cursor ni barras flotantes).
