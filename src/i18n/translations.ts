@@ -97,7 +97,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Footer
     'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
     'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. Todos los derechos reservados.',
-    'footer.credit': 'Diseñado por',
+    'footer.credit': 'Diseño y desarrollo por',
     'footer.privacy': 'Política de Privacidad',
     'footer.legal': 'Aviso Legal',
     'footer.terms': 'Términos y Condiciones',
@@ -218,7 +218,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Footer
     'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
     'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. All rights reserved.',
-    'footer.credit': 'Designed by',
+    'footer.credit': 'Design & development by',
     'footer.privacy': 'Privacy Policy',
     'footer.legal': 'Legal Notice',
     'footer.terms': 'Terms & Conditions',
@@ -339,7 +339,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     // Footer
     'footer.tagline': 'Centro Odontológico Dra. Lilian Taveras de Lama',
     'footer.rights': '© 2026 Centro Odontológico Dra. Lilian Taveras de Lama. Tous droits réservés.',
-    'footer.credit': 'Conçu par',
+    'footer.credit': 'Conception et développement par',
     'footer.privacy': 'Politique de Confidentialité',
     'footer.legal': 'Mentions Légales',
     'footer.terms': 'Conditions Générales',

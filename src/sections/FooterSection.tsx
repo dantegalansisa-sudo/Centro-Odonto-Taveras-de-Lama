@@ -56,7 +56,8 @@ export default function FooterSection() {
             {t('footer.rights')}
           </span>
           <span className="footer__credit">
-            {t('footer.credit')} <a href="#">NEXIX Tech Studio</a>
+            {t('footer.credit')}{' '}
+            <a href="https://nexixtechstudio.com" target="_blank" rel="noopener noreferrer">nexixtechstudio.com</a>
           </span>
         </div>
 
